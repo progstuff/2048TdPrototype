@@ -1,32 +1,42 @@
 extends Node2D
 class_name CellElement
 
-@export var number = 2
-
 var numberLabel = null
 var rect = null
-@export var timer = null
-var dist = 100
-var curShift = 0
-var step = 10
+# СОСТОЯНИЯ ДВИЖЕНИЯ: ДВИЖЕНИЕ, СЛИЯНИЕ, КОНЕЦ, УДАЛЕНИЕ, ОЖИДАНИЕ
+enum MOVE_STATE {MOVE, MERGE, REMOVE, IDLE}
 
-func init(_number: int, _position: Vector2) -> void:
+var moveVector = Vector2.ZERO
+var index = Vector2i.ZERO
+var newPos = Vector2(-1, -1)
+
+@export var curState = MOVE_STATE.IDLE
+@export var number = 2
+@export var isMerged = false
+@export var isNeedRemove = false
+
+func init(_number: int, _position: Vector2, _index: Vector2i) -> void:
 	if(numberLabel == null):
 		numberLabel = $Rect/Number
 	if(rect == null):
 		rect = $Rect
-	if(timer == null):
-		timer = $Timer
 		
 	set_number(_number)
-	set_background()
 	
 	position = _position
-	visible = true
-	
+	index = _index
+	activate()
+
+func set_index(_index: Vector2i):
+	index = _index
+
+func set_new_pos(_newPos: Vector2):
+	newPos = _newPos
+
 func set_number(_number:int) -> void:
 	number = _number
 	numberLabel.text = get_str_lbl(number)
+	set_background()
 
 func set_background() -> void:		
 	var r = number % 10
@@ -59,11 +69,79 @@ func get_str_lbl(_number: int) -> String:
 		
 func deactivate():
 	visible = false
-	position = Vector2(-100, 100)
+	position = Vector2(-100, -100)
+	curState = MOVE_STATE.IDLE
+	isMerged = false
 
-func _on_timer_timeout() -> void:
-	if(curShift < dist):
-		curShift += step
-		position.x += step
+func activate():
+	visible = true
+	curState = MOVE_STATE.IDLE
+	moveVector = Vector2.ZERO
+	isNeedRemove = false
+	isMerged = false
+	
+func set_size(size: Vector2i):
+	rect.set_size(size)
+
+func set_move_state(_moveVector: Vector2):
+	curState = MOVE_STATE.MOVE
+	moveVector = _moveVector
+
+func set_merge_state():
+	isMerged = true
+	curState = MOVE_STATE.MERGE
+
+func set_remove_state():
+	isMerged = true
+	curState = MOVE_STATE.REMOVE
+	
+func set_idle_state():
+	curState = MOVE_STATE.IDLE
+	moveVector = Vector2.ZERO
+
+func is_idle_state() -> bool:
+	return curState == MOVE_STATE.IDLE
+	
+func is_remove_state() -> bool:
+	return curState == MOVE_STATE.REMOVE
+
+func is_need_remove() -> bool:
+	return isNeedRemove
+
+func endCheck() -> bool:
+	var isEnd = false
+	var pos = position + moveVector
+	if moveVector.y == 0:
+		if moveVector.x > 0:
+			if(pos.x > newPos.x):
+				isEnd = true
+		else:
+			if(pos.x < newPos.x):
+				isEnd = true
+	elif moveVector.x == 0:
+		if moveVector.y > 0:
+			if(pos.y > newPos.y):
+				isEnd = true
+		else:
+			if(pos.y < newPos.y):
+				isEnd = true
+	return isEnd
+	
+func move():
+	if(curState == MOVE_STATE.IDLE):
+		return
+	
+	if(endCheck()):
+		if(curState == MOVE_STATE.MOVE):
+			curState = MOVE_STATE.IDLE
+		elif(curState == MOVE_STATE.MERGE):
+			curState = MOVE_STATE.IDLE
+			set_number(number*2)
+			isMerged = false
+		elif(curState == MOVE_STATE.REMOVE):
+			curState = MOVE_STATE.IDLE
+			isMerged = false
+			isNeedRemove = true
+		position = newPos
 	else:
-		timer.stop()
+		position = position + moveVector

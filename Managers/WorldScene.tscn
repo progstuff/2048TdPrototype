@@ -1,23 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://x1i28r0vljli"]
 
-[ext_resource type="PackedScene" uid="uid://cgpdm8wugakg6" path="res://Managers/CellManagerScene.tscn" id="1_ml78v"]
 [ext_resource type="Script" path="res://Managers/WorldScript.gd" id="1_tc2t4"]
+[ext_resource type="PackedScene" uid="uid://r3dwm0laxvoe" path="res://Managers/GameFieldScene.tscn" id="2_0gnb1"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_tc2t4")
 
-[node name="CellManager" parent="." instance=ExtResource("1_ml78v")]
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 414.0
-offset_bottom = 331.0
-
-[node name="Button" type="Button" parent="Control"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Создать"
-
-[connection signal="button_down" from="Control/Button" to="." method="_on_button_button_down"]
+[node name="GameField" parent="." instance=ExtResource("2_0gnb1")]
