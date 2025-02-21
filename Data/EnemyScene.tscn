@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://tqd0btvajbpi"]
 
-[ext_resource type="Script" path="res://Managers/EnemyScript.gd" id="1_exsd8"]
+[ext_resource type="Script" path="res://Data/EnemyScript.gd" id="1_exsd8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wiik2"]
 size = Vector2(32, 32)
@@ -37,6 +37,5 @@ collision_mask = 4
 [node name="Collider" type="CollisionShape2D" parent="enemy"]
 position = Vector2(16, 16)
 shape = SubResource("RectangleShape2D_wiik2")
-disabled = true
 
 [connection signal="area_entered" from="enemy" to="." method="_on_enemy_area_entered"]

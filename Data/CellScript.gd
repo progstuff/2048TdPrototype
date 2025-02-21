@@ -108,9 +108,9 @@ func is_remove_state() -> bool:
 func is_need_remove() -> bool:
 	return isNeedRemove
 
-func endCheck() -> bool:
+func endCheck(_delta: float) -> bool:
 	var isEnd = false
-	var pos = position + moveVector
+	var pos = position + moveVector*_delta
 	if moveVector.y == 0:
 		if moveVector.x > 0:
 			if(pos.x > newPos.x):
@@ -127,11 +127,11 @@ func endCheck() -> bool:
 				isEnd = true
 	return isEnd
 	
-func move():
+func move(_delta: float):
 	if(curState == MOVE_STATE.IDLE):
 		return
 	
-	if(endCheck()):
+	if(endCheck(_delta)):
 		if(curState == MOVE_STATE.MOVE):
 			curState = MOVE_STATE.IDLE
 		elif(curState == MOVE_STATE.MERGE):
@@ -144,4 +144,4 @@ func move():
 			isNeedRemove = true
 		position = newPos
 	else:
-		position = position + moveVector
+		position = position + moveVector*_delta

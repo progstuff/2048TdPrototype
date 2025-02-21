@@ -1,7 +1,7 @@
 extends Node
 var pool = {}
 
-var cell = load("res://Managers/CellScene.tscn")
+var cell = load("res://Data/CellScene.tscn")
 
 func create_cell(_number: int, _position: Vector2, _index: Vector2i):
 	if(!pool.has(_number)):

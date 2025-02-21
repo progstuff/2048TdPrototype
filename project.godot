@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="2048TdPrototype"
-run/main_scene="res://Managers/WorldScene.tscn"
+run/main_scene="res://Data/WorldScene.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [input]
 

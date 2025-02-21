@@ -7,8 +7,10 @@ class_name EnemyElement
 @export var moveVector = Vector2(-1, 0)
 @export var speed = 10
 
+var isActivated = false
 var collider = null
 var powerLabel = null
+var spawner = null
 
 func init(_power: int, _health: int, _startPosition: Vector2, _speed: int):
 	
@@ -27,19 +29,27 @@ func init(_power: int, _health: int, _startPosition: Vector2, _speed: int):
 	
 func activate():
 	visible = true
-	collider.disabled = false
 	position = startPosition
+	isActivated = true
 	
 func deactivate():
+	isActivated = false
 	visible = false
-	collider.disabled = true
 	position = Vector2(-200, -200)
+	
 
-func _process(delta: float) -> void:
-	if(collider.disabled):
+func _process(_delta: float) -> void:
+	if(!isActivated):
 		return
-	position = position + speed*moveVector
+	position = position + speed*moveVector*_delta
 
 func _on_enemy_area_entered(area: Area2D) -> void:
+	if spawner == null:
+		spawner = get_parent().get_parent()
 	if(area.name == "wall"):
-		get_parent().get_parent().remove_enemy(self)
+		spawner.remove_enemy(self)
+	if(area.name == "bullet"):
+		var damage = area.get_parent().get_power()
+		health = health - damage
+		if(health <= 0):
+			spawner.remove_enemy(self)

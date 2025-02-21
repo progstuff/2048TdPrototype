@@ -3,15 +3,15 @@ extends Node2D
 @export var fieldRowsCnt = 4
 @export var fieldColumnsCnt = 4
 
-@export var cellHeightPx = 100
-@export var cellWidthPx = 100
+@export var cellHeightPx = 50
+@export var cellWidthPx = 50
 @export var borderWidthPx = 2
-@export var shiftSpeed = 50
+@export var shiftSpeed = 1000
 
-var moveTimer = null
 var cellManager = null
 var cellsNode = null
 
+var isShift = false
 var cellCoords = {} # Словарь индекс -> координата
 var cells = {} # Словарь индекс -> ячейка
 var shiftedCells = {}
@@ -39,10 +39,11 @@ func _input(event):
 
 func _ready():
 	init()
+
+func get_width() -> int:
+	return (cellWidthPx + borderWidthPx) * fieldColumnsCnt
 	
 func init():
-	
-	position = Vector2i(100, 100)
 	
 	init_values()
 	clear_field()
@@ -57,7 +58,7 @@ func get_cell_size() -> Vector2i:
 	return Vector2i(cellWidth, cellHeight)
 
 func clear_field():
-	moveTimer.stop()
+	isShift = false
 	for cell in cellsNode.get_children():
 		cellsNode.remove_child(cell)
 		
@@ -70,9 +71,6 @@ func clear_field():
 func init_values():
 	if(cellManager == null):
 		cellManager = $CellManager
-		
-	if(moveTimer == null):
-		moveTimer = $MoveTimer
 		
 	if(cellsNode == null):
 		cellsNode = $CellsNode
@@ -162,7 +160,7 @@ func move_left() -> void:
 			shiftedCells[newInd] = shiftedCell
 			shiftedCell.set_new_pos(cellCoords[newInd])
 	
-	moveTimer.start()
+	isShift = true
 	
 			
 func move_right() -> void:
@@ -214,7 +212,7 @@ func move_right() -> void:
 			shiftedCells[newInd] = shiftedCell
 			shiftedCell.set_new_pos(cellCoords[newInd])
 	
-	moveTimer.start()
+	isShift = true
 	
 func move_up() -> void:
 	if(isProcess):
@@ -265,7 +263,7 @@ func move_up() -> void:
 			shiftedCells[newInd] = shiftedCell
 			shiftedCell.set_new_pos(cellCoords[newInd])
 	
-	moveTimer.start()
+	isShift = true
 	
 func move_down() -> void:
 	if(isProcess):
@@ -316,18 +314,22 @@ func move_down() -> void:
 			shiftedCells[newInd] = shiftedCell
 			shiftedCell.set_new_pos(cellCoords[newInd])
 	
-	moveTimer.start()
+	isShift = true
 	
-func _on_move_timer_timeout() -> void:
+func _process(_delta: float) -> void:
+	
+	if(!isShift):
+		return
+		
 	var isNeedStop = true
 	for cellIndex in cells:
 		var cell = cells[cellIndex]
-		cell.move()
+		cell.move(_delta)
 		if(!cell.is_idle_state()):
 			isNeedStop = false
 	
 	if(isNeedStop):
-		moveTimer.stop()
+		isShift = false
 		
 		for cellIndex in cells:
 			var cell = cells[cellIndex]
