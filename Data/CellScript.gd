@@ -34,24 +34,29 @@ func set_new_pos(_newPos: Vector2):
 	newPos = _newPos
 
 func set_number(_number:int) -> void:
+	
 	number = _number
-	numberLabel.text = get_str_lbl(number)
-	set_background()
-
+	if(_number == 0):
+		numberLabel.text = ""
+		rect.color = Color(0.8, 0.76, 0.88, 1)
+	else:
+		numberLabel.text = get_str_lbl(number)
+		set_background()
+		
 func set_background() -> void:		
 	var r = number % 10
 	
 	var background = Color(1, 1, 1, 1)
 	if(r == 0):
-		background = Color(0.8, 0, 0, 1)
+		background = Color(0.96, 0.36, 0.24, 1)
 	elif(r == 2):
-		background = Color(0, 0.8, 0, 1)
+		background = Color(0.94, 0.9, 0.85, 1)
 	elif(r == 4):
-		background = Color(0, 0, 0.8, 1)
+		background = Color(0.93, 0.88, 0.78, 1)
 	elif(r == 6):
-		background = Color(0.8, 0.8, 0, 1)
+		background = Color(0.95, 0.7, 0.49, 1)
 	elif(r == 8):
-		background = Color(0, 0.8, 0.8, 1)
+		background = Color(0.96, 0.48, 0.38, 1)
 	
 	rect.color = background
 	

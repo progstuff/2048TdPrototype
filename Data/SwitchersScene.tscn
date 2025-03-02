@@ -1,0 +1,332 @@
+[gd_scene load_steps=5 format=3 uid="uid://be7n3b4wau8cm"]
+
+[ext_resource type="Script" path="res://Data/SwitchersScript.gd" id="1_iliq1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uqh7l"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_mh1ml"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_jkyks"]
+font_size = 25
+
+[node name="Switchers" type="PanelContainer"]
+custom_minimum_size = Vector2(610, 305)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -610.0
+offset_top = -211.0
+offset_bottom = 723.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+script = ExtResource("1_iliq1")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Снаряды"
+label_settings = SubResource("LabelSettings_uqh7l")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Период стрельбы (с)"
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="BulletPeriodLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="BulletPeriodSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+min_value = 0.1
+max_value = 5.0
+step = 0.1
+value = 0.1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Скорость"
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="BulletSpeedLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="BulletSpeedSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+min_value = 10.0
+max_value = 200.0
+step = 10.0
+value = 10.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Множитель урона"
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="BulletPowerMultLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="BulletPowerMultSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+max_value = 5.0
+step = 0.1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Прибавка к урону"
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="BulletPowerAdditionLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="BulletPowerAdditionSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+value = 10.0
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+text = "Враги"
+label_settings = SubResource("LabelSettings_uqh7l")
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Период появления (с)"
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="EnemyPeriodLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/HBoxContainer"]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="EnemyPeriodSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+min_value = 0.1
+max_value = 20.0
+step = 0.1
+value = 0.1
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Разброс периода появления (с)"
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="EnemyPeriodDeltaLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/HBoxContainer5"]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="EnemyPeriodDeltaSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+max_value = 10.0
+step = 0.1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Скорость"
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="EnemySpeedLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/HBoxContainer2"]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="EnemySpeedSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+min_value = 10.0
+max_value = 200.0
+step = 10.0
+value = 10.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Урон (здоровье)"
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="EnemyHealthLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/HBoxContainer3"]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="EnemyHealthSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+min_value = 1.0
+max_value = 30.0
+value = 1.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Разброс урона (здоровья)"
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="EnemyHealthDeltaLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/HBoxContainer4"]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="EnemyHealthDeltaSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+max_value = 15.0
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+text = "Игра"
+label_settings = SubResource("LabelSettings_uqh7l")
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Период увеличения сложности (с)"
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="DifficultPeriodLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="DifficultPeriodSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+min_value = 1.0
+max_value = 90.0
+value = 1.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Прибавка к здоровью (урону) врагов "
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="DifficultValLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+text = "300"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="DifficultValSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+max_value = 20.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Вероятность выпадения монеты"
+label_settings = SubResource("LabelSettings_mh1ml")
+
+[node name="CoinChanceLbl" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3/HBoxContainer3"]
+layout_mode = 2
+text = "300"
+label_settings = SubResource("LabelSettings_jkyks")
+
+[node name="CoinChanceSlider" type="HSlider" parent="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/BulletPeriodSlider" to="." method="_on_bullet_period_slider_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/BulletSpeedSlider" to="." method="_on_bullet_speed_slider_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/BulletPowerMultSlider" to="." method="_on_bullet_power_mult_slider_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer/BulletPowerAdditionSlider" to="." method="_on_bullet_power_addition_slider_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/EnemyPeriodSlider" to="." method="_on_enemy_period_slider_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/EnemyPeriodDeltaSlider" to="." method="_on_enemy_period_delta_slider_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/EnemySpeedSlider" to="." method="_on_enemy_speed_slider_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/EnemyHealthSlider" to="." method="_on_enemy_health_slider_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer4/EnemyHealthDeltaSlider" to="." method="_on_enemy_health_delta_slider_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3/DifficultPeriodSlider" to="." method="_on_difficult_period_slider_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3/DifficultValSlider" to="." method="_on_difficult_val_slider_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer2/VBoxContainer3/CoinChanceSlider" to="." method="_on_coin_chance_slider_value_changed"]

@@ -4,64 +4,102 @@ var pool = {}
 
 var enemy = load("res://Data/EnemyScene.tscn")
 @onready var enemies = $Enemies
-var timer = null
+@onready var spawnTimer = $SpawnTimer
+@onready var difficultyTimer = $DifficultyTimer
 
-@export var minEnemiesCnt = 7
-@export var maxEnemiesCnt = 15
-@export var minPower = 1
-@export var maxPower = 5
-@export var minSpeed = 100
-@export var maxSpeed = 500
-@export var minWaitTime = 0.5
-@export var maxWaitTime = 0.9
+var difficult = 0
+@export var coinChance = 0.8
+@export var health = 3
+@export var healthDelta = 2
+@export var speed = 40
+@export var enemyWaitTime = 3
+@export var enemyWaitTimeDelta = 1
+
+@export var difficultVal = 8
+@export var difficultWaitTime = 4
+
+@export var coinSpawner = null
 
 func _ready():
 	start_spawn_enemies()
 	
 func start_spawn_enemies():
-	if(enemies == null):
-		enemies = $Enemies
-	if(timer == null):
-		timer = $Timer
-	timer.start()
-
+	calculate_enemy_wait_time()
+	spawnTimer.start()
+	difficult = 0
+	difficultyTimer.start()
+	
 func stop_spawn_enemies():
-	timer.stop()
+	spawnTimer.stop()
+	difficultyTimer.stop()
 	for item in enemies.get_children():
 		remove_enemy(item)
-		enemies.remove_child(item)
 		
-func create_enemy(_power: int, _health: int, _startPosition: Vector2, _speed: int):
-	if(!pool.has(_power)):
-		pool[_power] = Array()
+func create_enemy(_health: int, _startPosition: Vector2, _speed: int):
+	if(!pool.has(_health)):
+		pool[_health] = Array()
 	
-	var data = pool[_power].pop_front()
+	var data = pool[_health].pop_front()
 	if(data == null):
 		data = enemy.instantiate()
-	data.init(_power, _health, _startPosition, _speed)
+	data.init(_health, _startPosition, _speed)
 		
 	return data
 
+func set_enemy_speed(_speed: float):
+	speed = _speed
+	for enemy in enemies.get_children():
+		enemy.speed = _speed
+		
 func remove_enemy(_enemy: EnemyElement):
-	var power = _enemy.power
-	if(!pool.has(power)):
-		pool[power] = Array()
-	#enemies.call_deferred('remove_child', _enemy)
+	var health = _enemy.maxHealth
+	if(!pool.has(health)):
+		pool[health] = Array()
+	var pos = _enemy.get_global_center_pos()
+	enemies.call_deferred('remove_child', _enemy)
 	_enemy.deactivate()
-	pool[power].push_back(_enemy)
+	pool[health].push_back(_enemy)
+	
+	var isNeedCoin = randf_range(0, 1) <= coinChance
+	if(isNeedCoin):
+		coinSpawner.create_coin(pos)
 
-func _on_timer_timeout() -> void:
-	var sz = get_viewport().get_visible_rect().size
-	var enemiesCount = randi_range(minEnemiesCnt, maxEnemiesCnt)
+func _on_spawn_timer_timeout() -> void:
+	var minHealth = health - healthDelta
+	if(minHealth < 1):
+		minHealth = 1
+	var maxHealth = health + healthDelta
+	if(minHealth > maxHealth):
+		maxHealth = minHealth
+		
+	var health = randi_range(minHealth, maxHealth) + difficult
+	var obj = create_enemy(health, Vector2(0, 0), speed)
+	if(!obj.get_parent() == enemies):
+		enemies.add_child(obj)
 	
-	for i in range(0, enemiesCount):
-		var power = pow(2, randi_range(minPower, maxPower))
-		var speed = randf_range(minSpeed, maxSpeed)
-		var x = randi_range(sz.x, sz.x+100)
-		var y = randi_range(16, sz.y-16)
-		var obj = create_enemy(power, power, Vector2(x, y), speed)
-		if(!obj.get_parent() == enemies):
-			enemies.add_child(obj)
+	calculate_enemy_wait_time()
+
+func set_enemy_period(_waitTime: float):
+	enemyWaitTime = _waitTime
+	calculate_enemy_wait_time()
+
+func set_enemy_period_delta(_periodDelta: float):
+	enemyWaitTimeDelta = _periodDelta
+	calculate_enemy_wait_time()
+
+func set_difficult_period(_waitTime: float):
+	difficultWaitTime = _waitTime
+	difficultyTimer.wait_time = difficultWaitTime
 	
-	var waitTime = randf_range(minWaitTime, maxWaitTime)
-	timer.wait_time = waitTime
+func calculate_enemy_wait_time():
+	var minWaitTime = enemyWaitTime - enemyWaitTimeDelta
+	var maxWaitTime = enemyWaitTime + enemyWaitTimeDelta
+	if(minWaitTime < 0.1):
+		minWaitTime = 0.1
+	if(maxWaitTime < minWaitTime):
+		maxWaitTime = minWaitTime
+	var valTime = randf_range(minWaitTime, maxWaitTime)
+	spawnTimer.wait_time = valTime
+	
+func _on_difficulty_timer_timeout() -> void:
+	difficult += difficultVal

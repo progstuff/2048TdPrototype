@@ -1,19 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://tqd0btvajbpi"]
+[gd_scene load_steps=4 format=3 uid="uid://tqd0btvajbpi"]
 
 [ext_resource type="Script" path="res://Data/EnemyScript.gd" id="1_exsd8"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_3xrn8"]
+font_size = 25
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wiik2"]
-size = Vector2(32, 32)
+size = Vector2(69, 54)
 
 [node name="Enemy" type="Node2D"]
+z_index = -1
 script = ExtResource("1_exsd8")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 32.0
-offset_bottom = 32.0
+offset_right = 70.0
+offset_bottom = 55.0
 color = Color(0.0885599, 0.0885599, 0.0885599, 1)
 
-[node name="Power" type="Label" parent="ColorRect"]
+[node name="Health" type="Label" parent="ColorRect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -27,6 +31,7 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "1"
+label_settings = SubResource("LabelSettings_3xrn8")
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
@@ -35,7 +40,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="Collider" type="CollisionShape2D" parent="enemy"]
-position = Vector2(16, 16)
+position = Vector2(34.5, 28)
 shape = SubResource("RectangleShape2D_wiik2")
 
 [connection signal="area_entered" from="enemy" to="." method="_on_enemy_area_entered"]
