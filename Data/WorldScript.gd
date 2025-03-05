@@ -2,11 +2,11 @@ extends Node2D
 
 @onready var gameField = $GameField
 @onready var wall = $Wall
-@onready var damageValLbl = $VBoxContainer/HBoxContainer/DamageCnt
-@onready var coinValLbl = $VBoxContainer/HBoxContainer2/CoinsCnt
+@onready var damageValLbl = $Control/HBoxContainer/PanelContainer/VBoxContainer/DamageCnt
+@onready var coinValLbl = $Control/HBoxContainer/PanelContainer2/VBoxContainer/CoinsCnt
 @onready var enemyLines = $EnemyLines
 @onready var timer =$Timer
-@onready var timerLbl = $HBoxContainer2/TimerLbl
+@onready var timerLbl = $Control/TimerLbl
 @onready var switchers = $Control/Switchers
 @onready var coinSpawner = $CoinSpawner
 
@@ -37,20 +37,20 @@ func _ready() -> void:
 
 	var isOk = config.load("user://prefs.cfg")
 	if isOk == OK:
-		var bulletPeriod = config.get_value("bullet", "period", 2)
-		var bulletSpeed = config.get_value("bullet", "speed", 150)
-		var bulletPowerMult = config.get_value("bullet", "powerMult", 1)
-		var bulletPowerShift = config.get_value("bullet", "powerShift", 0)
+		var bulletPeriod = config.get_value("bullet", "period", 2.3)
+		var bulletSpeed = config.get_value("bullet", "speed", 90)
+		var bulletPowerMult = config.get_value("bullet", "powerMult", 3)
+		var bulletPowerShift = config.get_value("bullet", "powerShift", 7)
 		switchers.set_bullet_period(bulletPeriod)
 		switchers.set_bullet_speed(bulletSpeed)
 		switchers.set_bullet_power_mult(bulletPowerMult)
 		switchers.set_bullet_shift_value(bulletPowerShift)
 		
-		var enemyPeriod = config.get_value("enemy", "period", 5)
-		var enemyPeriodDelta = config.get_value("enemy", "periodDelta", 1)
-		var enemySpeed = config.get_value("enemy", "speed", 50)
-		var enemyHealth = config.get_value("enemy", "health", 5)
-		var enemyHealthDelta = config.get_value("enemy", "healthDelta", 2)
+		var enemyPeriod = config.get_value("enemy", "period", 7)
+		var enemyPeriodDelta = config.get_value("enemy", "periodDelta", 3)
+		var enemySpeed = config.get_value("enemy", "speed", 30)
+		var enemyHealth = config.get_value("enemy", "health", 10)
+		var enemyHealthDelta = config.get_value("enemy", "healthDelta", 5)
 		for enemySpawner in enemyLines.get_children():
 			switchers.set_enemy_period(enemyPeriod)
 			switchers.set_enemy_period_delta(enemyPeriodDelta)
@@ -59,8 +59,8 @@ func _ready() -> void:
 			switchers.set_enemy_health_delta(enemyHealthDelta)
 			break
 		
-		var difficultPeriod = config.get_value("difficult", "period", 5)
-		var difficultVal = config.get_value("difficult", "value", 4)
+		var difficultPeriod = config.get_value("difficult", "period", 17)
+		var difficultVal = config.get_value("difficult", "value", 2)
 		var coinChanceVal = config.get_value("coinChance", "value", 0.05)
 		
 		for enemySpawner in enemyLines.get_children():

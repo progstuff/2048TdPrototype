@@ -52,19 +52,38 @@ func change_lvl(_lvl: int) -> void:
 	
 	if rect == null:
 		rect = $ColorRect
-	var r = int(pow(2, lvl))
-	r = r % 10
-	var background = Color(0, 0, 0, 1)
-	if(r == 0):
-		background = Color(0.96, 0.36, 0.24, 1)
+
+	var r = lvl % 15
+	
+	var background = Color8(255, 255, 255, 255)
+	if(r == 1):
+		background = Color8(237, 230, 218, 255)
 	elif(r == 2):
-		background = Color(0.94, 0.9, 0.85, 1)
+		background = Color8(236, 227, 200, 255)
+	elif(r == 3):
+		background = Color8(241, 177, 120, 255)
 	elif(r == 4):
-		background = Color(0.93, 0.88, 0.78, 1)
+		background = Color8(246, 149, 102, 255)
+	elif(r == 5):
+		background = Color8(248, 126, 96, 255)
 	elif(r == 6):
-		background = Color(0.95, 0.7, 0.49, 1)
+		background = Color8(246, 95, 60, 255)
+	elif(r == 7):
+		background = Color8(238, 208, 113, 255)
 	elif(r == 8):
-		background = Color(0.96, 0.48, 0.38, 1)
+		background = Color8(238, 206, 98, 255)
+	elif(r == 9):
+		background = Color8(238, 200, 85, 255)
+	elif(r == 10):
+		background = Color8(238, 198, 63, 255)
+	elif(r == 11):
+		background = Color8(236, 194, 47, 255)
+	elif(r == 12):
+		background = Color8(236, 120, 60, 255)
+	elif(r == 13):
+		background = Color8(236, 77, 85, 255)
+	elif(r == 14):
+		background = Color8(236, 65, 40, 255)
 	rect.color = background
 	
 func activate():

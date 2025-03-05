@@ -50,6 +50,7 @@ func _on_enemy_area_entered(area: Area2D) -> void:
 	if spawner == null:
 		spawner = get_parent().get_parent()
 	if(area.name == "wall"):
+		print(position)
 		spawner.remove_enemy(self)
 	if(area.name == "bullet"):
 		var damage = area.get_parent().calculate_power()

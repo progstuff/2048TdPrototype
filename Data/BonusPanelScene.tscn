@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg81qtoamt06p"]
+
+[ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_aq7df"]
+[ext_resource type="Script" path="res://Data/BonusPanelScript.gd" id="1_w204r"]
+
+[node name="BonusPanel" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.5
+offset_top = -21.0
+offset_right = 59.5
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w204r")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Bonus" parent="VBoxContainer/HBoxContainer" instance=ExtResource("1_aq7df")]
+layout_mode = 2
+
+[node name="Bonus2" parent="VBoxContainer/HBoxContainer" instance=ExtResource("1_aq7df")]
+layout_mode = 2
+
+[node name="Bonus3" parent="VBoxContainer/HBoxContainer" instance=ExtResource("1_aq7df")]
+layout_mode = 2

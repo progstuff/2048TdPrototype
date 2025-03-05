@@ -34,31 +34,53 @@ func set_new_pos(_newPos: Vector2):
 	newPos = _newPos
 
 func set_number(_number:int) -> void:
-	
+	var styleBox: StyleBoxFlat = rect.get_theme_stylebox("panel").duplicate()
+
 	number = _number
 	if(_number == 0):
 		numberLabel.text = ""
-		rect.color = Color(0.8, 0.76, 0.88, 1)
+		styleBox.set("bg_color", Color(0.8, 0.76, 0.88, 1))
+		rect.add_theme_stylebox_override("panel", styleBox)
 	else:
 		numberLabel.text = get_str_lbl(number)
 		set_background()
 		
 func set_background() -> void:		
-	var r = number % 10
+	var r = int(log(number)/log(2)) % 15
 	
-	var background = Color(1, 1, 1, 1)
-	if(r == 0):
-		background = Color(0.96, 0.36, 0.24, 1)
+	var background = Color8(255, 255, 255, 255)
+	if(r == 1):
+		background = Color8(237, 230, 218, 255)
 	elif(r == 2):
-		background = Color(0.94, 0.9, 0.85, 1)
+		background = Color8(236, 227, 200, 255)
+	elif(r == 3):
+		background = Color8(241, 177, 120, 255)
 	elif(r == 4):
-		background = Color(0.93, 0.88, 0.78, 1)
+		background = Color8(246, 149, 102, 255)
+	elif(r == 5):
+		background = Color8(248, 126, 96, 255)
 	elif(r == 6):
-		background = Color(0.95, 0.7, 0.49, 1)
+		background = Color8(246, 95, 60, 255)
+	elif(r == 7):
+		background = Color8(238, 208, 113, 255)
 	elif(r == 8):
-		background = Color(0.96, 0.48, 0.38, 1)
-	
-	rect.color = background
+		background = Color8(238, 206, 98, 255)
+	elif(r == 9):
+		background = Color8(238, 200, 85, 255)
+	elif(r == 10):
+		background = Color8(238, 198, 63, 255)
+	elif(r == 11):
+		background = Color8(236, 194, 47, 255)
+	elif(r == 12):
+		background = Color8(236, 120, 60, 255)
+	elif(r == 13):
+		background = Color8(236, 77, 85, 255)
+	elif(r == 14):
+		background = Color8(236, 65, 40, 255)
+		
+	var styleBox: StyleBoxFlat = rect.get_theme_stylebox("panel").duplicate()
+	styleBox.set("bg_color", background)
+	rect.add_theme_stylebox_override("panel", styleBox)
 	
 func get_str_lbl(_number: int) -> String:
 	var n = _number
@@ -84,6 +106,8 @@ func activate():
 	moveVector = Vector2.ZERO
 	isNeedRemove = false
 	isMerged = false
+	if(number > 0):
+		$AnimationPlayer.play("Show")
 	
 func set_size(size: Vector2i):
 	rect.set_size(size)
@@ -143,6 +167,7 @@ func move(_delta: float):
 			curState = MOVE_STATE.IDLE
 			set_number(number*2)
 			isMerged = false
+			$AnimationPlayer.play("Show")
 		elif(curState == MOVE_STATE.REMOVE):
 			curState = MOVE_STATE.IDLE
 			isMerged = false
