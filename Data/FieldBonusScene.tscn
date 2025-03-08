@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnjk5650v13ap"]
+
+[ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_qyw5p"]
+[ext_resource type="Script" path="res://Data/FieldBonusScene.gd" id="2_kxwvd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axane"]
+bg_color = Color(0.719359, 0.55472, 0.273722, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_xocbb"]
+font_size = 32
+font_color = Color(0.00566115, 0.00566115, 0.00566115, 1)
+
+[node name="FieldBonus" instance=ExtResource("1_qyw5p")]
+script = ExtResource("2_kxwvd")
+
+[node name="BonusName" parent="MarginContainer/VBoxContainer" index="0"]
+text = "Поле 2048"
+
+[node name="BonusIcon" type="Panel" parent="MarginContainer/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(170, 190)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_axane")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/BonusIcon" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "2х2"
+label_settings = SubResource("LabelSettings_xocbb")
+horizontal_alignment = 1

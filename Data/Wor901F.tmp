@@ -1,0 +1,197 @@
+[gd_scene load_steps=11 format=3 uid="uid://sd2agm2qnvok"]
+
+[ext_resource type="Script" path="res://Data/WorldScript.gd" id="1_tc2t4"]
+[ext_resource type="PackedScene" uid="uid://r3dwm0laxvoe" path="res://Data/GameFieldScene.tscn" id="2_0gnb1"]
+[ext_resource type="PackedScene" uid="uid://be7n3b4wau8cm" path="res://Data/SwitchersScene.tscn" id="2_plrfd"]
+[ext_resource type="PackedScene" uid="uid://s3il0nevmoy4" path="res://Data/WallScene.tscn" id="4_rk1p6"]
+[ext_resource type="PackedScene" uid="uid://cg81qtoamt06p" path="res://Data/BonusPanelScene.tscn" id="5_ru4q8"]
+[ext_resource type="PackedScene" uid="uid://bps2dd6c16235" path="res://Data/CoinSpawnerScene.tscn" id="5_y4x1s"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ryvj7"]
+font_size = 30
+font_color = Color(0.964742, 0.964742, 0.964742, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1oh4l"]
+bg_color = Color(0.733333, 0.678431, 0.627451, 0.815686)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_afgj4"]
+font_size = 30
+font_color = Color(0.929715, 0.929715, 0.929715, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4y6r6"]
+line_spacing = 0.0
+font_size = 30
+font_color = Color(0.969137, 0.969137, 0.969137, 1)
+
+[node name="World" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_tc2t4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -100
+offset_left = -44.0
+offset_top = -20.0
+offset_right = 1171.0
+offset_bottom = 657.0
+color = Color(0.487725, 0.566866, 0.5343, 1)
+
+[node name="GameField" parent="." instance=ExtResource("2_0gnb1")]
+
+[node name="Wall" parent="." instance=ExtResource("4_rk1p6")]
+position = Vector2(788, -3)
+
+[node name="CoinSpawner" parent="." instance=ExtResource("5_y4x1s")]
+
+[node name="EnemyLines" type="Node" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="BonusTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1150.0
+offset_bottom = 646.0
+
+[node name="BonusPanel" parent="Interface" instance=ExtResource("5_ru4q8")]
+process_mode = 3
+visible = false
+layout_mode = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Interface"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.974783
+anchor_right = 0.974783
+offset_left = -249.0
+offset_top = 10.0
+offset_bottom = 50.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 9
+metadata/_edit_use_anchors_ = true
+
+[node name="ConfigButton" type="Button" parent="Interface/HBoxContainer2"]
+z_index = 5
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+text = "Настройки"
+
+[node name="RestartBtn" type="Button" parent="Interface/HBoxContainer2"]
+z_index = 5
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+text = "Заново"
+
+[node name="TimerLbl" type="Label" parent="Interface"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -42.5
+offset_right = 42.5
+offset_bottom = 42.0
+grow_horizontal = 2
+text = "00:00 "
+label_settings = SubResource("LabelSettings_ryvj7")
+
+[node name="Switchers" parent="Interface" instance=ExtResource("2_plrfd")]
+visible = false
+layout_mode = 1
+offset_top = -267.5
+offset_bottom = 37.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0026087
+anchor_right = 0.0286957
+anchor_bottom = 0.0185759
+offset_left = 30.0
+offset_top = 10.0
+offset_right = 309.0
+offset_bottom = 84.0
+theme_override_constants/separation = 9
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="Interface/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1oh4l")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="Interface/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Урон"
+label_settings = SubResource("LabelSettings_afgj4")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="DamageCnt" type="Label" parent="Interface/HBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0
+"
+label_settings = SubResource("LabelSettings_4y6r6")
+horizontal_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="Interface/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1oh4l")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="Interface/HBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Монеты
+"
+label_settings = SubResource("LabelSettings_afgj4")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="CoinsCnt" type="Label" parent="Interface/HBoxContainer/PanelContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0
+"
+label_settings = SubResource("LabelSettings_4y6r6")
+horizontal_alignment = 1
+
+[connection signal="max_value_changed" from="GameField" to="." method="_on_game_field_max_value_changed"]
+[connection signal="need_restart" from="GameField" to="." method="_on_game_field_need_restart"]
+[connection signal="wall_damaged" from="Wall" to="GameField" method="_on_wall_wall_damaged"]
+[connection signal="coin_clicked_signal" from="CoinSpawner" to="." method="_on_coin_spawner_coin_clicked_signal"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="BonusTimer" to="." method="_on_bonus_timer_timeout"]
+[connection signal="button_down" from="Interface/HBoxContainer2/ConfigButton" to="." method="_on_config_button_button_down"]
+[connection signal="pressed" from="Interface/HBoxContainer2/RestartBtn" to="." method="_on_restart_btn_pressed"]
+[connection signal="pressed" from="Interface/HBoxContainer2/RestartBtn" to="GameField" method="_on_restart_btn_pressed"]
+[connection signal="bullet_period_changed" from="Interface/Switchers" to="." method="_on_switchers_bullet_period_changed"]
+[connection signal="bullet_power_mult_changed" from="Interface/Switchers" to="." method="_on_switchers_bullet_power_mult_changed"]
+[connection signal="bullet_power_shift_changed" from="Interface/Switchers" to="." method="_on_switchers_bullet_power_shift_changed"]
+[connection signal="bullet_speed_changed" from="Interface/Switchers" to="." method="_on_switchers_bullet_speed_changed"]
+[connection signal="coin_chance_value_changed" from="Interface/Switchers" to="." method="_on_switchers_coin_chance_value_changed"]
+[connection signal="difficult_period_changed" from="Interface/Switchers" to="." method="_on_switchers_difficult_period_changed"]
+[connection signal="difficult_value_changed" from="Interface/Switchers" to="." method="_on_switchers_difficult_value_changed"]
+[connection signal="enemy_health_changed" from="Interface/Switchers" to="." method="_on_switchers_enemy_health_changed"]
+[connection signal="enemy_health_delta_changed" from="Interface/Switchers" to="." method="_on_switchers_enemy_health_delta_changed"]
+[connection signal="enemy_period_changed" from="Interface/Switchers" to="." method="_on_switchers_enemy_period_changed"]
+[connection signal="enemy_period_delta_changed" from="Interface/Switchers" to="." method="_on_switchers_enemy_period_delta_changed"]
+[connection signal="enemy_speed_changed" from="Interface/Switchers" to="." method="_on_switchers_enemy_speed_changed"]

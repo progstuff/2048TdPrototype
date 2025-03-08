@@ -1,36 +1,59 @@
-[gd_scene load_steps=5 format=3 uid="uid://dayd2vf7sxewp"]
+[gd_scene load_steps=6 format=3 uid="uid://dayd2vf7sxewp"]
 
 [ext_resource type="Script" path="res://Data/BonusScript.gd" id="1_7scx3"]
-[ext_resource type="Texture2D" uid="uid://4ftltlx15pfs" path="res://Icons/rounded-in-photoretrica (1).png" id="1_nmj4f"]
 [ext_resource type="Texture2D" uid="uid://fbkfjcoe0mba" path="res://Icons/Coin.png" id="2_jlt1s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojwge"]
+bg_color = Color(0.00392157, 0.215686, 0.180392, 0.239216)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_ft8cm"]
 font_size = 17
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0y806"]
+bg_color = Color(0.6, 0.6, 0, 0)
+
 [node name="Bonus" type="PanelContainer"]
-offset_right = 32.0
-offset_bottom = 32.0
+custom_minimum_size = Vector2(205, 240)
+offset_right = 205.0
+offset_bottom = 240.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ojwge")
 script = ExtResource("1_7scx3")
 
-[node name="BonusIcon" type="TextureRect" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="BonusName" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Название"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("1_nmj4f")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_constants/separation = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_bottom = -4
 
-[node name="Price" type="Label" parent="HBoxContainer/MarginContainer"]
+[node name="Price" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -39,7 +62,7 @@ label_settings = SubResource("LabelSettings_ft8cm")
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(10, 15)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -48,4 +71,15 @@ texture = ExtResource("2_jlt1s")
 expand_mode = 1
 stretch_mode = 4
 
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0y806")
+
+[node name="BonusTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
+[connection signal="timeout" from="BonusTimer" to="." method="_on_bonus_timer_timeout"]

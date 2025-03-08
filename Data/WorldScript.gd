@@ -2,14 +2,14 @@ extends Node2D
 
 @onready var gameField = $GameField
 @onready var wall = $Wall
-@onready var damageValLbl = $Control/HBoxContainer/PanelContainer/VBoxContainer/DamageCnt
-@onready var coinValLbl = $Control/HBoxContainer/PanelContainer2/VBoxContainer/CoinsCnt
+@onready var damageValLbl = $Interface/HBoxContainer/PanelContainer/VBoxContainer/DamageCnt
+@onready var coinValLbl = $Interface/HBoxContainer/PanelContainer2/VBoxContainer/CoinsCnt
 @onready var enemyLines = $EnemyLines
 @onready var timer =$Timer
-@onready var timerLbl = $Control/TimerLbl
-@onready var switchers = $Control/Switchers
+@onready var timerLbl = $Interface/TimerLbl
+@onready var switchers = $Interface/Switchers
 @onready var coinSpawner = $CoinSpawner
-
+@onready var bonusPanel = $Interface/BonusPanel
 var coinsCnt = 0
 var curSeconds = 0
 
@@ -87,6 +87,10 @@ func _ready() -> void:
 			switchers.set_difficult_value(enemySpawner.difficultVal)
 			switchers.set_coin_chance_value(enemySpawner.coinChance)
 			break
+	#бонусы
+	bonusPanel.init(enemyLines)
+	
+	bonusPanel.show_bonus_panel()
 			
 func _on_game_field_max_value_changed() -> void:
 	if(gameField == null):
@@ -212,3 +216,6 @@ func _on_switchers_coin_chance_value_changed(_val: float) -> void:
 		enemySpawner.coinChance = _val
 	config.set_value("coinChance", "value", _val)
 	config.save("user://prefs.cfg")
+
+func _on_bonus_timer_timeout() -> void:
+	bonusPanel.show_bonus_panel()
