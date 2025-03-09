@@ -36,7 +36,16 @@ func get_bullet_power_mult() -> float:
 func get_bullet_power_shift() -> float:
 	return towers.get_child(0).bulletPowerShift
 
-		
+func set_normal_shoot_period():
+	for twr in towers.get_children():
+		twr.set_normal_shoot_period()
+
+func change_main_calibr_shoot_speed(_multiplyer: float):
+	for twr in towers.get_children():
+		if(twr.get_tower_ind() == 0):
+			twr.set_boosted_shoot_period(_multiplyer)
+			break
+	
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("click"):
 		for twr in towers.get_children():
@@ -58,11 +67,14 @@ func change_calibr(twrInd: int):
 	var mainTwrLvl = mainTwr.lvl
 	var otherTwrLvl = otherTwr.lvl
 	
+	var mult = mainTwr.get_bullet_spawn_mult()
 	mainTwr.set_tower_ind(twrInd)
 	mainTwr.change_lvl(otherTwrLvl)
+	mainTwr.set_normal_shoot_period()
 	
 	otherTwr.set_tower_ind(0)
 	otherTwr.change_lvl(mainTwrLvl)
+	otherTwr.set_boosted_shoot_period(mult)
 	
 func change_position(newX: int):
 	for twr in towers.get_children():

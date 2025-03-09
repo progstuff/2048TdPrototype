@@ -16,6 +16,7 @@ font_color = Color(0.00566115, 0.00566115, 0.00566115, 1)
 
 [node name="CalibrBonus" instance=ExtResource("1_a5kh1")]
 script = ExtResource("2_1hmqc")
+speedMultiplier = 4
 
 [node name="BonusName" parent="MarginContainer/VBoxContainer" index="0"]
 text = "Главный калибр"

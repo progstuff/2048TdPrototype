@@ -48,3 +48,6 @@ func deactivate_bonus():
 
 func _on_bonus_timer_timeout() -> void:
 	deactivate_bonus()
+
+func restart():
+	deactivate_bonus()

@@ -4,19 +4,34 @@ class_name TowerElement
 @onready var rect = $ColorRect
 @onready var lvlLbl = $ColorRect/Label
 @onready var bullets = $Bullets
-@onready var spawnTimer = $SpawnTimer
+
+var needSpawnBullets = false
+var curSpawnTime = 0
+var spawnWaitTime = 2
 
 @export var bulletSpeed = 150
 @export var bulletPowerMult = 1
 @export var bulletPowerShift = 0
 
 var bulletsSpawnPeriod = 2.0
+var bulletSpawnMult = 1.0
 
 var towerInd = 0
 var bullet = load("res://Data/BulletScene.tscn")
 
 var pool = {}
 var lvl = 1
+
+func set_normal_shoot_period():
+	spawnWaitTime = bulletsSpawnPeriod
+	bulletSpawnMult = 1.0
+
+func set_boosted_shoot_period(_bulletSpawnMult: float):
+	bulletSpawnMult = _bulletSpawnMult
+	spawnWaitTime = bulletsSpawnPeriod / bulletSpawnMult
+
+func get_bullet_spawn_mult() -> float:
+	return bulletSpawnMult
 
 func set_bullet_speed(_speed: float):
 	bulletSpeed = _speed
@@ -25,7 +40,7 @@ func set_bullet_speed(_speed: float):
 		
 func set_bullets_spawn_period(_spawnPeriod: float):
 	bulletsSpawnPeriod = _spawnPeriod
-	spawnTimer.wait_time = bulletsSpawnPeriod
+	spawnWaitTime = bulletsSpawnPeriod
 
 func get_bullet_spawn_period() -> float:
 	return bulletsSpawnPeriod
@@ -53,17 +68,19 @@ func get_tower_ind() -> int:
 	return towerInd
 	
 func start_shooting():
-	spawnTimer.start()
+	needSpawnBullets = true
 	
 func stop_shooting():
-	spawnTimer.stop()
+	needSpawnBullets = false
+	curSpawnTime = 0
 
 func restart():
 	stop_shooting()
 	for blt in bullets.get_children():
 		remove_bullet(blt)
+	set_normal_shoot_period()
 	start_shooting()
-
+	
 func get_str_lbl(_number: int) -> String:
 	var n = _number
 	if(n > 1000):
@@ -146,7 +163,17 @@ func change_lvl(_lvl: int):
 	else:
 		visible = true
 
-func _on_spawn_timer_timeout() -> void:
+func _process(_delta: float) -> void:
+	if(!needSpawnBullets):
+		curSpawnTime = 0
+		return
+	
+	curSpawnTime += _delta
+	if(curSpawnTime >= spawnWaitTime):
+		spawn_bullet()
+		curSpawnTime = 0
+	
+func spawn_bullet() -> void:
 	if(visible):
 		var bult = create_bullet()
 		bullets.add_child(bult)

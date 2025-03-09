@@ -9,6 +9,7 @@ var enemy = load("res://Data/EnemyScene.tscn")
 
 var difficult = 0
 @export var coinChance = 0.8
+@export var coinChanceMultiplier = 10
 @export var health = 3
 @export var healthDelta = 2
 @export var speed = 40
@@ -60,7 +61,7 @@ func remove_enemy(_enemy: EnemyElement):
 	_enemy.deactivate()
 	pool[health].push_back(_enemy)
 	
-	var isNeedCoin = randf_range(0, 1) <= coinChance
+	var isNeedCoin = randf_range(0, 1) <= coinChance*coinChanceMultiplier
 	if(isNeedCoin):
 		coinSpawner.create_coin(pos)
 
@@ -103,3 +104,6 @@ func calculate_enemy_wait_time():
 	
 func _on_difficulty_timer_timeout() -> void:
 	difficult += difficultVal
+
+func set_normal_coin_chance():
+	coinChanceMultiplier = 1

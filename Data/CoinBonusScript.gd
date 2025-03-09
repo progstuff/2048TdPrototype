@@ -21,7 +21,7 @@ func activate_bonus():
 	
 	for enemySpawner in enemySpawners.get_children():
 		oldCoinChance = enemySpawner.coinChance
-		enemySpawner.coinChance *= coinChanceMultiplier
+		enemySpawner.coinChanceMultiplier = coinChanceMultiplier
 	
 	bonusTimer.start()
 
@@ -30,6 +30,6 @@ func deactivate_bonus():
 		return
 	
 	for enemySpawner in enemySpawners.get_children():
-		enemySpawner.coinChance /= coinChanceMultiplier
+		enemySpawner.set_normal_coin_chance()
 		
 	bonusTimer.stop()

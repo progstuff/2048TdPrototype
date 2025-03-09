@@ -1,6 +1,7 @@
 extends PanelContainer
 
 @onready var container = $MarginContainer/VBoxContainer/BonusContainer
+@onready var bonusTimer = $BonusTimer
 
 var coinBonusScene = load("res://Data/CoinBonusScene.tscn")
 var calibrBonusScene = load("res://Data/CalibrBonusScene.tscn")
@@ -11,7 +12,7 @@ var bonuses = {}
 func _ready() -> void:
 	pass
 	
-func init(_enemySpawners: Node):
+func init(_enemySpawners: Node, _wall: Node2D):
 	
 	if(!bonuses.is_empty()):
 		return
@@ -24,6 +25,7 @@ func init(_enemySpawners: Node):
 	
 	var calibrBonus = calibrBonusScene.instantiate()
 	calibrBonus.set_bonus_panel(self)
+	calibrBonus.set_wall(_wall)
 	calibrBonus.deactivate()
 	bonuses[1] = calibrBonus
 	
@@ -31,6 +33,8 @@ func init(_enemySpawners: Node):
 	fieldBonus.set_bonus_panel(self)
 	fieldBonus.deactivate()
 	bonuses[2] = fieldBonus
+	
+	bonusTimer.start()
 	
 func show_bonus_panel():
 	get_tree().paused = true
@@ -61,5 +65,20 @@ func choose_bonus():
 			visible = false
 			bonus.activate_bonus()
 			break
-			
 	get_tree().paused = false
+
+func restart():
+	for bonusInd in bonuses:
+		var bonus = bonuses[bonusInd]
+		bonus.restart()
+	
+	get_tree().paused = false
+	
+	for bonus in container.get_children():
+		container.remove_child(bonus)
+		
+	bonusTimer.stop()
+	bonusTimer.start()
+
+func _on_bonus_timer_timeout() -> void:
+	show_bonus_panel()
