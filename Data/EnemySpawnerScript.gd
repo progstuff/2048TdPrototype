@@ -2,14 +2,14 @@ extends Node2D
 
 var pool = {}
 
-var enemy = load("res://Data/EnemyScene.tscn")
+var enemyScene = load("res://Data/EnemyScene.tscn")
 @onready var enemies = $Enemies
 @onready var spawnTimer = $SpawnTimer
 @onready var difficultyTimer = $DifficultyTimer
 
 var difficult = 0
 @export var coinChance = 0.8
-@export var coinChanceMultiplier = 10
+@export var coinChanceMultiplier = 1
 @export var health = 3
 @export var healthDelta = 2
 @export var speed = 40
@@ -42,7 +42,7 @@ func create_enemy(_health: int, _startPosition: Vector2, _speed: int):
 	
 	var data = pool[_health].pop_front()
 	if(data == null):
-		data = enemy.instantiate()
+		data = enemyScene.instantiate()
 	data.init(_health, _startPosition, _speed)
 		
 	return data
@@ -53,13 +53,13 @@ func set_enemy_speed(_speed: float):
 		enemy.speed = _speed
 		
 func remove_enemy(_enemy: EnemyElement):
-	var health = _enemy.maxHealth
-	if(!pool.has(health)):
-		pool[health] = Array()
+	var enemyHealth = _enemy.maxHealth
+	if(!pool.has(enemyHealth)):
+		pool[enemyHealth] = Array()
 	var pos = _enemy.get_global_center_pos()
 	enemies.call_deferred('remove_child', _enemy)
 	_enemy.deactivate()
-	pool[health].push_back(_enemy)
+	pool[enemyHealth].push_back(_enemy)
 	
 	var isNeedCoin = randf_range(0, 1) <= coinChance*coinChanceMultiplier
 	if(isNeedCoin):
@@ -73,8 +73,8 @@ func _on_spawn_timer_timeout() -> void:
 	if(minHealth > maxHealth):
 		maxHealth = minHealth
 		
-	var health = randi_range(minHealth, maxHealth) + difficult
-	var obj = create_enemy(health, Vector2(0, 0), speed)
+	var creepHealth = randi_range(minHealth, maxHealth) + difficult
+	var obj = create_enemy(creepHealth, Vector2(0, 0), speed)
 	if(!obj.get_parent() == enemies):
 		enemies.add_child(obj)
 	

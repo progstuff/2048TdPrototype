@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://bx4png7v7flee"]
+
+[ext_resource type="Script" path="res://Data/GameOverMenuScript.gd" id="1_7driv"]
+[ext_resource type="Texture2D" uid="uid://cqqia60ljr3vh" path="res://Icons/Menu/Square-Medium/Home/Default.png" id="2_36jrc"]
+[ext_resource type="Texture2D" uid="uid://d0mgwvpntyck2" path="res://Icons/Menu/Square-Medium/Home/Hover.png" id="3_7im1f"]
+[ext_resource type="Texture2D" uid="uid://bmmi2ir8mam3u" path="res://Icons/Menu/Square-Medium/Repeat/Default.png" id="3_rupcx"]
+[ext_resource type="Texture2D" uid="uid://dd2bmt57pv7np" path="res://Icons/Menu/Square-Medium/Repeat/Hover.png" id="4_gjpon"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dqsv5"]
+bg_color = Color(0.196078, 0.215686, 0.254902, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b6egi"]
+bg_color = Color(0.164706, 0.180392, 0.215686, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ystc"]
+font_size = 25
+
+[node name="GameOverMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7driv")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = -72.0
+offset_right = 144.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dqsv5")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_b6egi")
+
+[node name="Label" type="Label" parent="PanelContainer/PanelContainer"]
+layout_mode = 2
+text = "Игра окончена"
+label_settings = SubResource("LabelSettings_8ystc")
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_top = 45
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 40
+
+[node name="MainMenuButton" type="TextureButton" parent="PanelContainer/CenterContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_36jrc")
+texture_hover = ExtResource("3_7im1f")
+
+[node name="RestartButton" type="TextureButton" parent="PanelContainer/CenterContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_rupcx")
+texture_hover = ExtResource("4_gjpon")
+
+[connection signal="pressed" from="PanelContainer/CenterContainer/MarginContainer/HBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/MarginContainer/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

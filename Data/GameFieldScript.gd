@@ -47,8 +47,6 @@ func _input(event):
 		move_left()
 	elif event.is_action_pressed("right"):
 		move_right()
-	elif event.is_action_pressed("restart"):
-		init(fieldRowsCnt, fieldColumnsCnt)
 	elif Input.is_action_just_pressed("click"):
 		if !swiping:
 			if is_pnt_in_area(get_global_mouse_position()):
@@ -229,10 +227,10 @@ func move_left() -> void:
 							shiftedCell.set_merge_state()
 							cell.set_remove_state()
 							#
-							var newColumn = j - shiftColumn
-							var newInd =  Vector2i(i, newColumn)
+							var newCellColumn = j - shiftColumn
+							var newCellInd =  Vector2i(i, newCellColumn)
 							#
-							cell.set_new_pos(cellCoords[newInd])
+							cell.set_new_pos(cellCoords[newCellInd])
 							break
 			#		
 			var newColumn = j - shiftColumn
@@ -281,10 +279,10 @@ func move_right() -> void:
 							shiftedCell.set_merge_state()
 							cell.set_remove_state()
 							#
-							var newColumn = j + shiftColumn
-							var newInd =  Vector2i(i, newColumn)
+							var newCellColumn = j + shiftColumn
+							var newCellInd =  Vector2i(i, newCellColumn)
 							#
-							cell.set_new_pos(cellCoords[newInd])
+							cell.set_new_pos(cellCoords[newCellInd])
 							break
 			#		
 			var newColumn = j + shiftColumn
@@ -332,10 +330,10 @@ func move_up() -> void:
 							shiftedCell.set_merge_state()
 							cell.set_remove_state()
 							#
-							var newRow = i - shiftRow
-							var newInd =  Vector2i(newRow, j)
+							var newCellRow = i - shiftRow
+							var newCellInd =  Vector2i(newCellRow, j)
 							#
-							cell.set_new_pos(cellCoords[newInd])
+							cell.set_new_pos(cellCoords[newCellInd])
 							break
 			#		
 			var newRow = i - shiftRow
@@ -383,10 +381,10 @@ func move_down() -> void:
 							shiftedCell.set_merge_state()
 							cell.set_remove_state()
 							#
-							var newRow = i + shiftRow
-							var newInd =  Vector2i(newRow, j)
+							var newCellRow = i + shiftRow
+							var newCellInd =  Vector2i(newCellRow, j)
 							#
-							cell.set_new_pos(cellCoords[newInd])
+							cell.set_new_pos(cellCoords[newCellInd])
 							break
 			#		
 			var newRow = i + shiftRow
@@ -501,5 +499,33 @@ func _on_wall_wall_damaged() -> void:
 	if(cells.is_empty()):
 		need_restart.emit()
 
-func _on_restart_btn_pressed() -> void:
+func restart() -> void:
 	init(fieldRowsCnt, fieldColumnsCnt)
+	
+func double_two() -> void:
+	for cellIndex in cells:
+		var cell = cells[cellIndex]
+		if(cell.number == 2):
+			cell.double_cell()
+
+func remove_min_cell() -> void:
+	if(cells.size() == 1):
+		return
+	
+	var minCellInd = null
+	var minVal = null
+	for cellIndex in cells:
+		var cell = cells[cellIndex]
+		if(minCellInd == null):
+			minCellInd = cellIndex
+			minVal = cell.number
+		else:
+			if(minVal > cell.number):
+				minCellInd = cellIndex
+				minVal = cell.number
+	
+	var removedCell = cells[minCellInd]
+	cells.erase(minCellInd)
+	cellsNode.remove_child(removedCell)
+	cellManager.remove_cell(removedCell)
+	

@@ -99,7 +99,7 @@ func deactivate():
 	position = Vector2(-100, -100)
 	curState = MOVE_STATE.IDLE
 	isMerged = false
-
+	
 func activate():
 	visible = true
 	curState = MOVE_STATE.IDLE
@@ -175,3 +175,7 @@ func move(_delta: float):
 		position = newPos
 	else:
 		position = position + moveVector*_delta
+
+func double_cell():
+	set_number(number*2)
+	$AnimationPlayer.play("Show")

@@ -23,4 +23,3 @@ func activate_bonus():
 
 func deactivate_bonus():
 	wall.set_normal_shoot_period()
-	bonusTimer.stop()

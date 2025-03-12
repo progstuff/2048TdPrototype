@@ -1,14 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dayd2vf7sxewp"]
+[gd_scene load_steps=7 format=3 uid="uid://dayd2vf7sxewp"]
 
 [ext_resource type="Script" path="res://Data/BonusScript.gd" id="1_7scx3"]
+[ext_resource type="Texture2D" uid="uid://dq8nj5a4068xe" path="res://Icons/Menu/4.png" id="1_oh75h"]
 [ext_resource type="Texture2D" uid="uid://fbkfjcoe0mba" path="res://Icons/Coin.png" id="2_jlt1s"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojwge"]
-bg_color = Color(0.00392157, 0.215686, 0.180392, 0.239216)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_neuop"]
+texture = ExtResource("1_oh75h")
 
 [sub_resource type="LabelSettings" id="LabelSettings_ft8cm"]
 font_size = 17
@@ -22,7 +19,7 @@ bg_color = Color(0.6, 0.6, 0, 0)
 custom_minimum_size = Vector2(205, 240)
 offset_right = 205.0
 offset_bottom = 240.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ojwge")
+theme_override_styles/panel = SubResource("StyleBoxTexture_neuop")
 script = ExtResource("1_7scx3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -42,18 +39,22 @@ size_flags_vertical = 0
 text = "Название"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_constants/separation = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_bottom = -4
 
-[node name="Price" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="Price" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -62,7 +63,7 @@ label_settings = SubResource("LabelSettings_ft8cm")
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(10, 15)
 layout_mode = 2
 size_flags_horizontal = 8

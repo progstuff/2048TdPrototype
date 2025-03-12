@@ -1,11 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://sd2agm2qnvok"]
+[gd_scene load_steps=19 format=3 uid="uid://sd2agm2qnvok"]
 
 [ext_resource type="Script" path="res://Data/WorldScript.gd" id="1_tc2t4"]
 [ext_resource type="PackedScene" uid="uid://r3dwm0laxvoe" path="res://Data/GameFieldScene.tscn" id="2_0gnb1"]
 [ext_resource type="PackedScene" uid="uid://be7n3b4wau8cm" path="res://Data/SwitchersScene.tscn" id="2_plrfd"]
 [ext_resource type="PackedScene" uid="uid://s3il0nevmoy4" path="res://Data/WallScene.tscn" id="4_rk1p6"]
+[ext_resource type="PackedScene" uid="uid://rli3kvnmttsx" path="res://Data/PauseMenuScene.tscn" id="5_0y63x"]
 [ext_resource type="PackedScene" uid="uid://cg81qtoamt06p" path="res://Data/BonusPanelScene.tscn" id="5_ru4q8"]
 [ext_resource type="PackedScene" uid="uid://bps2dd6c16235" path="res://Data/CoinSpawnerScene.tscn" id="5_y4x1s"]
+[ext_resource type="Texture2D" uid="uid://bh634iivm6qn2" path="res://Icons/Menu/Square-Medium/Pause/Default.png" id="8_hggkv"]
+[ext_resource type="Texture2D" uid="uid://3bbafxmfybbj" path="res://Icons/Menu/Square-Medium/Pause/Hover.png" id="9_h8hon"]
+[ext_resource type="Texture2D" uid="uid://cc6teysd0man3" path="res://Icons/Menu/Square-Medium/Levels/Default.png" id="10_fybng"]
+[ext_resource type="PackedScene" uid="uid://bx4png7v7flee" path="res://Data/GameOverMenuScene.tscn" id="11_a5hsi"]
+[ext_resource type="Texture2D" uid="uid://ckliy6qw8r5hr" path="res://Icons/Menu/Square-Medium/Levels/Hover.png" id="11_jcc8d"]
+[ext_resource type="Texture2D" uid="uid://bmmi2ir8mam3u" path="res://Icons/Menu/Square-Medium/Repeat/Default.png" id="12_cte1s"]
+[ext_resource type="Texture2D" uid="uid://dd2bmt57pv7np" path="res://Icons/Menu/Square-Medium/Repeat/Hover.png" id="13_e51k1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ryvj7"]
 font_size = 30
@@ -57,6 +65,19 @@ anchors_preset = 0
 offset_right = 1150.0
 offset_bottom = 646.0
 
+[node name="GameOverMenu" parent="Interface" instance=ExtResource("11_a5hsi")]
+process_mode = 3
+visible = false
+layout_mode = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PauseMenu" parent="Interface" instance=ExtResource("5_0y63x")]
+visible = false
+layout_mode = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
 [node name="BonusPanel" parent="Interface" instance=ExtResource("5_ru4q8")]
 process_mode = 3
 visible = false
@@ -64,33 +85,40 @@ layout_mode = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Interface"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.974783
-anchor_right = 0.974783
-offset_left = -249.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -288.0
 offset_top = 10.0
-offset_bottom = 50.0
+offset_right = -6.0
+offset_bottom = 98.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_constants/separation = 9
-metadata/_edit_use_anchors_ = true
 
-[node name="ConfigButton" type="Button" parent="Interface/HBoxContainer2"]
+[node name="PauseButton" type="TextureButton" parent="Interface/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("8_hggkv")
+texture_hover = ExtResource("9_h8hon")
+
+[node name="ConfigButton" type="TextureButton" parent="Interface/HBoxContainer2"]
 z_index = 5
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 25
-text = "Настройки"
+texture_normal = ExtResource("10_fybng")
+texture_hover = ExtResource("11_jcc8d")
 
-[node name="RestartBtn" type="Button" parent="Interface/HBoxContainer2"]
+[node name="RestartBtn" type="TextureButton" parent="Interface/HBoxContainer2"]
 z_index = 5
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 25
-text = "Заново"
+texture_normal = ExtResource("12_cte1s")
+texture_hover = ExtResource("13_e51k1")
 
 [node name="TimerLbl" type="Label" parent="Interface"]
 layout_mode = 1
@@ -175,9 +203,9 @@ horizontal_alignment = 1
 [connection signal="wall_damaged" from="Wall" to="GameField" method="_on_wall_wall_damaged"]
 [connection signal="coin_clicked_signal" from="CoinSpawner" to="." method="_on_coin_spawner_coin_clicked_signal"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Interface/HBoxContainer2/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="button_down" from="Interface/HBoxContainer2/ConfigButton" to="." method="_on_config_button_button_down"]
 [connection signal="pressed" from="Interface/HBoxContainer2/RestartBtn" to="." method="_on_restart_btn_pressed"]
-[connection signal="pressed" from="Interface/HBoxContainer2/RestartBtn" to="GameField" method="_on_restart_btn_pressed"]
 [connection signal="bullet_period_changed" from="Interface/Switchers" to="." method="_on_switchers_bullet_period_changed"]
 [connection signal="bullet_power_mult_changed" from="Interface/Switchers" to="." method="_on_switchers_bullet_power_mult_changed"]
 [connection signal="bullet_power_shift_changed" from="Interface/Switchers" to="." method="_on_switchers_bullet_power_shift_changed"]

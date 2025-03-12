@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg81qtoamt06p"]
+[gd_scene load_steps=8 format=3 uid="uid://cg81qtoamt06p"]
 
+[ext_resource type="Texture2D" uid="uid://bnun37k3cyhy4" path="res://Icons/Menu/bg.png" id="1_khbju"]
 [ext_resource type="Script" path="res://Data/BonusPanelScript.gd" id="1_w204r"]
+[ext_resource type="Texture2D" uid="uid://bdhmmajt5t01d" path="res://Icons/Menu/table.png" id="3_mk650"]
+[ext_resource type="Texture2D" uid="uid://bt7iqxloaohpj" path="res://Icons/Menu/btn.png" id="4_wegvd"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2tyry"]
+texture = ExtResource("1_khbju")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qtkvo"]
+texture = ExtResource("3_mk650")
+
+[sub_resource type="LabelSettings" id="LabelSettings_x2vok"]
+font_size = 35
 
 [node name="BonusPanel" type="PanelContainer"]
 anchors_preset = 8
@@ -8,13 +20,27 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -318.0
-offset_top = -143.0
-offset_right = 325.0
-offset_bottom = 97.0
+offset_left = -395.0
+offset_top = -202.0
+offset_right = 467.0
+offset_bottom = 280.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_2tyry")
 script = ExtResource("1_w204r")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_qtkvo")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -27,13 +53,41 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 15
 
 [node name="BonusContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 6
 
+[node name="Button" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("4_wegvd")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.5
+offset_top = -24.5
+offset_right = 73.5
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Button/MarginContainer"]
+layout_mode = 2
+text = "Пропуск"
+label_settings = SubResource("LabelSettings_x2vok")
+horizontal_alignment = 1
+
 [node name="BonusTimer" type="Timer" parent="."]
 process_mode = 1
-wait_time = 30.0
+wait_time = 60.0
 
 [connection signal="timeout" from="BonusTimer" to="." method="_on_bonus_timer_timeout"]

@@ -1,16 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://br7h71137vsum"]
+[gd_scene load_steps=6 format=3 uid="uid://br7h71137vsum"]
 
 [ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_a5kh1"]
 [ext_resource type="Script" path="res://CalibrSpeedBonusScript.gd" id="2_1hmqc"]
+[ext_resource type="Texture2D" uid="uid://daam8tmlkrst2" path="res://Icons/Menu/ico1.png" id="3_mg8dl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xxp38"]
-bg_color = Color(0.580189, 0.186132, 0.232289, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ank2a"]
+texture = ExtResource("3_mg8dl")
 
-[sub_resource type="LabelSettings" id="LabelSettings_e8lm7"]
+[sub_resource type="LabelSettings" id="LabelSettings_jefrc"]
 font_size = 32
 font_color = Color(0.00566115, 0.00566115, 0.00566115, 1)
 
@@ -26,7 +23,7 @@ custom_minimum_size = Vector2(170, 190)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_xxp38")
+theme_override_styles/panel = SubResource("StyleBoxTexture_ank2a")
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/BonusIcon" index="0"]
 layout_mode = 1
@@ -41,11 +38,10 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "скорость 
+text = "Скорость
 х4"
-label_settings = SubResource("LabelSettings_e8lm7")
+label_settings = SubResource("LabelSettings_jefrc")
 horizontal_alignment = 1
 
-[node name="Price" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" index="0"]
-text = "2
-"
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer" index="4"]
+layout_mode = 2

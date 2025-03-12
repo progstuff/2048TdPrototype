@@ -10,6 +10,8 @@ extends Node2D
 @onready var switchers = $Interface/Switchers
 @onready var coinSpawner = $CoinSpawner
 @onready var bonusPanel = $Interface/BonusPanel
+@onready var pauseMenu = $Interface/PauseMenu
+@onready var gameOverMenu = $Interface/GameOverMenu
 
 var coinsCnt = 0
 var curSeconds = 0
@@ -89,9 +91,11 @@ func _ready() -> void:
 			switchers.set_coin_chance_value(enemySpawner.coinChance)
 			break
 	#бонусы
-	bonusPanel.init(enemyLines, wall)
+	bonusPanel.init(enemyLines, wall, gameField)
 	
 	bonusPanel.show_bonus_panel()
+	
+	gameOverMenu.init(self)
 			
 func _on_game_field_max_value_changed() -> void:
 	if(gameField == null):
@@ -102,6 +106,8 @@ func _on_game_field_max_value_changed() -> void:
 		wall = $Wall
 	wall.change_lvl(gameField.maxNumbers)
 	damageValLbl.text = str(wall.damage)
+	if(wall.damage > 0):
+		gameOverMenu.show_menu()
 
 func restart_game():
 	
@@ -122,10 +128,10 @@ func restart_game():
 	coinValLbl.text = str(coinsCnt)
 	
 	bonusPanel.restart()
+	gameField.restart()
 	
 func _on_restart_btn_pressed() -> void:
 	restart_game()
-
 
 func _on_game_field_need_restart() -> void:
 	restart_game()
@@ -221,3 +227,7 @@ func _on_switchers_coin_chance_value_changed(_val: float) -> void:
 		enemySpawner.coinChance = _val
 	config.set_value("coinChance", "value", _val)
 	config.save("user://prefs.cfg")
+
+func _on_pause_button_pressed() -> void:
+	get_tree().paused = true
+	pauseMenu.visible = true

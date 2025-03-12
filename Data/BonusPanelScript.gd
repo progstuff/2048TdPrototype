@@ -6,13 +6,14 @@ extends PanelContainer
 var coinBonusScene = load("res://Data/CoinBonusScene.tscn")
 var calibrBonusScene = load("res://Data/CalibrBonusScene.tscn")
 var fieldBonusScene = load("res://Data/FieldBonusScene.tscn")
+var fieldCellRemoveBonus = load("res://Data/FieldCellRemoveBonusScene.tscn")
 
 var bonuses = {}
 
 func _ready() -> void:
 	pass
 	
-func init(_enemySpawners: Node, _wall: Node2D):
+func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D):
 	
 	if(!bonuses.is_empty()):
 		return
@@ -31,8 +32,15 @@ func init(_enemySpawners: Node, _wall: Node2D):
 	
 	var fieldBonus = fieldBonusScene.instantiate()
 	fieldBonus.set_bonus_panel(self)
+	fieldBonus.set_game_field(_gameField)
 	fieldBonus.deactivate()
 	bonuses[2] = fieldBonus
+	
+	var fieldVellRemoveBonus = fieldCellRemoveBonus.instantiate()
+	fieldVellRemoveBonus.set_bonus_panel(self)
+	fieldVellRemoveBonus.set_game_field(_gameField)
+	fieldVellRemoveBonus.deactivate()
+	bonuses[3] = fieldVellRemoveBonus
 	
 	bonusTimer.start()
 	

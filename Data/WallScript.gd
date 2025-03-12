@@ -3,7 +3,7 @@ signal wall_damaged
 
 @onready var towers = $Towers
 
-var tower = load("res://Data/TowerScene.tscn")
+var towerScene = load("res://Data/TowerScene.tscn")
 
 var towersCnt = 5
 @export var damage = 0
@@ -46,7 +46,7 @@ func change_main_calibr_shoot_speed(_multiplyer: float):
 			twr.set_boosted_shoot_period(_multiplyer)
 			break
 	
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("click"):
 		for twr in towers.get_children():
 			var isInArea = twr.is_pnt_in_area(get_global_mouse_position())
@@ -94,7 +94,7 @@ func init(_fieldPos: Vector2, _fieldSize: Vector2, _towersCnt: int):
 	towersCnt = _towersCnt
 	var dy = (_fieldSize.y - 4*2) / _towersCnt
 	for i in range(0, towersCnt):
-		var twr = tower.instantiate()
+		var twr = towerScene.instantiate()
 		towers.add_child(twr)
 		twr.init(1, Vector2(-4*2, dy*i + 50 - 32), i)
 
@@ -127,5 +127,6 @@ func change_lvl(_numbers: Array):
 		
 func _on_wall_area_entered(area: Area2D) -> void:
 	if(area.name == "enemy"):
-		damage = damage + area.get_parent().maxHealth
+		#damage = damage + area.get_parent().maxHealth
+		damage += 1
 		wall_damaged.emit()

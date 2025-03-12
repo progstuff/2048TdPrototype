@@ -31,5 +31,3 @@ func deactivate_bonus():
 	
 	for enemySpawner in enemySpawners.get_children():
 		enemySpawner.set_normal_coin_chance()
-		
-	bonusTimer.stop()

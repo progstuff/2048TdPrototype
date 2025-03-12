@@ -6,7 +6,7 @@ class_name BonusElement
 @export var bonusTime = 2
 
 @onready var bonusTimer = $BonusTimer
-@onready var priceLbl = $MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/Price
+@onready var priceLbl = $MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Price
 var bonusPanel = null
 
 var price = 1

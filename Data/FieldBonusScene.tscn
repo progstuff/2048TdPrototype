@@ -1,14 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnjk5650v13ap"]
+[gd_scene load_steps=6 format=3 uid="uid://cnjk5650v13ap"]
 
 [ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_qyw5p"]
 [ext_resource type="Script" path="res://Data/FieldBonusScene.gd" id="2_kxwvd"]
+[ext_resource type="Texture2D" uid="uid://daam8tmlkrst2" path="res://Icons/Menu/ico1.png" id="3_ba8du"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axane"]
-bg_color = Color(0.719359, 0.55472, 0.273722, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7wdy0"]
+texture = ExtResource("3_ba8du")
 
 [sub_resource type="LabelSettings" id="LabelSettings_xocbb"]
 font_size = 32
@@ -25,7 +22,7 @@ custom_minimum_size = Vector2(170, 190)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_axane")
+theme_override_styles/panel = SubResource("StyleBoxTexture_7wdy0")
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/BonusIcon" index="0"]
 layout_mode = 1

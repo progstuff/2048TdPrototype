@@ -24,7 +24,7 @@ func init(_coinSpawner, _pos: Vector2):
 	position = _pos - Vector2(x, y)
 	activate()
 	
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("click"):
 		var isInArea = is_pnt_in_area(get_global_mouse_position())
 		if(isInArea):
