@@ -2,7 +2,7 @@ extends PanelContainer
 
 @onready var container = $MarginContainer/VBoxContainer/BonusContainer
 @onready var bonusTimer = $BonusTimer
-
+@onready var bonusDescription = $BonusDescription
 var coinBonusScene = load("res://Data/CoinBonusScene.tscn")
 var calibrBonusScene = load("res://Data/CalibrBonusScene.tscn")
 var fieldBonusScene = load("res://Data/FieldBonusScene.tscn")
@@ -87,6 +87,15 @@ func restart():
 		
 	bonusTimer.stop()
 	bonusTimer.start()
+	visible = false
 
 func _on_bonus_timer_timeout() -> void:
 	show_bonus_panel()
+
+
+func _on_skip_button_pressed() -> void:
+	visible = false
+	get_tree().paused = false
+
+func show_description():
+	bonusDescription.show_description("","")

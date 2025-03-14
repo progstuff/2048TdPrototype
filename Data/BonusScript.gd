@@ -6,7 +6,9 @@ class_name BonusElement
 @export var bonusTime = 2
 
 @onready var bonusTimer = $BonusTimer
-@onready var priceLbl = $MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Price
+@onready var priceLbl = $VBoxContainer2/HBoxContainer/MarginContainer3/HBoxContainer/MarginContainer/Price
+@onready var descriptionLbl = $VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/Panel/DescriptionLbl
+
 var bonusPanel = null
 
 var price = 1
@@ -51,3 +53,10 @@ func _on_bonus_timer_timeout() -> void:
 
 func restart():
 	deactivate_bonus()
+
+func set_short_description(_shortDescription: String):
+	descriptionLbl.text = _shortDescription
+	
+func _on_description_button_pressed() -> void:
+	if(bonusPanel != null):
+		bonusPanel.show_description()

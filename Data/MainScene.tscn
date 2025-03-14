@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cb3bp11k7ejrw"]
+
+[ext_resource type="Script" path="res://Data/MainScript.gd" id="1_s1hd7"]
+[ext_resource type="PackedScene" uid="uid://sd2agm2qnvok" path="res://Data/WorldScene.tscn" id="2_4sjom"]
+[ext_resource type="PackedScene" uid="uid://bfa4jh3olyrtr" path="res://Data/MainMenuScene.tscn" id="3_c0bsd"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s1hd7")
+
+[node name="World" parent="." instance=ExtResource("2_4sjom")]
+visible = false
+
+[node name="MainMenu" parent="." instance=ExtResource("3_c0bsd")]
+process_mode = 3
+layout_mode = 1
+size_flags_vertical = 4

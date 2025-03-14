@@ -12,6 +12,7 @@ extends Node2D
 @onready var bonusPanel = $Interface/BonusPanel
 @onready var pauseMenu = $Interface/PauseMenu
 @onready var gameOverMenu = $Interface/GameOverMenu
+var mainMenu = null
 
 var coinsCnt = 0
 var curSeconds = 0
@@ -19,7 +20,6 @@ var curSeconds = 0
 var enemySpawnerScene = load("res://Data/EnemySpawnerScene.tscn")
 
 var config = ConfigFile.new()
-
 
 func _ready() -> void:
 
@@ -96,7 +96,16 @@ func _ready() -> void:
 	bonusPanel.show_bonus_panel()
 	
 	gameOverMenu.init(self)
-			
+	pauseMenu.init(self)
+
+func set_main_menu(_mainMenu:Control):
+	mainMenu = _mainMenu
+
+func show_main_menu():
+	if(mainMenu == null):
+		return
+	mainMenu.show_menu()
+		
 func _on_game_field_max_value_changed() -> void:
 	if(gameField == null):
 		gameField = $GameField
