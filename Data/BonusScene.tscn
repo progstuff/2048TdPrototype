@@ -1,11 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dayd2vf7sxewp"]
+[gd_scene load_steps=6 format=3 uid="uid://dayd2vf7sxewp"]
 
 [ext_resource type="Script" path="res://Data/BonusScript.gd" id="1_7scx3"]
 [ext_resource type="Texture2D" uid="uid://fbkfjcoe0mba" path="res://Icons/Coin.png" id="2_jlt1s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4gv78"]
 bg_color = Color(0.148184, 0.25997, 0.327288, 1)
-border_color = Color(0.93408, 0.93408, 0.93408, 1)
+border_color = Color(0.392157, 0.784314, 0.392157, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -15,9 +15,6 @@ corner_radius_bottom_left = 8
 bg_color = Color(0.164706, 0.180392, 0.215686, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0y806"]
-bg_color = Color(0.6, 0.6, 0, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ft8cm"]
 font_size = 17
@@ -47,22 +44,53 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0witl")
 
-[node name="BonusName" type="Label" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -96.5
-offset_top = -11.5
-offset_right = 96.5
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_vertical = 0
+
+[node name="BonusName" type="Label" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Название"
 horizontal_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer/MarginContainer3/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = -4
+
+[node name="Price" type="Label" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer/MarginContainer3/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "1"
+label_settings = SubResource("LabelSettings_ft8cm")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("2_jlt1s")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -75,68 +103,47 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="DescriptionLbl" type="Label" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/Panel"]
-layout_mode = 2
-offset_left = 96.0
-offset_top = 68.5
-offset_right = 97.0
-offset_bottom = 91.5
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="VBoxContainer2/MarginContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0y806")
-
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2"]
 layout_mode = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer2/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_bottom = 6
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2/HBoxContainer/MarginContainer3"]
+[node name="ChooseButton" type="Button" parent="VBoxContainer2/HBoxContainer/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_constants/separation = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer2/HBoxContainer/MarginContainer3/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_bottom = -4
-
-[node name="Price" type="Label" parent="VBoxContainer2/HBoxContainer/MarginContainer3/HBoxContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-text = "1"
-label_settings = SubResource("LabelSettings_ft8cm")
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer2/HBoxContainer/MarginContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(10, 15)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-texture = ExtResource("2_jlt1s")
-expand_mode = 1
-stretch_mode = 4
+size_flags_horizontal = 3
+text = "Выбрать"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
 [node name="DescriptionButton" type="Button" parent="VBoxContainer2/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 8
-text = "?"
+text = "  ?  "
 
 [node name="BonusTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="gui_input" from="VBoxContainer2/MarginContainer/Panel" to="." method="_on_panel_gui_input"]
+[connection signal="pressed" from="VBoxContainer2/HBoxContainer/MarginContainer/ChooseButton" to="." method="_on_choose_button_pressed"]
 [connection signal="pressed" from="VBoxContainer2/HBoxContainer/MarginContainer2/DescriptionButton" to="." method="_on_description_button_pressed"]
 [connection signal="timeout" from="BonusTimer" to="." method="_on_bonus_timer_timeout"]

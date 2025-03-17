@@ -7,13 +7,13 @@
 script = ExtResource("2_1hmqc")
 speedMultiplier = 4
 
-[node name="BonusName" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2" index="0"]
+[node name="BonusName" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer" index="0"]
 text = "Калибр"
 
 [node name="DescriptionLbl" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/Panel" index="0"]
-offset_left = 16.0
-offset_top = 56.0
-offset_right = 173.0
-offset_bottom = 105.0
+offset_left = -78.5
+offset_top = -24.5
+offset_right = 78.5
+offset_bottom = 24.5
 text = "Скорость стрельбы
 х4"

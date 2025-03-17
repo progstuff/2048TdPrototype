@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfa4jh3olyrtr"]
+[gd_scene load_steps=3 format=3 uid="uid://bfa4jh3olyrtr"]
 
 [ext_resource type="Script" path="res://MainMenuScript.gd" id="1_7l7ni"]
+[ext_resource type="PackedScene" uid="uid://c76aahesql0e1" path="res://Data/ShopScene.tscn" id="2_1aspx"]
 
 [node name="MainMenu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +21,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="MenuItems" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -33,27 +35,31 @@ offset_bottom = 63.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuItems"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuItems/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="StartButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="StartButton" type="Button" parent="MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Начать"
 
-[node name="ShopButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ShopButton" type="Button" parent="MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Магазин"
 
-[node name="ExitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ExitButton" type="Button" parent="MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Выход"
 
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[node name="Shop" parent="." instance=ExtResource("2_1aspx")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="MenuItems/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuItems/MarginContainer/VBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="MenuItems/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

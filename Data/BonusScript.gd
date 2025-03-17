@@ -6,7 +6,7 @@ class_name BonusElement
 @export var bonusTime = 2
 
 @onready var bonusTimer = $BonusTimer
-@onready var priceLbl = $VBoxContainer2/HBoxContainer/MarginContainer3/HBoxContainer/MarginContainer/Price
+@onready var priceLbl = $VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer/MarginContainer3/HBoxContainer/MarginContainer/Price
 @onready var descriptionLbl = $VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/Panel/DescriptionLbl
 
 var bonusPanel = null
@@ -31,17 +31,6 @@ func set_price(_price: int):
 	price = _price
 	priceLbl.text = str(price)
 
-func _on_panel_gui_input(event: InputEvent) -> void:
-	if (
-		event is InputEventMouseButton
-		and event.button_index == MOUSE_BUTTON_LEFT
-		and not event.is_pressed()
-	):
-		if(playerCoins >= price):
-			isChoosed = true
-			if(bonusPanel != null):
-				bonusPanel.choose_bonus()
-
 func activate_bonus():
 	pass
 
@@ -60,3 +49,11 @@ func set_short_description(_shortDescription: String):
 func _on_description_button_pressed() -> void:
 	if(bonusPanel != null):
 		bonusPanel.show_description()
+
+func _on_choose_button_pressed() -> void:
+	if(playerCoins >= price):
+		if(bonusPanel != null):
+			bonusPanel.choose_bonus(self)
+
+func choose():
+	isChoosed = true

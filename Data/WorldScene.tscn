@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://sd2agm2qnvok"]
+[gd_scene load_steps=20 format=3 uid="uid://sd2agm2qnvok"]
 
 [ext_resource type="Script" path="res://Data/WorldScript.gd" id="1_tc2t4"]
 [ext_resource type="PackedScene" uid="uid://r3dwm0laxvoe" path="res://Data/GameFieldScene.tscn" id="2_0gnb1"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://ckliy6qw8r5hr" path="res://Icons/Menu/Square-Medium/Levels/Hover.png" id="11_jcc8d"]
 [ext_resource type="Texture2D" uid="uid://bmmi2ir8mam3u" path="res://Icons/Menu/Square-Medium/Repeat/Default.png" id="12_cte1s"]
 [ext_resource type="Texture2D" uid="uid://dd2bmt57pv7np" path="res://Icons/Menu/Square-Medium/Repeat/Hover.png" id="13_e51k1"]
+[ext_resource type="PackedScene" uid="uid://c5vnilyxsh5x7" path="res://Data/PlayerBonusPanelScene.tscn" id="15_jyvsb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ryvj7"]
 font_size = 30
@@ -199,6 +200,9 @@ text = "0
 "
 label_settings = SubResource("LabelSettings_4y6r6")
 horizontal_alignment = 1
+
+[node name="PlayerBonusPanel" parent="Interface" instance=ExtResource("15_jyvsb")]
+layout_mode = 1
 
 [connection signal="max_value_changed" from="GameField" to="." method="_on_game_field_max_value_changed"]
 [connection signal="need_restart" from="GameField" to="." method="_on_game_field_need_restart"]

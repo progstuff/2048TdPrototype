@@ -1,6 +1,6 @@
 extends PanelContainer
 
-@onready var container = $MarginContainer/VBoxContainer/BonusContainer
+@onready var container = $VBoxContainer/MarginContainer/VBoxContainer/BonusContainer
 @onready var bonusTimer = $BonusTimer
 @onready var bonusDescription = $BonusDescription
 var coinBonusScene = load("res://Data/CoinBonusScene.tscn")
@@ -67,13 +67,13 @@ func show_bonus_panel():
 			
 	visible = true
 	
-func choose_bonus():
+func choose_bonus(_bonus: BonusElement):
+	var hasChoosedBonus = false
 	for bonus in container.get_children():
 		if(bonus.isChoosed):
-			visible = false
-			bonus.activate_bonus()
-			break
-	get_tree().paused = false
+			hasChoosedBonus = true
+	if(!hasChoosedBonus):
+		_bonus.choose()
 
 func restart():
 	for bonusInd in bonuses:
@@ -92,10 +92,9 @@ func restart():
 func _on_bonus_timer_timeout() -> void:
 	show_bonus_panel()
 
-
-func _on_skip_button_pressed() -> void:
-	visible = false
-	get_tree().paused = false
-
 func show_description():
 	bonusDescription.show_description("","")
+
+func _on_close_button_pressed() -> void:
+	visible = false
+	get_tree().paused = false

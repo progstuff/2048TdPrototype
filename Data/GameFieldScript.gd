@@ -99,7 +99,7 @@ func init(_rowsCnt: int, _columnsCnt: int):
 	
 	var viewportRect = get_viewport_rect()
 	var height = cellWidthPx * fieldRowsCnt
-	var y = viewportRect.size.y - 40 - height
+	var y = viewportRect.size.y - 80 - height
 	position.x = 40
 	position.y = y
 	

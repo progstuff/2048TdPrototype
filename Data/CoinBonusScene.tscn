@@ -7,7 +7,7 @@
 script = ExtResource("2_hagxj")
 coinChanceMultiplier = 10
 
-[node name="BonusName" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2" index="0"]
+[node name="BonusName" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer" index="0"]
 text = "Монеты"
 
 [node name="DescriptionLbl" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/Panel" index="0"]

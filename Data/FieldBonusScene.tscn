@@ -6,7 +6,7 @@
 [node name="FieldBonus" instance=ExtResource("1_qyw5p")]
 script = ExtResource("2_kxwvd")
 
-[node name="BonusName" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2" index="0"]
+[node name="BonusName" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer" index="0"]
 text = "Поле 2048"
 
 [node name="DescriptionLbl" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/Panel" index="0"]
