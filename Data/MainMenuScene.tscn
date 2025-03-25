@@ -1,7 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfa4jh3olyrtr"]
+[gd_scene load_steps=16 format=3 uid="uid://bfa4jh3olyrtr"]
 
 [ext_resource type="Script" path="res://MainMenuScript.gd" id="1_7l7ni"]
 [ext_resource type="PackedScene" uid="uid://c76aahesql0e1" path="res://Data/ShopScene.tscn" id="2_1aspx"]
+[ext_resource type="Texture2D" uid="uid://co3nldwu13sca" path="res://Icons/Menu/PlayButton.png" id="2_m3qnc"]
+[ext_resource type="Texture2D" uid="uid://l7hks8le1o64" path="res://Icons/Menu/Title.png" id="2_qwocq"]
+[ext_resource type="Texture2D" uid="uid://cax1sac58s4bv" path="res://Icons/Menu/Background.png" id="3_cwqf8"]
+[ext_resource type="Texture2D" uid="uid://cxs6kexqqgivk" path="res://Icons/Menu/PlayButtonDown.png" id="3_n8mv2"]
+[ext_resource type="Texture2D" uid="uid://bl1r4rbst3uly" path="res://Icons/Menu/PlayButtonHover.png" id="5_bjuxf"]
+[ext_resource type="Texture2D" uid="uid://bex7dnulw50yb" path="res://Icons/Menu/ShopButton.png" id="5_fl7gd"]
+[ext_resource type="Texture2D" uid="uid://c5cgcmsjk8pvu" path="res://Icons/Menu/ShopButtonDown.png" id="6_p3v3r"]
+[ext_resource type="Texture2D" uid="uid://8133g6unowsu" path="res://Icons/Menu/ExitButton.png" id="7_7llrc"]
+[ext_resource type="Texture2D" uid="uid://djr8lcranjn8h" path="res://Icons/Menu/ExitButtonDown.png" id="8_w11m8"]
+[ext_resource type="Texture2D" uid="uid://c7n6r13jqymm1" path="res://Icons/Menu/ShopButtonHover.png" id="9_j2fag"]
+[ext_resource type="Texture2D" uid="uid://dpgw8eflq24gb" path="res://Icons/Menu/ExitButtonHover.png" id="10_8i72n"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_je3sf"]
+texture = ExtResource("2_qwocq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_86iaw"]
+texture = ExtResource("3_cwqf8")
 
 [node name="MainMenu" type="Control"]
 process_mode = 3
@@ -21,45 +38,80 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MenuItems" type="PanelContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -167.0
-offset_top = -63.0
-offset_right = 167.0
-offset_bottom = 63.0
+offset_left = -149.5
+offset_top = -140.0
+offset_right = 149.5
+offset_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuItems"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
+size_flags_vertical = 10
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuItems/MarginContainer"]
+[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer"]
+z_index = 1
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxTexture_je3sf")
+
+[node name="MenuItems" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_86iaw")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MenuItems"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MenuItems/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 15
 
-[node name="StartButton" type="Button" parent="MenuItems/MarginContainer/VBoxContainer"]
+[node name="StartButton" type="TextureButton" parent="VBoxContainer/MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Начать"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("2_m3qnc")
+texture_pressed = ExtResource("3_n8mv2")
+texture_hover = ExtResource("5_bjuxf")
 
-[node name="ShopButton" type="Button" parent="MenuItems/MarginContainer/VBoxContainer"]
+[node name="ShopButton" type="TextureButton" parent="VBoxContainer/MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Магазин"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("5_fl7gd")
+texture_pressed = ExtResource("6_p3v3r")
+texture_hover = ExtResource("9_j2fag")
 
-[node name="ExitButton" type="Button" parent="MenuItems/MarginContainer/VBoxContainer"]
+[node name="ExitButton" type="TextureButton" parent="VBoxContainer/MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Выход"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("7_7llrc")
+texture_pressed = ExtResource("8_w11m8")
+texture_hover = ExtResource("10_8i72n")
 
 [node name="Shop" parent="." instance=ExtResource("2_1aspx")]
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="MenuItems/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="MenuItems/MarginContainer/VBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
-[connection signal="pressed" from="MenuItems/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MenuItems/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MenuItems/MarginContainer/VBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MenuItems/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

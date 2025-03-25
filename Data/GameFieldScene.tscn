@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cgpdm8wugakg6" path="res://Data/CellManagerScene.tscn" id="2_vqlpd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rnr01"]
-bg_color = Color(0.73, 0.677197, 0.6278, 1)
+bg_color = Color(0.486275, 0.341176, 0.576471, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8

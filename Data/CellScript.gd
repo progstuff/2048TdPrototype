@@ -48,7 +48,7 @@ func set_number(_number:int) -> void:
 func set_background() -> void:		
 	var r = int(log(number)/log(2)) % 15
 	
-	var background = Color8(255, 255, 255, 255)
+	var background = Color8(153, 127, 169, 255)
 	if(r == 1):
 		background = Color8(237, 230, 218, 255)
 	elif(r == 2):

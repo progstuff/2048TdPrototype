@@ -1,25 +1,32 @@
-[gd_scene load_steps=9 format=3 uid="uid://bx4png7v7flee"]
+[gd_scene load_steps=12 format=3 uid="uid://bx4png7v7flee"]
 
 [ext_resource type="Script" path="res://Data/GameOverMenuScript.gd" id="1_7driv"]
-[ext_resource type="Texture2D" uid="uid://cqqia60ljr3vh" path="res://Icons/Menu/Square-Medium/Home/Default.png" id="2_36jrc"]
-[ext_resource type="Texture2D" uid="uid://d0mgwvpntyck2" path="res://Icons/Menu/Square-Medium/Home/Hover.png" id="3_7im1f"]
-[ext_resource type="Texture2D" uid="uid://bmmi2ir8mam3u" path="res://Icons/Menu/Square-Medium/Repeat/Default.png" id="3_rupcx"]
-[ext_resource type="Texture2D" uid="uid://dd2bmt57pv7np" path="res://Icons/Menu/Square-Medium/Repeat/Hover.png" id="4_gjpon"]
+[ext_resource type="FontFile" uid="uid://cceis1op8xuls" path="res://Verdana-Bold.ttf" id="2_vx876"]
+[ext_resource type="Texture2D" uid="uid://ubpkdykomajq" path="res://Icons/Menu/home.png" id="3_g4fu1"]
+[ext_resource type="Texture2D" uid="uid://bdqig1g5s7eob" path="res://Icons/Menu/homeDown.png" id="4_r80ga"]
+[ext_resource type="Texture2D" uid="uid://c2megf2v03k75" path="res://Icons/Menu/homeHower.png" id="5_0knxy"]
+[ext_resource type="Texture2D" uid="uid://b4mk6a3631wsk" path="res://Icons/Menu/restart.png" id="6_44cxe"]
+[ext_resource type="Texture2D" uid="uid://dr76nb1dtq3b5" path="res://Icons/Menu/restartDown.png" id="7_hnbre"]
+[ext_resource type="Texture2D" uid="uid://clg264nus75bb" path="res://Icons/Menu/restartHower.png" id="8_dshoh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dqsv5"]
-bg_color = Color(0.196078, 0.215686, 0.254902, 1)
+bg_color = Color(0.4, 0.0156863, 0.509804, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b6egi"]
-bg_color = Color(0.164706, 0.180392, 0.215686, 1)
+bg_color = Color(0.313726, 0.0117647, 0.4, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_8ystc"]
-font_size = 25
+font = ExtResource("2_vx876")
+font_size = 30
+font_color = Color(1, 0.545098, 0, 1)
+shadow_color = Color(0.054902, 0.054902, 0.054902, 1)
+shadow_offset = Vector2(2, 1)
 
 [node name="GameOverMenu" type="Control"]
 layout_mode = 3
@@ -75,13 +82,15 @@ theme_override_constants/separation = 40
 
 [node name="MainMenuButton" type="TextureButton" parent="PanelContainer/CenterContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("2_36jrc")
-texture_hover = ExtResource("3_7im1f")
+texture_normal = ExtResource("3_g4fu1")
+texture_pressed = ExtResource("4_r80ga")
+texture_hover = ExtResource("5_0knxy")
 
 [node name="RestartButton" type="TextureButton" parent="PanelContainer/CenterContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("3_rupcx")
-texture_hover = ExtResource("4_gjpon")
+texture_normal = ExtResource("6_44cxe")
+texture_pressed = ExtResource("7_hnbre")
+texture_hover = ExtResource("8_dshoh")
 
 [connection signal="pressed" from="PanelContainer/CenterContainer/MarginContainer/HBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/MarginContainer/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

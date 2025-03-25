@@ -1,16 +1,15 @@
 extends BonusElement
 
 @export var speedMultiplier = 4
-
+var image = load("res://Icons/Menu/bonusCalibr.png")
 var wall = null
 var oldCoinChance = 0
 
 func _ready() -> void:
+	bonusName = "calibrAtttackSpeed"
+	set_icon(image)
 	set_price(2)
 	bonusTime = 20
-	if(bonusTimer == null):
-		bonusTimer = $BonusTimer
-	bonusTimer.wait_time = bonusTime
 
 func set_wall(_wall: Node2D):
 	wall = _wall
@@ -19,7 +18,10 @@ func activate_bonus():
 	if(wall == null):
 		return
 	wall.change_main_calibr_shoot_speed(speedMultiplier)
-	bonusTimer.start()
 
 func deactivate_bonus():
 	wall.set_normal_shoot_period()
+
+
+func _on_bonus_icon_gui_input(_event: InputEvent) -> void:
+	_on_panel_gui_input(_event)

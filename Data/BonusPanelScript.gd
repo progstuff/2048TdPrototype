@@ -3,21 +3,24 @@ extends PanelContainer
 @onready var container = $VBoxContainer/MarginContainer/VBoxContainer/BonusContainer
 @onready var bonusTimer = $BonusTimer
 @onready var bonusDescription = $BonusDescription
+
 var coinBonusScene = load("res://Data/CoinBonusScene.tscn")
 var calibrBonusScene = load("res://Data/CalibrBonusScene.tscn")
 var fieldBonusScene = load("res://Data/FieldBonusScene.tscn")
 var fieldCellRemoveBonus = load("res://Data/FieldCellRemoveBonusScene.tscn")
-
+var playerPanel = null
 var bonuses = {}
 
 func _ready() -> void:
 	pass
 	
-func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D):
+func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel: Control):
 	
 	if(!bonuses.is_empty()):
 		return
-		
+	
+	playerPanel = _playerPanel
+	
 	var coinBonus = coinBonusScene.instantiate()
 	coinBonus.set_bonus_panel(self)
 	coinBonus.set_enemy_spawners(_enemySpawners)
@@ -44,9 +47,13 @@ func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D):
 	
 	bonusTimer.start()
 	
-func show_bonus_panel():
-	get_tree().paused = true
+	random_bonuses()
 	
+func show_bonus_panel():
+	get_tree().paused = true	
+	visible = true
+	
+func random_bonuses():
 	for bonus in container.get_children():
 		container.remove_child(bonus)
 		
@@ -65,8 +72,6 @@ func show_bonus_panel():
 			showedBonuses[ind] = true
 			cnt = cnt + 1
 			
-	visible = true
-	
 func choose_bonus(_bonus: BonusElement):
 	var hasChoosedBonus = false
 	for bonus in container.get_children():
@@ -74,6 +79,7 @@ func choose_bonus(_bonus: BonusElement):
 			hasChoosedBonus = true
 	if(!hasChoosedBonus):
 		_bonus.choose()
+		playerPanel.add_bonus(_bonus)
 
 func restart():
 	for bonusInd in bonuses:
@@ -90,7 +96,7 @@ func restart():
 	visible = false
 
 func _on_bonus_timer_timeout() -> void:
-	show_bonus_panel()
+	random_bonuses()
 
 func show_description():
 	bonusDescription.show_description("","")

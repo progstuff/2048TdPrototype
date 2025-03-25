@@ -1,13 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cnjk5650v13ap"]
 
 [ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_qyw5p"]
-[ext_resource type="Script" path="res://Data/FieldBonusScene.gd" id="2_kxwvd"]
+[ext_resource type="Script" path="res://Data/FieldBonusScript.gd" id="2_kxwvd"]
 
 [node name="FieldBonus" instance=ExtResource("1_qyw5p")]
 script = ExtResource("2_kxwvd")
-
-[node name="BonusName" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer" index="0"]
-text = "Поле 2048"
-
-[node name="DescriptionLbl" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/Panel" index="0"]
-text = "2x2"

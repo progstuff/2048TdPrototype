@@ -1,22 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://cg81qtoamt06p"]
+[gd_scene load_steps=7 format=3 uid="uid://cg81qtoamt06p"]
 
 [ext_resource type="Script" path="res://Data/BonusPanelScript.gd" id="1_w204r"]
 [ext_resource type="PackedScene" uid="uid://cyjf1ffgct46w" path="res://Data/BonusDescriptionScene.tscn" id="2_blmw2"]
+[ext_resource type="FontFile" uid="uid://cceis1op8xuls" path="res://Verdana-Bold.ttf" id="2_dknkq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3inp"]
-bg_color = Color(0.196078, 0.215686, 0.254902, 1)
+bg_color = Color(0.4, 0.0156863, 0.509804, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_okcr0"]
-bg_color = Color(0.164706, 0.180392, 0.215686, 1)
+bg_color = Color(0.313726, 0.0117647, 0.4, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_y6fwh"]
-font_size = 25
+font = ExtResource("2_dknkq")
+font_size = 30
+font_color = Color(1, 0.545098, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 1)
 
 [node name="BonusPanel" type="PanelContainer"]
 anchors_preset = 8
@@ -60,7 +65,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Выберите бонус"
+text = "Магазин"
 label_settings = SubResource("LabelSettings_y6fwh")
 horizontal_alignment = 1
 
@@ -90,7 +95,7 @@ alignment = 1
 
 [node name="BonusTimer" type="Timer" parent="."]
 process_mode = 1
-wait_time = 60.0
+wait_time = 10.0
 
 [node name="BonusDescription" parent="." instance=ExtResource("2_blmw2")]
 visible = false

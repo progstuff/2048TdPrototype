@@ -1,15 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyep1kbroyhiq"]
+[gd_scene load_steps=5 format=3 uid="uid://cyep1kbroyhiq"]
 
 [ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_avfs6"]
 [ext_resource type="Script" path="res://Data/CoinBonusScript.gd" id="2_hagxj"]
+[ext_resource type="Texture2D" uid="uid://cg7epkifoopr1" path="res://Icons/Menu/bonusCoin.png" id="3_klrlu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hkcjv"]
+texture = ExtResource("3_klrlu")
 
 [node name="CoinBonus" instance=ExtResource("1_avfs6")]
 script = ExtResource("2_hagxj")
 coinChanceMultiplier = 10
 
-[node name="BonusName" parent="VBoxContainer2/MarginContainer/VBoxContainer/Panel2/HBoxContainer" index="0"]
-text = "Монеты"
+[node name="BonusIcon" type="Panel" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -58.0
+offset_right = -20.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+theme_override_styles/panel = SubResource("StyleBoxTexture_hkcjv")
+metadata/_edit_use_anchors_ = true
 
-[node name="DescriptionLbl" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/Panel" index="0"]
-text = "Шанс выпадения 
-монеты Х10"
+[connection signal="gui_input" from="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel/BonusIcon" to="." method="_on_bonus_icon_gui_input"]
