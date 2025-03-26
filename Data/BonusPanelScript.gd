@@ -3,6 +3,8 @@ extends PanelContainer
 @onready var container = $VBoxContainer/MarginContainer/VBoxContainer/BonusContainer
 @onready var bonusTimer = $BonusTimer
 @onready var bonusDescription = $BonusDescription
+@onready var inventoryErrorPlayer = $InventoryErrorAnimation
+@onready var inventoryErrorLabel = $InventoryError
 
 var coinBonusScene = load("res://Data/CoinBonusScene.tscn")
 var calibrBonusScene = load("res://Data/CalibrBonusScene.tscn")
@@ -52,6 +54,7 @@ func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel:
 func show_bonus_panel():
 	get_tree().paused = true	
 	visible = true
+	inventoryErrorLabel.visible = false
 	
 func random_bonuses():
 	for bonus in container.get_children():
@@ -73,13 +76,20 @@ func random_bonuses():
 			cnt = cnt + 1
 			
 func choose_bonus(_bonus: BonusElement):
+	if playerPanel.is_full():
+		inventoryErrorPlayer.play("showInventoryError")
+		return
 	var hasChoosedBonus = false
 	for bonus in container.get_children():
 		if(bonus.isChoosed):
 			hasChoosedBonus = true
+
 	if(!hasChoosedBonus):
 		_bonus.choose()
 		playerPanel.add_bonus(_bonus)
+		for bonus in container.get_children():
+			if(!bonus.isChoosed):
+				bonus.set_disabled()
 
 func restart():
 	for bonusInd in bonuses:

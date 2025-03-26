@@ -1,6 +1,6 @@
 extends Control
 
-var activatedBonuses = []
+var activatedBonuses = {}
 var bonuses = [null, null]
 var slots = []
 
@@ -11,15 +11,21 @@ func _ready() -> void:
 	slots.insert(0, bonusOneSlot)
 	slots.insert(1, bonusTwoSlot)
 
+func is_full():
+	for bonus in bonuses:
+		if(bonus == null):
+			return false
+	return true
+	
 func _restart():
-	activatedBonuses = []
+	activatedBonuses = {}
 	bonuses = [null, null]
 	slots[0].texture = null
 	slots[1].texture = null
 	
 func _process(_delta: float) -> void:
-	for bonus in activatedBonuses:
-		bonus.process_bonus(_delta)
+	for bonusName in activatedBonuses:
+		activatedBonuses[bonusName].process_bonus(_delta)
 		
 func add_bonus(_bonus: BonusElement):
 		
@@ -31,14 +37,18 @@ func add_bonus(_bonus: BonusElement):
 			
 func _on_bonus_one_image_gui_input(_event: InputEvent) -> void:
 	if(_event.is_action_pressed("click")):
+		if(bonuses[0] == null):
+			return
 		bonuses[0].turn_on_bonus()
-		activatedBonuses.append(bonuses[0])
+		activatedBonuses[bonuses[0].bonusName] = bonuses[0]
 		bonuses[0] = null
 		slots[0].texture = null
 		
 func _on_bonus_two_image_gui_input(_event: InputEvent) -> void:
 	if(_event.is_action_pressed("click")):
+		if(bonuses[1] == null):
+			return
 		bonuses[1].turn_on_bonus()
-		activatedBonuses.append(bonuses[1])
+		activatedBonuses[bonuses[1].bonusName] = bonuses[1]
 		bonuses[1] = null
 		slots[1].texture = null

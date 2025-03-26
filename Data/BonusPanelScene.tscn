@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cg81qtoamt06p"]
+[gd_scene load_steps=11 format=3 uid="uid://cg81qtoamt06p"]
 
 [ext_resource type="Script" path="res://Data/BonusPanelScript.gd" id="1_w204r"]
 [ext_resource type="PackedScene" uid="uid://cyjf1ffgct46w" path="res://Data/BonusDescriptionScene.tscn" id="2_blmw2"]
@@ -22,6 +22,75 @@ font_size = 30
 font_color = Color(1, 0.545098, 0, 1)
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_j4fk4"]
+font = ExtResource("2_dknkq")
+font_size = 35
+font_color = Color(1, 0.545098, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 1)
+
+[sub_resource type="Animation" id="Animation_qxne3"]
+resource_name = "showInventoryError"
+length = 1.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InventoryError:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InventoryError:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0980392), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.294118), Color(1, 1, 1, 0.392157), Color(1, 1, 1, 0.490196), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.686275), Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0.882353), Color(1, 1, 1, 1), Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.392157), Color(1, 1, 1, 0.294118), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.0588235)]
+}
+
+[sub_resource type="Animation" id="Animation_y046t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InventoryError:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InventoryError:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hah6g"]
+_data = {
+"RESET": SubResource("Animation_y046t"),
+"showInventoryError": SubResource("Animation_qxne3")
+}
 
 [node name="BonusPanel" type="PanelContainer"]
 anchors_preset = 8
@@ -100,6 +169,17 @@ wait_time = 10.0
 [node name="BonusDescription" parent="." instance=ExtResource("2_blmw2")]
 visible = false
 layout_mode = 2
+
+[node name="InventoryError" type="Label" parent="."]
+layout_mode = 2
+text = "Ваш инвентарь заполнен"
+label_settings = SubResource("LabelSettings_j4fk4")
+horizontal_alignment = 1
+
+[node name="InventoryErrorAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hah6g")
+}
 
 [connection signal="pressed" from="VBoxContainer/Panel/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="timeout" from="BonusTimer" to="." method="_on_bonus_timer_timeout"]
