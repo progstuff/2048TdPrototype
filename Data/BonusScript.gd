@@ -26,7 +26,6 @@ func process_bonus(_delta: float) -> void:
 			deactivate_bonus()
 			isActive = false
 			curCnt = 0
-		print(curCnt)
 			
 func activate():
 	visible = true

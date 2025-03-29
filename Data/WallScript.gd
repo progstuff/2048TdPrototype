@@ -7,7 +7,7 @@ var towerScene = load("res://Data/TowerScene.tscn")
 
 var towersCnt = 5
 @export var damage = 0
-
+	
 func set_bullet_speed(_speed: float):
 	for twr in towers.get_children():
 		twr.set_bullet_speed(_speed)
@@ -40,6 +40,16 @@ func set_normal_shoot_period():
 	for twr in towers.get_children():
 		twr.set_normal_shoot_period()
 
+func add_poison(_poisonParams:Node):
+	for twr in towers.get_children():
+		if(twr.get_tower_ind() == 0):
+			twr.add_poison(_poisonParams)
+			break
+			
+func remove_poison():
+	for twr in towers.get_children():
+		twr.remove_poison()
+			
 func change_main_calibr_shoot_speed(_multiplyer: float):
 	for twr in towers.get_children():
 		if(twr.get_tower_ind() == 0):
@@ -68,13 +78,18 @@ func change_calibr(twrInd: int):
 	var otherTwrLvl = otherTwr.lvl
 	
 	var mult = mainTwr.get_bullet_spawn_mult()
-	mainTwr.set_tower_ind(twrInd)
-	mainTwr.change_lvl(otherTwrLvl)
-	mainTwr.set_normal_shoot_period()
 	
 	otherTwr.set_tower_ind(0)
 	otherTwr.change_lvl(mainTwrLvl)
 	otherTwr.set_boosted_shoot_period(mult)
+	otherTwr.add_poison(mainTwr.poison())
+	
+	mainTwr.set_tower_ind(twrInd)
+	mainTwr.change_lvl(otherTwrLvl)
+	mainTwr.set_normal_shoot_period()
+	mainTwr.remove_poison()
+	
+
 	
 func change_position(newX: int):
 	for twr in towers.get_children():

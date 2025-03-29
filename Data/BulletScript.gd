@@ -13,9 +13,20 @@ var tower = null
 var powerMultyplier = 1
 var powerShiftVal = 0
 
+var poison = null
+
 func _ready() -> void:
 	pass
 
+func is_poisoned():
+	return poison != null
+
+func get_poison() -> Node:
+	return poison
+
+func set_poison(_poisonParams: Node):
+	poison = _poisonParams
+	
 func set_power_multyplier(_multyplier: float):
 	powerMultyplier = _multyplier
 
@@ -95,6 +106,7 @@ func deactivate():
 	visible = false
 	position = Vector2(-10000, -10000)
 	isActive = false
+	poison = null
 	
 func _process(_delta: float) -> void:
 	if isActive:

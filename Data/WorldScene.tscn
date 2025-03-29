@@ -1,10 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://sd2agm2qnvok"]
+[gd_scene load_steps=28 format=3 uid="uid://sd2agm2qnvok"]
 
 [ext_resource type="Script" path="res://Data/WorldScript.gd" id="1_tc2t4"]
 [ext_resource type="PackedScene" uid="uid://r3dwm0laxvoe" path="res://Data/GameFieldScene.tscn" id="2_0gnb1"]
 [ext_resource type="PackedScene" uid="uid://be7n3b4wau8cm" path="res://Data/SwitchersScene.tscn" id="2_plrfd"]
 [ext_resource type="PackedScene" uid="uid://s3il0nevmoy4" path="res://Data/WallScene.tscn" id="4_rk1p6"]
 [ext_resource type="PackedScene" uid="uid://rli3kvnmttsx" path="res://Data/PauseMenuScene.tscn" id="5_0y63x"]
+[ext_resource type="PackedScene" uid="uid://bw3mpw4l8wulb" path="res://Data/EffectsManagerScene.tscn" id="5_jsbep"]
 [ext_resource type="PackedScene" uid="uid://cg81qtoamt06p" path="res://Data/BonusPanelScene.tscn" id="5_ru4q8"]
 [ext_resource type="PackedScene" uid="uid://bps2dd6c16235" path="res://Data/CoinSpawnerScene.tscn" id="5_y4x1s"]
 [ext_resource type="Texture2D" uid="uid://rf8efxjgg60n" path="res://Icons/Menu/shop.png" id="8_xhlyj"]
@@ -64,6 +65,8 @@ position = Vector2(788, -3)
 [node name="CoinSpawner" parent="." instance=ExtResource("5_y4x1s")]
 
 [node name="EnemyLines" type="Node2D" parent="."]
+
+[node name="EffectsManager" parent="." instance=ExtResource("5_jsbep")]
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

@@ -13,6 +13,9 @@ var healthLabel = null
 var spawner = null
 var rect = null
 
+var isPoisoned = false
+var poison = null
+
 func init(_health: int, _startPosition: Vector2, _speed: int):
 	
 	if(collider == null):
@@ -30,16 +33,29 @@ func init(_health: int, _startPosition: Vector2, _speed: int):
 	speed = _speed
 	
 	activate()
+
+func set_poison(_poison:Node):
+	poison = _poison
+	isPoisoned = true
+
+func remove_poison():
+	poison = null
+	isPoisoned = false
+	
+func get_poison() -> Node:
+	return poison
 	
 func activate():
 	visible = true
 	position = startPosition
 	isActivated = true
+	isPoisoned = false
 	
 func deactivate():
 	isActivated = false
 	visible = false
 	position = Vector2(-2000, -2000)
+	isPoisoned = false
 
 func _process(_delta: float) -> void:
 	if(!isActivated):
@@ -53,15 +69,26 @@ func _on_enemy_area_entered(area: Area2D) -> void:
 		print(position)
 		spawner.remove_enemy(self)
 	if(area.name == "bullet"):
-		var damage = area.get_parent().calculate_power()
-		curHealth = curHealth - damage
-		if(curHealth < 1):
-			healthLabel.text = "%0.1f" % curHealth
-		else:
-			healthLabel.text = str(int(curHealth))
-		if(curHealth <= 0):
-			spawner.remove_enemy(self)
+		var bullet = area.get_parent()
+		var damage = bullet.calculate_power()
+		damaged(damage)
+		
+		if(bullet.is_poisoned()):
+			var psn = bullet.get_poison()
+			psn.add_poison_to_enemy(self)
 
+func is_poisoned() -> bool:
+	return isPoisoned
+	
+func damaged(_damage: float):
+	curHealth = curHealth - _damage
+	if(curHealth < 1):
+		healthLabel.text = "%0.1f" % curHealth
+	else:
+		healthLabel.text = str(int(curHealth))
+	if(curHealth <= 0):
+		spawner.remove_enemy(self)
+		
 func get_global_center_pos() -> Vector2:
 	var x = rect.size.x/2 + global_position.x
 	var y = rect.size.y/2 + global_position.y

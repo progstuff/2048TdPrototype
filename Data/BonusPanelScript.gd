@@ -10,13 +10,15 @@ var coinBonusScene = load("res://Data/CoinBonusScene.tscn")
 var calibrBonusScene = load("res://Data/CalibrBonusScene.tscn")
 var fieldBonusScene = load("res://Data/FieldBonusScene.tscn")
 var fieldCellRemoveBonus = load("res://Data/FieldCellRemoveBonusScene.tscn")
+var poisonEffectBonus = load("res://Data/PoisonBonusScene.tscn")
+
 var playerPanel = null
 var bonuses = {}
 
 func _ready() -> void:
 	pass
 	
-func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel: Control):
+func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel: Control, _effectsManager: Node):
 	
 	if(!bonuses.is_empty()):
 		return
@@ -47,6 +49,13 @@ func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel:
 	fieldVellRemoveBonus.deactivate()
 	bonuses[3] = fieldVellRemoveBonus
 	
+	var poisonBonus = poisonEffectBonus.instantiate()
+	poisonBonus.set_bonus_panel(self)
+	poisonBonus.set_wall(_wall)
+	poisonBonus.set_manager(_effectsManager)
+	poisonBonus.deactivate()
+	bonuses[4] = poisonBonus
+	
 	bonusTimer.start()
 	
 	random_bonuses()
@@ -63,8 +72,8 @@ func random_bonuses():
 	var showedBonuses = {}
 	
 	var cnt = 0
-	while(cnt < 3):
-		var ind = randi_range(0, bonuses.size()-1)
+	while(cnt < 2):
+		var ind = randi_range(0, 2)
 		if(showedBonuses.has(ind)):
 			continue
 		if(bonuses.has(ind)):
@@ -74,7 +83,13 @@ func random_bonuses():
 			container.add_child(bonus)
 			showedBonuses[ind] = true
 			cnt = cnt + 1
-			
+	
+	var bonus = bonuses[4]
+	bonus.activate()
+	
+	container.add_child(bonus)
+	showedBonuses[4] = true
+	
 func choose_bonus(_bonus: BonusElement):
 	if playerPanel.is_full():
 		inventoryErrorPlayer.play("showInventoryError")

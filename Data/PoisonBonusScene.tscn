@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfolwj24m4nw"]
+
+[ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_1mnkq"]
+[ext_resource type="Script" path="res://Data/PoisonBonusScript.gd" id="2_yrkwq"]
+[ext_resource type="Texture2D" uid="uid://bml3lfnckydp5" path="res://Icons/Menu/poisonBonus.png" id="3_8fe3m"]
+[ext_resource type="PackedScene" uid="uid://d2hldoyvqfygi" path="res://Data/PoisonEffectParamsScene.tscn" id="4_cuvdv"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ooa55"]
+texture = ExtResource("3_8fe3m")
+
+[node name="Bonus" instance=ExtResource("1_1mnkq")]
+script = ExtResource("2_yrkwq")
+speedMultiplier = 4
+
+[node name="BonusIcon" type="Panel" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -69.5
+offset_right = 42.0
+offset_bottom = 59.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ooa55")
+
+[node name="PoisonEffectParams" parent="." index="2" instance=ExtResource("4_cuvdv")]
+
+[connection signal="gui_input" from="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel/BonusIcon" to="." method="_on_bonus_icon_gui_input"]

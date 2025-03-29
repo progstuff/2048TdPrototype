@@ -22,6 +22,8 @@ var bullet = load("res://Data/BulletScene.tscn")
 var pool = {}
 var lvl = 1
 
+var poisonParams = null
+
 func set_normal_shoot_period():
 	spawnWaitTime = bulletsSpawnPeriod
 	bulletSpawnMult = 1.0
@@ -74,6 +76,15 @@ func stop_shooting():
 	needSpawnBullets = false
 	curSpawnTime = 0
 
+func add_poison(_poisonParams:Node):
+	poisonParams = _poisonParams
+	
+func remove_poison():
+	poisonParams = null
+
+func poison() -> Node:
+	return poisonParams
+	
 func restart():
 	stop_shooting()
 	for blt in bullets.get_children():
@@ -106,7 +117,8 @@ func create_bullet():
 	data.set_power_multyplier(bulletPowerMult)
 	data.set_power_shift_val(bulletPowerShift)
 	data.set_start_speed(bulletSpeed)
-		
+	data.set_poison(poisonParams)
+	
 	return data
 
 func remove_bullet(_bullet: BulletElement):

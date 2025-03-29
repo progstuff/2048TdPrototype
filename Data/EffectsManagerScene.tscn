@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw3mpw4l8wulb"]
+
+[ext_resource type="Script" path="res://Data/EffectsManagerScript.gd" id="1_0erkh"]
+
+[node name="EffectsManager" type="Node"]
+script = ExtResource("1_0erkh")

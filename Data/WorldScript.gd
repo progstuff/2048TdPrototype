@@ -13,6 +13,7 @@ extends Node2D
 @onready var pauseMenu = $Interface/PauseMenu
 @onready var gameOverMenu = $Interface/GameOverMenu
 @onready var playerBonusPanel = $Interface/PlayerBonusPanel
+@onready var effectsManager = $EffectsManager
 var mainMenu = null
 
 var coinsCnt = 0
@@ -92,7 +93,7 @@ func _ready() -> void:
 			switchers.set_coin_chance_value(enemySpawner.coinChance)
 			break
 	#бонусы
-	bonusPanel.init(enemyLines, wall, gameField, playerBonusPanel)
+	bonusPanel.init(enemyLines, wall, gameField, playerBonusPanel, effectsManager)
 	
 	gameOverMenu.init(self)
 	pauseMenu.init(self)
