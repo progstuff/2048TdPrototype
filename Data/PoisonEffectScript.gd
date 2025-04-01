@@ -39,7 +39,6 @@ func _process(_delta: float) -> void:
 	if(effectDurationCnt < poisonDuration):
 		effectDurationCnt += _delta
 		if(effectPeriodCnt < poisonPeriod):
-			print(effectPeriodCnt)
 			effectPeriodCnt += _delta
 		else:
 			enemy.damaged(poisonDamage)

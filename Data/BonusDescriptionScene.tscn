@@ -1,18 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyjf1ffgct46w"]
+[gd_scene load_steps=9 format=3 uid="uid://cyjf1ffgct46w"]
 
 [ext_resource type="Script" path="res://Data/BonusDescriptionScript.gd" id="1_perrs"]
+[ext_resource type="FontFile" uid="uid://cceis1op8xuls" path="res://Verdana-Bold.ttf" id="2_50fr5"]
+[ext_resource type="Texture2D" uid="uid://djjbupehrwva4" path="res://Icons/Menu/okButton.png" id="3_37i3w"]
+[ext_resource type="Texture2D" uid="uid://hd2x7e3obwa2" path="res://Icons/Menu/okButtonDown.png" id="4_oa6ba"]
+[ext_resource type="Texture2D" uid="uid://cmvjg7u800om3" path="res://Icons/Menu/okButtonHower.png" id="5_idajl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43g3n"]
-bg_color = Color(0.14902, 0.258824, 0.32549, 1)
+bg_color = Color(0.4, 0.0156863, 0.509804, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.545098, 0, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87eql"]
-bg_color = Color(0.164706, 0.180392, 0.215686, 1)
+bg_color = Color(0.313726, 0.0117647, 0.4, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_lc4lg"]
+font = ExtResource("2_50fr5")
+font_size = 25
+font_color = Color(1, 0.545098, 0, 1)
 
 [node name="BonusDescription" type="Control"]
 process_mode = 2
@@ -43,7 +57,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_43g3n")
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_87eql")
 
@@ -61,6 +75,7 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Название"
+label_settings = SubResource("LabelSettings_lc4lg")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -72,16 +87,29 @@ theme_override_constants/margin_bottom = 6
 
 [node name="DescriptionLbl" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.898039, 0.984314, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_50fr5")
+theme_override_font_sizes/normal_font_size = 20
 text = "Описание
 
 "
+fit_content = true
+drag_and_drop_selection_enabled = false
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
 
-[node name="AcceptButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer2"]
+[node name="AcceptButton" type="TextureButton" parent="PanelContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
-size_flags_vertical = 8
-text = "Продолжить"
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture_normal = ExtResource("3_37i3w")
+texture_pressed = ExtResource("4_oa6ba")
+texture_hover = ExtResource("5_idajl")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer2/AcceptButton" to="." method="_on_accept_button_pressed"]

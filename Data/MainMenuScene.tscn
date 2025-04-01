@@ -38,7 +38,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MenuItems" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -53,7 +53,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuItems"]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_constants/margin_left = 0
@@ -61,30 +61,29 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer"]
-z_index = 1
+[node name="Panel" type="Panel" parent="MenuItems/MarginContainer"]
 custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxTexture_je3sf")
 
-[node name="MenuItems" type="PanelContainer" parent="VBoxContainer"]
+[node name="MenuItems" type="PanelContainer" parent="MenuItems"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_86iaw")
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MenuItems"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuItems/MenuItems"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MenuItems/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuItems/MenuItems/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 15
 
-[node name="StartButton" type="TextureButton" parent="VBoxContainer/MenuItems/MarginContainer/VBoxContainer"]
+[node name="StartButton" type="TextureButton" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -92,7 +91,7 @@ texture_normal = ExtResource("2_m3qnc")
 texture_pressed = ExtResource("3_n8mv2")
 texture_hover = ExtResource("5_bjuxf")
 
-[node name="ShopButton" type="TextureButton" parent="VBoxContainer/MenuItems/MarginContainer/VBoxContainer"]
+[node name="ShopButton" type="TextureButton" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -100,7 +99,7 @@ texture_normal = ExtResource("5_fl7gd")
 texture_pressed = ExtResource("6_p3v3r")
 texture_hover = ExtResource("9_j2fag")
 
-[node name="ExitButton" type="TextureButton" parent="VBoxContainer/MenuItems/MarginContainer/VBoxContainer"]
+[node name="ExitButton" type="TextureButton" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -112,6 +111,6 @@ texture_hover = ExtResource("10_8i72n")
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="VBoxContainer/MenuItems/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/MenuItems/MarginContainer/VBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/MenuItems/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="MenuItems/MenuItems/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuItems/MenuItems/MarginContainer/VBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="MenuItems/MenuItems/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

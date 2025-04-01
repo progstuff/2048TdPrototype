@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://da7kg0aeu2d40"]
+
+[ext_resource type="Script" path="res://Data/FreezeEffectParamsScript.gd" id="1_a2nne"]
+
+[node name="FreezeEffectParams" type="Node"]
+script = ExtResource("1_a2nne")

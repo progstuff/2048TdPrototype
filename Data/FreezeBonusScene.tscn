@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://cybm2uc3x5cwu"]
+
+[ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_dplfs"]
+[ext_resource type="Script" path="res://Data/FreezeBonusScript.gd" id="2_87m75"]
+[ext_resource type="Texture2D" uid="uid://c33bi8r1wg6fu" path="res://Icons/Menu/freezeBonus.png" id="3_u6ps7"]
+[ext_resource type="PackedScene" uid="uid://da7kg0aeu2d40" path="res://Data/FreezeEffectParams.tscn" id="4_hdbns"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ns5or"]
+texture = ExtResource("3_u6ps7")
+
+[node name="FreezeBonus" instance=ExtResource("1_dplfs")]
+script = ExtResource("2_87m75")
+
+[node name="BonusIcon" type="Panel" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ns5or")
+
+[node name="FreezeEffectParams" parent="." index="2" instance=ExtResource("4_hdbns")]
+
+[connection signal="gui_input" from="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel/BonusIcon" to="." method="_on_bonus_icon_gui_input"]

@@ -23,6 +23,7 @@ var pool = {}
 var lvl = 1
 
 var poisonParams = null
+var freezeParams = null
 
 func set_normal_shoot_period():
 	spawnWaitTime = bulletsSpawnPeriod
@@ -85,6 +86,15 @@ func remove_poison():
 func poison() -> Node:
 	return poisonParams
 	
+func add_freeze(_freezeParams:Node):
+	freezeParams = _freezeParams
+	
+func remove_freeze():
+	freezeParams = null
+
+func freeze() -> Node:
+	return freezeParams
+
 func restart():
 	stop_shooting()
 	for blt in bullets.get_children():
@@ -118,6 +128,7 @@ func create_bullet():
 	data.set_power_shift_val(bulletPowerShift)
 	data.set_start_speed(bulletSpeed)
 	data.set_poison(poisonParams)
+	data.set_freeze(freezeParams)
 	
 	return data
 

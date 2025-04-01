@@ -1,7 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgeyhx6fnp4m5"]
+[gd_scene load_steps=5 format=3 uid="uid://cgeyhx6fnp4m5"]
 
 [ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_4l4uo"]
 [ext_resource type="Script" path="res://Data/FieldCellRemoveBonusScript.gd" id="2_qioly"]
+[ext_resource type="Texture2D" uid="uid://i87n3ixjpgn3" path="res://Icons/Menu/remove2bonus.png" id="3_xw75h"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k3s41"]
+texture = ExtResource("3_xw75h")
 
 [node name="FieldCellRemoveBonus" instance=ExtResource("1_4l4uo")]
 script = ExtResource("2_qioly")
+
+[node name="BonusIcon" type="Panel" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.5
+offset_top = -59.0
+offset_right = 48.5
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_k3s41")
+
+[connection signal="gui_input" from="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel/BonusIcon" to="." method="_on_bonus_icon_gui_input"]

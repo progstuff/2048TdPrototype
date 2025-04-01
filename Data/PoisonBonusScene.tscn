@@ -10,7 +10,6 @@ texture = ExtResource("3_8fe3m")
 
 [node name="Bonus" instance=ExtResource("1_1mnkq")]
 script = ExtResource("2_yrkwq")
-speedMultiplier = 4
 
 [node name="BonusIcon" type="Panel" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
 layout_mode = 1

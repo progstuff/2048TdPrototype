@@ -4,8 +4,8 @@ var activatedBonuses = {}
 var bonuses = [null, null]
 var slots = []
 
-@onready var bonusOneSlot = $MarginContainer/HFlowContainer/BonusOne/BonusOneImage
-@onready var bonusTwoSlot = $MarginContainer/HFlowContainer/BonusTwo/BonusTwoImage
+@onready var bonusOneSlot = $MarginContainer/HFlowContainer/BonusOne/MarginContainer/BonusOneImage
+@onready var bonusTwoSlot = $MarginContainer/HFlowContainer/BonusTwo/MarginContainer/BonusTwoImage
 
 func _ready() -> void:
 	slots.insert(0, bonusOneSlot)

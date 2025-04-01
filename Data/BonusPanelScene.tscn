@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cg81qtoamt06p"]
+[gd_scene load_steps=14 format=3 uid="uid://cg81qtoamt06p"]
 
 [ext_resource type="Script" path="res://Data/BonusPanelScript.gd" id="1_w204r"]
 [ext_resource type="PackedScene" uid="uid://cyjf1ffgct46w" path="res://Data/BonusDescriptionScene.tscn" id="2_blmw2"]
 [ext_resource type="FontFile" uid="uid://cceis1op8xuls" path="res://Verdana-Bold.ttf" id="2_dknkq"]
+[ext_resource type="Texture2D" uid="uid://bacprs4vk6pf6" path="res://Icons/Menu/closeButton.png" id="3_8tric"]
+[ext_resource type="Texture2D" uid="uid://w0f24iw0axcn" path="res://Icons/Menu/closeButtonDown.png" id="4_3pbio"]
+[ext_resource type="Texture2D" uid="uid://dv6ijycgpnswb" path="res://Icons/Menu/closeButtonHower.png" id="5_14jw4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3inp"]
 bg_color = Color(0.4, 0.0156863, 0.509804, 1)
@@ -113,17 +116,21 @@ script = ExtResource("1_w204r")
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_okcr0")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Panel"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-offset_bottom = 40.0
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_bottom = 20.0
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 90
 theme_override_constants/margin_right = 3
 
@@ -138,11 +145,12 @@ text = "Магазин"
 label_settings = SubResource("LabelSettings_y6fwh")
 horizontal_alignment = 1
 
-[node name="CloseButton" type="Button" parent="VBoxContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="CloseButton" type="TextureButton" parent="VBoxContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 20
-text = "Закрыть"
+texture_normal = ExtResource("3_8tric")
+texture_pressed = ExtResource("4_3pbio")
+texture_hover = ExtResource("5_14jw4")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -164,7 +172,7 @@ alignment = 1
 
 [node name="BonusTimer" type="Timer" parent="."]
 process_mode = 1
-wait_time = 10.0
+wait_time = 60.0
 
 [node name="BonusDescription" parent="." instance=ExtResource("2_blmw2")]
 visible = false

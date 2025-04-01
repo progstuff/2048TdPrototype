@@ -49,7 +49,17 @@ func add_poison(_poisonParams:Node):
 func remove_poison():
 	for twr in towers.get_children():
 		twr.remove_poison()
+
+func add_freeze(_freezeParams:Node):
+	for twr in towers.get_children():
+		if(twr.get_tower_ind() == 0):
+			twr.add_freeze(_freezeParams)
+			break
 			
+func remove_freeze():
+	for twr in towers.get_children():
+		twr.remove_freeze()
+				
 func change_main_calibr_shoot_speed(_multiplyer: float):
 	for twr in towers.get_children():
 		if(twr.get_tower_ind() == 0):
@@ -83,12 +93,13 @@ func change_calibr(twrInd: int):
 	otherTwr.change_lvl(mainTwrLvl)
 	otherTwr.set_boosted_shoot_period(mult)
 	otherTwr.add_poison(mainTwr.poison())
+	otherTwr.add_freeze(mainTwr.freeze())
 	
 	mainTwr.set_tower_ind(twrInd)
 	mainTwr.change_lvl(otherTwrLvl)
 	mainTwr.set_normal_shoot_period()
 	mainTwr.remove_poison()
-	
+	mainTwr.remove_freeze()
 
 	
 func change_position(newX: int):

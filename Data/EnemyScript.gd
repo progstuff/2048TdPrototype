@@ -16,6 +16,9 @@ var rect = null
 var isPoisoned = false
 var poison = null
 
+var isFreezed = false
+var freeze = null
+
 func init(_health: int, _startPosition: Vector2, _speed: int):
 	
 	if(collider == null):
@@ -37,30 +40,66 @@ func init(_health: int, _startPosition: Vector2, _speed: int):
 func set_poison(_poison:Node):
 	poison = _poison
 	isPoisoned = true
+	
+	if(rect == null):
+		rect = $ColorRect
+	
+	rect.color = Color8(0, 255, 0, 255)
 
 func remove_poison():
 	poison = null
 	isPoisoned = false
 	
+	if(rect == null):
+		rect = $ColorRect
+	
+	rect.color = Color8(0, 0, 0, 255)
+
+func set_freeze(_freeze:Node):
+	freeze = _freeze
+	isFreezed = true
+	
+	if(rect == null):
+		rect = $ColorRect
+	
+	rect.color = Color8(0, 0, 255, 255)
+	
 func get_poison() -> Node:
 	return poison
+
+func remove_freeze():
+	freeze = null
+	isFreezed = false
+	
+	if(rect == null):
+		rect = $ColorRect
+	
+	rect.color = Color8(0, 0, 0, 255)
+	
+func get_freeze() -> Node:
+	return freeze
 	
 func activate():
 	visible = true
 	position = startPosition
 	isActivated = true
 	isPoisoned = false
+	isFreezed = false
 	
 func deactivate():
 	isActivated = false
 	visible = false
 	position = Vector2(-2000, -2000)
 	isPoisoned = false
+	isFreezed = false
 
 func _process(_delta: float) -> void:
 	if(!isActivated):
 		return
-	position = position + speed*moveVector*_delta
+	var deltaR = speed*moveVector*_delta
+	if(freeze != null):
+		deltaR = deltaR * freeze.get_slow_factor()
+	position = position + deltaR
 
 func _on_enemy_area_entered(area: Area2D) -> void:
 	if spawner == null:
@@ -76,9 +115,16 @@ func _on_enemy_area_entered(area: Area2D) -> void:
 		if(bullet.is_poisoned()):
 			var psn = bullet.get_poison()
 			psn.add_poison_to_enemy(self)
-
+		
+		if(bullet.is_freezed()):
+			var psn = bullet.get_freeze()
+			psn.add_freeze_to_enemy(self)
+		
 func is_poisoned() -> bool:
 	return isPoisoned
+
+func is_freezed() -> bool:
+	return isFreezed
 	
 func damaged(_damage: float):
 	curHealth = curHealth - _damage

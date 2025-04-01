@@ -11,13 +11,17 @@ var calibrBonusScene = load("res://Data/CalibrBonusScene.tscn")
 var fieldBonusScene = load("res://Data/FieldBonusScene.tscn")
 var fieldCellRemoveBonus = load("res://Data/FieldCellRemoveBonusScene.tscn")
 var poisonEffectBonus = load("res://Data/PoisonBonusScene.tscn")
+var freezeEffectBonus = load("res://Data/FreezeBonusScene.tscn")
 
 var playerPanel = null
 var bonuses = {}
 
 func _ready() -> void:
 	pass
-	
+
+func get_bonuses() -> Dictionary:
+	return bonuses
+
 func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel: Control, _effectsManager: Node):
 	
 	if(!bonuses.is_empty()):
@@ -43,11 +47,11 @@ func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel:
 	fieldBonus.deactivate()
 	bonuses[2] = fieldBonus
 	
-	var fieldVellRemoveBonus = fieldCellRemoveBonus.instantiate()
-	fieldVellRemoveBonus.set_bonus_panel(self)
-	fieldVellRemoveBonus.set_game_field(_gameField)
-	fieldVellRemoveBonus.deactivate()
-	bonuses[3] = fieldVellRemoveBonus
+	var fieldCellRemoveBonus = fieldCellRemoveBonus.instantiate()
+	fieldCellRemoveBonus.set_bonus_panel(self)
+	fieldCellRemoveBonus.set_game_field(_gameField)
+	fieldCellRemoveBonus.deactivate()
+	bonuses[3] = fieldCellRemoveBonus
 	
 	var poisonBonus = poisonEffectBonus.instantiate()
 	poisonBonus.set_bonus_panel(self)
@@ -55,6 +59,13 @@ func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel:
 	poisonBonus.set_manager(_effectsManager)
 	poisonBonus.deactivate()
 	bonuses[4] = poisonBonus
+	
+	var freezeBonus = freezeEffectBonus.instantiate()
+	freezeBonus.set_bonus_panel(self)
+	freezeBonus.set_wall(_wall)
+	freezeBonus.set_manager(_effectsManager)
+	freezeBonus.deactivate()
+	bonuses[5] = freezeBonus
 	
 	bonusTimer.start()
 	
@@ -72,8 +83,8 @@ func random_bonuses():
 	var showedBonuses = {}
 	
 	var cnt = 0
-	while(cnt < 2):
-		var ind = randi_range(0, 2)
+	while(cnt < 3):
+		var ind = randi_range(0, bonuses.size() - 1)
 		if(showedBonuses.has(ind)):
 			continue
 		if(bonuses.has(ind)):
@@ -83,12 +94,6 @@ func random_bonuses():
 			container.add_child(bonus)
 			showedBonuses[ind] = true
 			cnt = cnt + 1
-	
-	var bonus = bonuses[4]
-	bonus.activate()
-	
-	container.add_child(bonus)
-	showedBonuses[4] = true
 	
 func choose_bonus(_bonus: BonusElement):
 	if playerPanel.is_full():
@@ -119,12 +124,14 @@ func restart():
 	bonusTimer.stop()
 	bonusTimer.start()
 	visible = false
+	
+	random_bonuses()
 
 func _on_bonus_timer_timeout() -> void:
 	random_bonuses()
 
-func show_description():
-	bonusDescription.show_description("","")
+func show_description(_title:String, _description: String):
+	bonusDescription.show_description(_title, _description)
 
 func _on_close_button_pressed() -> void:
 	visible = false

@@ -94,6 +94,8 @@ size_flags_vertical = 4
 process_mode = 3
 visible = false
 layout_mode = 1
+offset_top = -199.0
+offset_bottom = 202.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Interface"]
 layout_mode = 1

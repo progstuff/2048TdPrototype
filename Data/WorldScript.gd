@@ -243,3 +243,8 @@ func _on_pause_button_pressed() -> void:
 
 func _on_shop_button_pressed() -> void:
 	bonusPanel.show_bonus_panel()
+
+func get_bonus_panel() -> PanelContainer:
+	if(bonusPanel == null):
+		bonusPanel = $Interface/BonusPanel
+	return bonusPanel

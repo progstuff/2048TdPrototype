@@ -9,7 +9,7 @@ var oldCoinChance = 0
 func _ready() -> void:
 	bonusName = "coinChance"
 	set_icon(image)
-	set_price(5)
+	set_price(30)
 	bonusTime = 20
 
 func set_enemy_spawners(_enemySpawners: Node):
@@ -33,3 +33,9 @@ func deactivate_bonus():
 
 func _on_bonus_icon_gui_input(_event: InputEvent) -> void:
 	_on_panel_gui_input(_event)
+
+func get_title():
+	return "Золотая лихорадка"
+
+func get_description():
+	return "Увеличивает шанс выпадения монет при уничтожении врагов. Действует 20 секунд"

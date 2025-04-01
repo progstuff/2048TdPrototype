@@ -1,18 +1,17 @@
 extends BonusElement
 
-@export var speedMultiplier = 4
 var image = load("res://Icons/Menu/poisonBonus.png")
 var wall = null
 @onready var poisonEffectParams = $PoisonEffectParams
 
-var poisonPeriod = 1
+var poisonPeriod = 0.5
 var poisonDuration = 10
-var poisonDamage = 1
+var poisonDamage = 5
 
 func _ready() -> void:
 	bonusName = "poison"
 	set_icon(image)
-	set_price(2)
+	set_price(20)
 	bonusTime = 20
 
 func set_manager(_manager: Node):
@@ -32,3 +31,9 @@ func deactivate_bonus():
 
 func _on_bonus_icon_gui_input(_event: InputEvent) -> void:
 	_on_panel_gui_input(_event)
+	
+func get_title():
+	return "Ядовитые снаряды"
+
+func get_description():
+	return "Главное оружие стреляет ядовитыми снарядами. Яд наносит периодический урон. Стрельба ядовитыми снарядами длится 20 секунд."

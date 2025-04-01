@@ -1,7 +1,7 @@
 extends PanelContainer
 class_name BonusElement
 
-@export var playerCoins = 10
+@export var playerCoins = 100
 @export var isChoosed = false
 var isActive = false
 var curCnt = 0
@@ -97,10 +97,16 @@ func clear_choose():
 func _on_panel_gui_input(_event: InputEvent) -> void:
 	if(_event.is_action_pressed("click")):
 		if(bonusPanel != null):
-			bonusPanel.show_description()
+			bonusPanel.show_description(get_title(), get_description())
 
 func set_icon(_icon: Texture2D):
 	icon = _icon
 		
 func get_icon() -> Texture2D:
 	return icon
+
+func get_title():
+	return ""
+
+func get_description():
+	return ""

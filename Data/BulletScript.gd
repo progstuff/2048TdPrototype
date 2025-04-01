@@ -14,6 +14,7 @@ var powerMultyplier = 1
 var powerShiftVal = 0
 
 var poison = null
+var freeze = null
 
 func _ready() -> void:
 	pass
@@ -26,7 +27,18 @@ func get_poison() -> Node:
 
 func set_poison(_poisonParams: Node):
 	poison = _poisonParams
-	
+	set_poison_color()
+
+func is_freezed():
+	return freeze != null
+
+func get_freeze() -> Node:
+	return freeze
+
+func set_freeze(_freezeParams: Node):
+	freeze = _freezeParams
+	set_freeze_color()
+		
 func set_power_multyplier(_multyplier: float):
 	powerMultyplier = _multyplier
 
@@ -60,10 +72,36 @@ func set_tower(_tower: TowerElement):
 	
 func change_lvl(_lvl: int) -> void:
 	lvl = _lvl
-	
+	set_color()
+
+func set_poison_color():
 	if rect == null:
 		rect = $ColorRect
 
+	if(poison != null):
+		var background = Color8(0, 255, 0, 255)
+		rect.color = background
+
+func set_freeze_color():
+	if rect == null:
+		rect = $ColorRect
+
+	if(freeze != null):
+		var background = Color8(0, 0, 255, 255)
+		rect.color = background
+		
+func set_color():
+	if rect == null:
+		rect = $ColorRect
+
+	if(poison != null):
+		set_poison_color()
+		return
+	
+	if(freeze != null):
+		set_freeze_color()
+		return
+		
 	var r = lvl % 15
 	
 	var background = Color8(255, 255, 255, 255)
@@ -107,6 +145,7 @@ func deactivate():
 	position = Vector2(-10000, -10000)
 	isActive = false
 	poison = null
+	freeze = null
 	
 func _process(_delta: float) -> void:
 	if isActive:
