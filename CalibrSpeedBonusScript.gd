@@ -3,7 +3,6 @@ extends BonusElement
 @export var speedMultiplier = 4
 var image = load("res://Icons/Menu/bonusCalibr.png")
 var wall = null
-var oldCoinChance = 0
 
 func _ready() -> void:
 	bonusName = "calibrAtttackSpeed"

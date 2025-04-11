@@ -7,11 +7,14 @@ var speed
 var startY = 0
 var isActive = false
 var shiftX = 0
-@onready var rect = $ColorRect
+
+@onready var sprite = $Sprite2D
+@onready var animationPlayer = $AnimationPlayer
 var tower = null
 
 var powerMultyplier = 1
 var powerShiftVal = 0
+var damageMult = 1
 
 var poison = null
 var freeze = null
@@ -52,7 +55,7 @@ func get_power_shift_val() -> float:
 	return powerShiftVal
 	
 func calculate_power() -> float:
-	return lvl * powerMultyplier + powerShiftVal
+	return (lvl * powerMultyplier + powerShiftVal) * damageMult
 	
 func set_start_speed(_speed: int):
 	startSpeed = _speed
@@ -61,7 +64,13 @@ func set_start_speed(_speed: int):
 func get_start_speed() -> float:
 	return startSpeed
 	
-func init(_lvl: int, _shiftX: int):
+func init(_tower: Node2D, _lvl: int, _shiftX: int):
+	if(sprite == null):
+		sprite = $Sprite2D
+	if(animationPlayer == null):
+		animationPlayer = $AnimationPlayer
+	tower = _tower
+	damageMult = tower.get_bullet_attack_damage_mult()
 	change_lvl(_lvl)
 	speed = startSpeed
 	shiftX = _shiftX
@@ -75,25 +84,19 @@ func change_lvl(_lvl: int) -> void:
 	set_color()
 
 func set_poison_color():
-	if rect == null:
-		rect = $ColorRect
 
 	if(poison != null):
 		var background = Color8(0, 255, 0, 255)
-		rect.color = background
+		sprite.modulate = background
 
 func set_freeze_color():
-	if rect == null:
-		rect = $ColorRect
 
 	if(freeze != null):
 		var background = Color8(0, 0, 255, 255)
-		rect.color = background
+		sprite.modulate = background
 		
 func set_color():
-	if rect == null:
-		rect = $ColorRect
-
+	
 	if(poison != null):
 		set_poison_color()
 		return
@@ -101,7 +104,10 @@ func set_color():
 	if(freeze != null):
 		set_freeze_color()
 		return
-		
+	
+	if(damageMult > 1):
+		sprite.modulate = Color8(255, 0, 0, 255)
+		return
 	var r = lvl % 15
 	
 	var background = Color8(255, 255, 255, 255)
@@ -133,12 +139,13 @@ func set_color():
 		background = Color8(236, 77, 85, 255)
 	elif(r == 14):
 		background = Color8(236, 65, 40, 255)
-	rect.color = background
+	sprite.modulate = background
 	
 func activate():
 	visible = true
 	position = Vector2(shiftX, 0)
 	isActive = true
+	animationPlayer.play("shoot")
 
 func deactivate():
 	visible = false
@@ -146,6 +153,7 @@ func deactivate():
 	isActive = false
 	poison = null
 	freeze = null
+	animationPlayer.stop()
 	
 func _process(_delta: float) -> void:
 	if isActive:

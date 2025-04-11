@@ -36,16 +36,44 @@ func get_bullet_power_mult() -> float:
 func get_bullet_power_shift() -> float:
 	return towers.get_child(0).bulletPowerShift
 
+func change_main_calibr_shoot_speed(_multiplyer: float):
+	for twr in towers.get_children():
+		if(twr.get_tower_ind() == 0):
+			twr.set_boosted_shoot_period(_multiplyer)
+			break
+			
 func set_normal_shoot_period():
 	for twr in towers.get_children():
 		twr.set_normal_shoot_period()
 
+func change_main_calibr_shoot_attack(_multiplyer: float):
+	for twr in towers.get_children():
+		if(twr.get_tower_ind() == 0):
+			twr.set_boosted_shoot_attack(_multiplyer)
+			break
+			
+func set_normal_shoot_attack():
+	for twr in towers.get_children():
+		twr.set_normal_shoot_attack()
+	
+func change_global_shoot_speed(_multiplyer: float):
+	for twr in towers.get_children():
+		twr.set_boosted_shoot_period(_multiplyer)
+
+func change_global_calibr_shoot_attack(_multiplyer: float):
+	for twr in towers.get_children():
+		twr.set_boosted_shoot_attack(_multiplyer)
+		
 func add_poison(_poisonParams:Node):
 	for twr in towers.get_children():
 		if(twr.get_tower_ind() == 0):
 			twr.add_poison(_poisonParams)
 			break
-			
+
+func add_global_poison(_poisonParams:Node):
+	for twr in towers.get_children():
+		twr.add_poison(_poisonParams)
+					
 func remove_poison():
 	for twr in towers.get_children():
 		twr.remove_poison()
@@ -55,16 +83,14 @@ func add_freeze(_freezeParams:Node):
 		if(twr.get_tower_ind() == 0):
 			twr.add_freeze(_freezeParams)
 			break
-			
+
+func add_global_freeze(_freezeParams:Node):
+	for twr in towers.get_children():
+		twr.add_freeze(_freezeParams)
+		
 func remove_freeze():
 	for twr in towers.get_children():
 		twr.remove_freeze()
-				
-func change_main_calibr_shoot_speed(_multiplyer: float):
-	for twr in towers.get_children():
-		if(twr.get_tower_ind() == 0):
-			twr.set_boosted_shoot_period(_multiplyer)
-			break
 	
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("click"):
@@ -88,18 +114,25 @@ func change_calibr(twrInd: int):
 	var otherTwrLvl = otherTwr.lvl
 	
 	var mult = mainTwr.get_bullet_spawn_mult()
+	var damageMult = mainTwr.get_bullet_attack_damage_mult()
+	var otherMult = otherTwr.get_bullet_spawn_mult()
+	var otherDamageMult = otherTwr.get_bullet_attack_damage_mult()
+	var otherTwrPoison = otherTwr.poison()
+	var otherTwrFreeze = otherTwr.freeze()
 	
 	otherTwr.set_tower_ind(0)
 	otherTwr.change_lvl(mainTwrLvl)
 	otherTwr.set_boosted_shoot_period(mult)
+	otherTwr.set_boosted_shoot_attack(damageMult)
 	otherTwr.add_poison(mainTwr.poison())
 	otherTwr.add_freeze(mainTwr.freeze())
 	
 	mainTwr.set_tower_ind(twrInd)
 	mainTwr.change_lvl(otherTwrLvl)
-	mainTwr.set_normal_shoot_period()
-	mainTwr.remove_poison()
-	mainTwr.remove_freeze()
+	mainTwr.set_boosted_shoot_period(otherMult)
+	mainTwr.set_boosted_shoot_attack(otherDamageMult)
+	mainTwr.add_poison(otherTwrPoison)
+	mainTwr.add_freeze(otherTwrFreeze)
 
 	
 func change_position(newX: int):

@@ -4,6 +4,8 @@ class_name TowerElement
 @onready var rect = $ColorRect
 @onready var lvlLbl = $ColorRect/Label
 @onready var bullets = $Bullets
+@onready var sprite = $Sprite2D
+@onready var animationPlayer = $AnimationPlayer
 
 var needSpawnBullets = false
 var curSpawnTime = 0
@@ -15,6 +17,7 @@ var spawnWaitTime = 2
 
 var bulletsSpawnPeriod = 2.0
 var bulletSpawnMult = 1.0
+var bulletAttackDamageMult = 1.0
 
 var towerInd = 0
 var bullet = load("res://Data/BulletScene.tscn")
@@ -25,6 +28,9 @@ var lvl = 1
 var poisonParams = null
 var freezeParams = null
 
+func get_bullet_attack_damage_mult() -> float:
+	return bulletAttackDamageMult
+	
 func set_normal_shoot_period():
 	spawnWaitTime = bulletsSpawnPeriod
 	bulletSpawnMult = 1.0
@@ -33,6 +39,12 @@ func set_boosted_shoot_period(_bulletSpawnMult: float):
 	bulletSpawnMult = _bulletSpawnMult
 	spawnWaitTime = bulletsSpawnPeriod / bulletSpawnMult
 
+func set_normal_shoot_attack():
+	bulletAttackDamageMult = 1.0
+
+func set_boosted_shoot_attack(_bulletAttackMult: float):
+	bulletAttackDamageMult = _bulletAttackMult
+	
 func get_bullet_spawn_mult() -> float:
 	return bulletSpawnMult
 
@@ -100,6 +112,7 @@ func restart():
 	for blt in bullets.get_children():
 		remove_bullet(blt)
 	set_normal_shoot_period()
+	set_normal_shoot_attack()
 	start_shooting()
 	
 func get_str_lbl(_number: int) -> String:
@@ -122,7 +135,7 @@ func create_bullet():
 	if(data == null):
 		data = bullet.instantiate()
 	
-	data.init(lvl, get_width())
+	data.init(self, lvl, get_width())
 
 	data.set_power_multyplier(bulletPowerMult)
 	data.set_power_shift_val(bulletPowerShift)
@@ -177,9 +190,11 @@ func change_lvl(_lvl: int):
 	elif(r == 14):
 		background = Color8(236, 65, 40, 255)
 	
-	var styleBox: StyleBoxFlat = rect.get_theme_stylebox("panel").duplicate()
-	styleBox.set("bg_color", background)
-	rect.add_theme_stylebox_override("panel", styleBox)
+	#var styleBox: StyleBoxFlat = rect.get_theme_stylebox("panel").duplicate()
+	#styleBox.set("bg_color", background)
+	#rect.add_theme_stylebox_override("panel", styleBox)
+	
+	sprite.modulate = background
 	
 	if(lvl == 0):
 		visible = false
@@ -193,14 +208,13 @@ func _process(_delta: float) -> void:
 	
 	curSpawnTime += _delta
 	if(curSpawnTime >= spawnWaitTime):
-		spawn_bullet()
+		animationPlayer.play("shoot")
 		curSpawnTime = 0
 	
 func spawn_bullet() -> void:
 	if(visible):
 		var bult = create_bullet()
 		bullets.add_child(bult)
-		bult.set_tower(self)
 
 func is_pnt_in_area(pnt: Vector2) -> bool:
 	var globalPos = global_position
@@ -213,3 +227,8 @@ func is_pnt_in_area(pnt: Vector2) -> bool:
 		if(mousePos.y > upY and mousePos.y < downY):
 			return true
 	return false
+
+
+func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
+	if(_anim_name == "shoot"):
+		spawn_bullet()

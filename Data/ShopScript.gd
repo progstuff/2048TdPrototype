@@ -6,6 +6,11 @@ var fieldBonusScene = load("res://Data/FieldBonusScene.tscn")
 var fieldCellRemoveBonus = load("res://Data/FieldCellRemoveBonusScene.tscn")
 var poisonEffectBonus = load("res://Data/PoisonBonusScene.tscn")
 var freezeEffectBonus = load("res://Data/FreezeBonusScene.tscn")
+var calibrAttackBonusScene = load("res://Data/CalibrAttackBonusScene.tscn")
+var globalFreezeBonusScene = load("res://Data/GlobalFreezeBonusScene.tscn")
+var globalPoisonBonusScene = load("res://Data/GlobalPoisonBonusScene.tscn")
+var globalCalibrBonusScene = load("res://Data/GlobalSpeedCalibrScene.tscn")
+var globalAttackBonusScene = load("res://Data/GlobalAttackBonusScene.tscn")
 
 var mainMenu = null
 var bonusPanel = null
@@ -18,18 +23,30 @@ var shopItemScene = load("res://Data/ShopItemScene.tscn")
 
 func _ready() -> void:
 	var bonuses = []
-	var coinBonus = coinBonusScene.instantiate()
 	var calibrBonus = calibrBonusScene.instantiate()
-	var fieldBonus = fieldBonusScene.instantiate()
-	var fieldCellRemoveBonus = fieldCellRemoveBonus.instantiate()
 	var poisonBonus = poisonEffectBonus.instantiate()
 	var freezeBonus = freezeEffectBonus.instantiate()
-	bonuses.append(coinBonus)
+	var calibrAttackBonus = calibrAttackBonusScene.instantiate()
+	var coinBonus = coinBonusScene.instantiate()
+	var fieldBonus = fieldBonusScene.instantiate()
+	var fieldCellRemoveBonus = fieldCellRemoveBonus.instantiate()
+	
+	var globalFreezeBonus = globalFreezeBonusScene.instantiate()
+	var globalPoisonBonus = globalPoisonBonusScene.instantiate()
+	var globalCalibrBonus = globalCalibrBonusScene.instantiate()
+	var globalAttackBonus =globalAttackBonusScene.instantiate()
+	
 	bonuses.append(calibrBonus)
-	bonuses.append(fieldBonus)
-	bonuses.append(fieldCellRemoveBonus)
 	bonuses.append(poisonBonus)
 	bonuses.append(freezeBonus)
+	bonuses.append(calibrAttackBonus)
+	bonuses.append(coinBonus)
+	bonuses.append(fieldBonus)
+	bonuses.append(fieldCellRemoveBonus)
+	bonuses.append(globalFreezeBonus)
+	bonuses.append(globalPoisonBonus)
+	bonuses.append(globalCalibrBonus)
+	bonuses.append(globalAttackBonus)
 	
 	for bonus in bonuses:
 		bonus._ready()

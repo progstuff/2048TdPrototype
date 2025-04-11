@@ -1,31 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://br7h71137vsum"]
+[gd_scene load_steps=4 format=3 uid="uid://br7h71137vsum"]
 
 [ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_a5kh1"]
 [ext_resource type="Script" path="res://CalibrSpeedBonusScript.gd" id="2_1hmqc"]
 [ext_resource type="Texture2D" uid="uid://c1hnrm534msxs" path="res://Icons/Menu/bonusCalibr.png" id="3_f7xhe"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2544j"]
-texture = ExtResource("3_f7xhe")
-
 [node name="CalibrBonus" instance=ExtResource("1_a5kh1")]
 script = ExtResource("2_1hmqc")
 speedMultiplier = 4
 
-[node name="BonusIcon" type="Panel" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
+[node name="BonusIcon" type="TextureRect" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -43.0
-offset_top = -52.0
-offset_right = -3.0
-offset_bottom = -12.0
+offset_left = -56.0
+offset_top = -66.0
+offset_right = -16.0
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(3, 3)
-theme_override_styles/panel = SubResource("StyleBoxTexture_2544j")
-metadata/_edit_use_anchors_ = true
+texture = ExtResource("3_f7xhe")
+expand_mode = 1
+stretch_mode = 5
 
 [connection signal="gui_input" from="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel/BonusIcon" to="." method="_on_bonus_icon_gui_input"]

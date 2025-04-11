@@ -12,6 +12,11 @@ var fieldBonusScene = load("res://Data/FieldBonusScene.tscn")
 var fieldCellRemoveBonus = load("res://Data/FieldCellRemoveBonusScene.tscn")
 var poisonEffectBonus = load("res://Data/PoisonBonusScene.tscn")
 var freezeEffectBonus = load("res://Data/FreezeBonusScene.tscn")
+var calibrAttackBonusScene = load("res://Data/CalibrAttackBonusScene.tscn")
+var globalFreezeEffectBonus = load("res://Data/GlobalFreezeBonusScene.tscn")
+var globalPoisonEffectBonus = load("res://Data/GlobalPoisonBonusScene.tscn")
+var globalCalibrBonusScene = load("res://Data/GlobalSpeedCalibrScene.tscn")
+var globalAttackBonusScene = load("res://Data/GlobalAttackBonusScene.tscn")
 
 var playerPanel = null
 var bonuses = {}
@@ -66,6 +71,38 @@ func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel:
 	freezeBonus.set_manager(_effectsManager)
 	freezeBonus.deactivate()
 	bonuses[5] = freezeBonus
+	
+	var calibrAttackBonus = calibrAttackBonusScene.instantiate()
+	calibrAttackBonus.set_bonus_panel(self)
+	calibrAttackBonus.set_wall(_wall)
+	calibrAttackBonus.deactivate()
+	bonuses[6] = calibrAttackBonus
+	
+	var globalFreezeBonus = globalFreezeEffectBonus.instantiate()
+	globalFreezeBonus.set_bonus_panel(self)
+	globalFreezeBonus.set_wall(_wall)
+	globalFreezeBonus.set_manager(_effectsManager)
+	globalFreezeBonus.deactivate()
+	bonuses[7] = globalFreezeBonus
+	
+	var globalPoisonBonus = globalPoisonEffectBonus.instantiate()
+	globalPoisonBonus.set_bonus_panel(self)
+	globalPoisonBonus.set_wall(_wall)
+	globalPoisonBonus.set_manager(_effectsManager)
+	globalPoisonBonus.deactivate()
+	bonuses[8] = globalPoisonBonus
+	
+	var globalCalibrBonus = globalCalibrBonusScene.instantiate()
+	globalCalibrBonus.set_bonus_panel(self)
+	globalCalibrBonus.set_wall(_wall)
+	globalCalibrBonus.deactivate()
+	bonuses[9] = globalCalibrBonus
+	
+	var globalAttackBonus = globalAttackBonusScene.instantiate()
+	globalAttackBonus.set_bonus_panel(self)
+	globalAttackBonus.set_wall(_wall)
+	globalAttackBonus.deactivate()
+	bonuses[10] = globalAttackBonus
 	
 	bonusTimer.start()
 	

@@ -21,8 +21,13 @@ var difficult = 0
 
 @export var coinSpawner = null
 
+var world = null
+
 func _ready():
 	start_spawn_enemies()
+
+func set_world(_world: Node2D):
+	world = _world
 	
 func start_spawn_enemies():
 	calculate_enemy_wait_time()
@@ -64,6 +69,8 @@ func remove_enemy(_enemy: EnemyElement):
 	var isNeedCoin = randf_range(0, 1) <= coinChance*coinChanceMultiplier
 	if(isNeedCoin):
 		coinSpawner.create_coin(pos)
+		
+	world.change_score(enemyHealth)
 
 func _on_spawn_timer_timeout() -> void:
 	var minHealth = health - healthDelta

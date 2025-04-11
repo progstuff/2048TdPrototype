@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cohxx57wa5qri"]
+
+[ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_rwngv"]
+[ext_resource type="Texture2D" uid="uid://cfmb56kw31o6p" path="res://Icons/Menu/globalFreezeBonus.png" id="2_04b87"]
+[ext_resource type="Script" path="res://Data/GlobalFreezeBonusScript.gd" id="2_mnksg"]
+[ext_resource type="PackedScene" uid="uid://da7kg0aeu2d40" path="res://Data/FreezeEffectParams.tscn" id="4_3ybjx"]
+
+[node name="GlobalFreezeBonus" instance=ExtResource("1_rwngv")]
+script = ExtResource("2_mnksg")
+
+[node name="BonusIcon" type="TextureRect" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_04b87")
+
+[node name="FreezeEffectParams" parent="." index="2" instance=ExtResource("4_3ybjx")]

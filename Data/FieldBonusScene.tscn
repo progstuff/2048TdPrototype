@@ -1,28 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnjk5650v13ap"]
+[gd_scene load_steps=4 format=3 uid="uid://cnjk5650v13ap"]
 
 [ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_qyw5p"]
 [ext_resource type="Script" path="res://Data/FieldBonusScript.gd" id="2_kxwvd"]
 [ext_resource type="Texture2D" uid="uid://cnlkm6aisgvfu" path="res://Icons/Menu/2x2bonus.png" id="3_gbm3t"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8j0dq"]
-texture = ExtResource("3_gbm3t")
-
 [node name="FieldBonus" instance=ExtResource("1_qyw5p")]
 script = ExtResource("2_kxwvd")
 
-[node name="BonusIcon" type="Panel" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
+[node name="BonusIcon" type="TextureRect" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -67.5
-offset_top = -31.0
-offset_right = 67.5
-offset_bottom = 31.0
+offset_left = -70.0
+offset_top = -70.0
+offset_right = 70.0
+offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_8j0dq")
+texture = ExtResource("3_gbm3t")
+expand_mode = 1
+stretch_mode = 5
 
 [connection signal="gui_input" from="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel/BonusIcon" to="." method="_on_bonus_icon_gui_input"]

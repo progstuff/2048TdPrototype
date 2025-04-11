@@ -186,12 +186,12 @@ theme_override_constants/separation = 0
 
 [node name="Label" type="Label" parent="Interface/HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Урон"
+text = "Очки"
 label_settings = SubResource("LabelSettings_afgj4")
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="DamageCnt" type="Label" parent="Interface/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="ScoreCnt" type="Label" parent="Interface/HBoxContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "0

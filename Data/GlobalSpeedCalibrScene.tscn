@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjbc0suqignpe"]
+
+[ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_omhhu"]
+[ext_resource type="Script" path="res://Data/GlobalSpeedCalibrScript.gd" id="2_7skll"]
+[ext_resource type="Texture2D" uid="uid://c20y72jqjs4ei" path="res://Icons/Menu/globalCalibrBonus.png" id="3_imux7"]
+
+[node name="GlobalSpeedCalibr" instance=ExtResource("1_omhhu")]
+script = ExtResource("2_7skll")
+speedMultiplier = 4
+
+[node name="BonusIcon" type="TextureRect" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -92.0
+offset_right = 72.0
+offset_bottom = 111.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_imux7")
+expand_mode = 1
+stretch_mode = 5

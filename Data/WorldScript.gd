@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var gameField = $GameField
 @onready var wall = $Wall
-@onready var damageValLbl = $Interface/HBoxContainer/PanelContainer/VBoxContainer/DamageCnt
+@onready var scoreValLbl = $Interface/HBoxContainer/PanelContainer/VBoxContainer/ScoreCnt
 @onready var coinValLbl = $Interface/HBoxContainer/PanelContainer2/VBoxContainer/CoinsCnt
 @onready var enemyLines = $EnemyLines
 @onready var timer =$Timer
@@ -22,6 +22,7 @@ var curSeconds = 0
 var enemySpawnerScene = load("res://Data/EnemySpawnerScene.tscn")
 
 var config = ConfigFile.new()
+var score = 0
 
 func _ready() -> void:
 
@@ -35,6 +36,7 @@ func _ready() -> void:
 	
 	for pos in ys:
 		var enemySpawner = enemySpawnerScene.instantiate()
+		enemySpawner.set_world(self)
 		enemySpawner.coinSpawner = coinSpawner
 		enemySpawner.position.x = get_viewport_rect().size.x
 		enemySpawner.position.y = pos.y
@@ -98,6 +100,16 @@ func _ready() -> void:
 	gameOverMenu.init(self)
 	pauseMenu.init(self)
 
+	if(scoreValLbl == null):
+		scoreValLbl = $VBoxContainer/HBoxContainer/ScoreCnt
+	
+	score = 0
+	change_score(0)
+	
+func change_score(_score: float):
+	score += _score
+	scoreValLbl.text = str(score)
+	
 func set_main_menu(_mainMenu:Control):
 	mainMenu = _mainMenu
 
@@ -109,12 +121,11 @@ func show_main_menu():
 func _on_game_field_max_value_changed() -> void:
 	if(gameField == null):
 		gameField = $GameField
-	if(damageValLbl == null):
-		damageValLbl = $VBoxContainer/HBoxContainer/DamageCnt
+		
 	if(wall == null):
 		wall = $Wall
 	wall.change_lvl(gameField.maxNumbers)
-	damageValLbl.text = str(wall.damage)
+
 	if(wall.damage > 0):
 		gameOverMenu.show_menu()
 
@@ -132,6 +143,9 @@ func restart_game():
 	curSeconds = 0
 	timerLbl.text = "00:00 "
 	timer.start()
+	
+	score = 0
+	change_score(0)
 	
 	coinsCnt = 0
 	coinValLbl.text = str(coinsCnt)

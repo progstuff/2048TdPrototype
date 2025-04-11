@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://tqd0btvajbpi"]
+[gd_scene load_steps=8 format=3 uid="uid://tqd0btvajbpi"]
 
 [ext_resource type="Script" path="res://Data/EnemyScript.gd" id="1_exsd8"]
+[ext_resource type="Texture2D" uid="uid://dfymag1lvlnjc" path="res://Animations/EnemySpriteSheet.png" id="2_f8ptx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3xrn8"]
 font_size = 25
@@ -8,11 +9,51 @@ font_size = 25
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wiik2"]
 size = Vector2(69, 54)
 
+[sub_resource type="Animation" id="Animation_0v8f5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_5r038"]
+resource_name = "walk"
+length = 1.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8fusm"]
+_data = {
+"RESET": SubResource("Animation_0v8f5"),
+"walk": SubResource("Animation_5r038")
+}
+
 [node name="Enemy" type="Node2D"]
 z_index = -1
 script = ExtResource("1_exsd8")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_right = 70.0
 offset_bottom = 55.0
 color = Color(0.0885599, 0.0885599, 0.0885599, 1)
@@ -42,5 +83,19 @@ collision_mask = 4
 [node name="Collider" type="CollisionShape2D" parent="enemy"]
 position = Vector2(34.5, 28)
 shape = SubResource("RectangleShape2D_wiik2")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0.81, 0.1458, 0.1458, 1)
+position = Vector2(34, 23)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("2_f8ptx")
+flip_h = true
+hframes = 8
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8fusm")
+}
 
 [connection signal="area_entered" from="enemy" to="." method="_on_enemy_area_entered"]

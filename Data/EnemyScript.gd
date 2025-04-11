@@ -1,6 +1,10 @@
 extends Node2D
 class_name EnemyElement
 
+@onready var enemyImage = $Sprite
+@onready var animationPlayer = $AnimationPlayer
+@onready var sprite = $Sprite
+
 @export var maxHealth = 20
 var curHealth = maxHealth
 @export var startPosition = Vector2.ZERO
@@ -27,6 +31,10 @@ func init(_health: int, _startPosition: Vector2, _speed: int):
 		healthLabel = $ColorRect/Health
 	if(rect == null):
 		rect = $ColorRect
+	if(animationPlayer == null):
+		animationPlayer = $AnimationPlayer
+	if(sprite == null):
+		sprite = $Sprite
 		
 	maxHealth = _health
 	curHealth = _health
@@ -85,6 +93,8 @@ func activate():
 	isActivated = true
 	isPoisoned = false
 	isFreezed = false
+	sprite.modulate = Color8(0, 255, 0)
+	animationPlayer.play("walk")
 	
 func deactivate():
 	isActivated = false
@@ -92,6 +102,7 @@ func deactivate():
 	position = Vector2(-2000, -2000)
 	isPoisoned = false
 	isFreezed = false
+	animationPlayer.stop()
 
 func _process(_delta: float) -> void:
 	if(!isActivated):
@@ -100,6 +111,7 @@ func _process(_delta: float) -> void:
 	if(freeze != null):
 		deltaR = deltaR * freeze.get_slow_factor()
 	position = position + deltaR
+	
 
 func _on_enemy_area_entered(area: Area2D) -> void:
 	if spawner == null:
@@ -134,6 +146,12 @@ func damaged(_damage: float):
 		healthLabel.text = str(int(curHealth))
 	if(curHealth <= 0):
 		spawner.remove_enemy(self)
+	var h = curHealth/maxHealth
+	if(h >= 0.3 and h <= 0.7):
+		sprite.modulate = Color8(255, 255, 0)
+	elif(h < 0.3):
+		sprite.modulate = Color8(255, 0, 0)
+		
 		
 func get_global_center_pos() -> Vector2:
 	var x = rect.size.x/2 + global_position.x
