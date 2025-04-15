@@ -5,7 +5,7 @@ class_name BonusElement
 @export var isChoosed = false
 var isActive = false
 var curCnt = 0
-@export var bonusTime = 2
+@export var bonusTime = 0
 @export var bonusName = ""
 @onready var priceLbl = $VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer2/PricePanel/HBoxContainer/MarginContainer2/PriceLbl
 @onready var disabledPanel = $DisabledPanel

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c76aahesql0e1"]
+[gd_scene load_steps=12 format=3 uid="uid://c76aahesql0e1"]
 
 [ext_resource type="Script" path="res://Data/ShopScript.gd" id="1_aiu4e"]
 [ext_resource type="FontFile" uid="uid://cceis1op8xuls" path="res://Verdana-Bold.ttf" id="2_3ekfo"]
@@ -28,6 +28,12 @@ font_color = Color(1, 0.545098, 0, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2dx3t"]
 texture = ExtResource("3_108nc")
+
+[sub_resource type="LabelSettings" id="LabelSettings_1l6m0"]
+font = ExtResource("2_3ekfo")
+font_size = 25
+font_color = Color(0.898039, 0.984314, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="Shop" type="Control"]
 layout_mode = 3
@@ -146,5 +152,21 @@ size_flags_horizontal = 8
 texture_normal = ExtResource("3_ug7yg")
 texture_pressed = ExtResource("4_rq670")
 texture_hover = ExtResource("5_j3dbr")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BACK"
+label_settings = SubResource("LabelSettings_1l6m0")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dayd2vf7sxewp"]
+[gd_scene load_steps=15 format=3 uid="uid://dayd2vf7sxewp"]
 
 [ext_resource type="Script" path="res://Data/BonusScript.gd" id="1_7scx3"]
 [ext_resource type="Texture2D" uid="uid://hj1e3t7dl417" path="res://Icons/Menu/emptyBonusIcon.png" id="2_3h4w3"]
@@ -33,6 +33,12 @@ texture = ExtResource("3_hf6b6")
 font = ExtResource("4_bg6wx")
 font_size = 30
 font_color = Color(0.898039, 0.984314, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_34slb"]
+font = ExtResource("4_bg6wx")
+font_size = 30
+font_color = Color(0.898039, 0.984314, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hp30"]
 bg_color = Color(0, 0, 0, 0.54902)
@@ -133,6 +139,22 @@ size_flags_horizontal = 3
 texture_normal = ExtResource("3_gsdk1")
 texture_pressed = ExtResource("4_8vq5x")
 texture_hover = ExtResource("5_wx4k0")
+
+[node name="Label" type="Label" parent="VBoxContainer2/HBoxContainer/MarginContainer/ChooseButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BUY"
+label_settings = SubResource("LabelSettings_34slb")
 
 [node name="DisabledPanel" type="Panel" parent="."]
 visible = false

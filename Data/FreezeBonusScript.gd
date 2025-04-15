@@ -32,7 +32,7 @@ func _on_bonus_icon_gui_input(_event: InputEvent) -> void:
 	_on_panel_gui_input(_event)
 	
 func get_title():
-	return "Ледяные снаряды"
+	return tr("FREEZE_BONUS_TITLE")
 
 func get_description():
-	return "Главное оружие стреляет замораживающими снарядами, замедляющие врагов. Стрельба замораживающими снарядами длится 20 секунд."
+	return tr("FREEZE_BONUS_DESCRIPTION")

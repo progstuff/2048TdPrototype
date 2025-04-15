@@ -9,6 +9,7 @@ signal need_restart()
 @export var cellWidthPx = 100
 @export var borderWidthPx = 4
 @export var shiftSpeed = 2500
+var startLeft = 6
 
 var fieldRect = null
 var cellManager = null
@@ -100,7 +101,7 @@ func init(_rowsCnt: int, _columnsCnt: int):
 	var viewportRect = get_viewport_rect()
 	var height = cellWidthPx * fieldRowsCnt
 	var y = viewportRect.size.y - 80 - height
-	position.x = 40
+	position.x = startLeft + 8
 	position.y = y
 	
 	var rectWidth = fieldRowsCnt*cellHeightPx + borderWidthPx*2

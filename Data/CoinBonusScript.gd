@@ -35,7 +35,7 @@ func _on_bonus_icon_gui_input(_event: InputEvent) -> void:
 	_on_panel_gui_input(_event)
 
 func get_title():
-	return "Золотая лихорадка"
+	return tr("COIN_BONUS_TITLE")
 
 func get_description():
-	return "Увеличивает шанс выпадения монет при уничтожении врагов. Действует 20 секунд"
+	return tr("COIN_BONUS_DESCRIPTION")

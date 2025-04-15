@@ -2,7 +2,7 @@ extends Node2D
 class_name TowerElement
 
 @onready var rect = $ColorRect
-@onready var lvlLbl = $ColorRect/Label
+@onready var lvlLbl = $Sprite2D/Label
 @onready var bullets = $Bullets
 @onready var sprite = $Sprite2D
 @onready var animationPlayer = $AnimationPlayer

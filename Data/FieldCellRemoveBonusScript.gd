@@ -19,7 +19,7 @@ func _on_bonus_icon_gui_input(_event: InputEvent) -> void:
 	_on_panel_gui_input(_event)
 	
 func get_title():
-	return "Удаление двойки"
+	return tr("FIELD_CELL_REMOVE_BONUS_TITLE")
 
 func get_description():
-	return "Удаляет случайную ячейку с двойкой, если она есть на поле. Срабатывает однократно."
+	return tr("FIELD_CELL_REMOVE_BONUS_DESCRIPTION")

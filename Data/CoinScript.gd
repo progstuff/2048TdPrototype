@@ -1,6 +1,7 @@
 extends Node2D
 class_name CoinElement
 
+@onready var animationPlayer = $AnimationPlayer
 @onready var panel = $Panel
 var coinSpawner = null
 
@@ -10,9 +11,13 @@ func _ready() -> void:
 func deactivate():
 	visible = false
 	position = Vector2(-1000, -1000)
+	animationPlayer.stop()
 	
 func activate():
 	visible = true
+	if(animationPlayer == null):
+		animationPlayer = $AnimationPlayer
+	animationPlayer.play("rotate", -1, 1.2)
 	
 func init(_coinSpawner, _pos: Vector2):
 	if(panel == null):

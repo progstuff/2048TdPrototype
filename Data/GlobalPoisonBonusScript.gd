@@ -33,7 +33,7 @@ func _on_bonus_icon_gui_input(_event: InputEvent) -> void:
 	_on_panel_gui_input(_event)
 	
 func get_title():
-	return "Ядовитые снаряды"
+	return tr("GLOBAL_POISON_BONUS_TITLE")
 
 func get_description():
-	return "Все орудия стреляют ядовитыми снарядами. Яд наносит периодический урон. Стрельба ядовитыми снарядами длится 20 секунд."
+	return tr("GLOBAL_POISON_BONUS_DESCRIPTION")

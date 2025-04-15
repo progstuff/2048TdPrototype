@@ -56,6 +56,10 @@ click={
 
 pointing/emulate_touch_from_mouse=true
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://translation.en.translation", "res://translation.ru.translation")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

@@ -14,6 +14,13 @@ extends Node2D
 @onready var gameOverMenu = $Interface/GameOverMenu
 @onready var playerBonusPanel = $Interface/PlayerBonusPanel
 @onready var effectsManager = $EffectsManager
+@onready var bonusCooldownPanel = $Interface/BonusCooldownPanel
+@onready var education = $Education
+@onready var educationStartTimer = $EducationStartTimer
+@onready var shopButton = $Interface/HBoxContainer2/ShopButton
+@onready var helpText = $Education/Panel2/MarginContainer/VBoxContainer/HelpText
+var educationStage = 0
+
 var mainMenu = null
 
 var coinsCnt = 0
@@ -69,6 +76,7 @@ func _ready() -> void:
 		var difficultPeriod = config.get_value("difficult", "period", 17)
 		var difficultVal = config.get_value("difficult", "value", 2)
 		var coinChanceVal = config.get_value("coinChance", "value", 0.05)
+		educationStage = config.get_value("educationStage", "value", 0)
 		
 		for enemySpawner in enemyLines.get_children():
 			switchers.set_difficult_period(difficultPeriod)
@@ -95,6 +103,7 @@ func _ready() -> void:
 			switchers.set_coin_chance_value(enemySpawner.coinChance)
 			break
 	#бонусы
+	playerBonusPanel.set_bonus_cooldown_panel(bonusCooldownPanel)
 	bonusPanel.init(enemyLines, wall, gameField, playerBonusPanel, effectsManager)
 	
 	gameOverMenu.init(self)
@@ -150,9 +159,14 @@ func restart_game():
 	coinsCnt = 0
 	coinValLbl.text = str(coinsCnt)
 	
+	playerBonusPanel.restart()
 	bonusPanel.restart()
 	gameField.restart()
+	bonusCooldownPanel.restart()
 	
+	if(true):
+		educationStartTimer.start()
+		
 func _on_restart_btn_pressed() -> void:
 	restart_game()
 
@@ -262,3 +276,89 @@ func get_bonus_panel() -> PanelContainer:
 	if(bonusPanel == null):
 		bonusPanel = $Interface/BonusPanel
 	return bonusPanel
+
+func game_field_education():
+	education.z_index = 10
+	education.visible = true
+	get_tree().paused = true
+	
+	gameField.z_index = 11
+	helpText.text = tr("HELP_GAME_FIELD")
+	educationStage = 1
+	
+func shop_education():
+	education.z_index = 10
+	education.visible = true
+	get_tree().paused = true
+	
+	shopButton.z_index = 11
+	gameField.z_index = 0
+	helpText.text = tr("HELP_SHOP")
+	educationStage = 2
+
+func player_panel_education():
+	education.z_index = 10
+	education.visible = true
+	get_tree().paused = true
+	
+	playerBonusPanel.z_index = 11
+	shopButton.z_index = 0
+	helpText.text = tr("HELP_PLAYER_PANEL")
+	educationStage = 3
+
+func towers_education():
+	education.z_index = 10
+	education.visible = true
+	get_tree().paused = true
+	
+	wall.towersTree().z_index = 11
+	playerBonusPanel.z_index = 0
+	helpText.text = tr("HELP_TOWERS")
+	educationStage = 4
+
+func enemies_education():
+	education.z_index = 10
+	education.visible = true
+	get_tree().paused = true
+	
+	enemyLines.z_index = 11
+	wall.towersTree().z_index = 0
+	helpText.text = tr("HELP_ENEMIES")
+	educationStage = 5
+		
+func end_education():
+	gameField.z_index = 0
+	shopButton.z_index = 0
+	playerBonusPanel.z_index = 0
+	wall.towersTree().z_index = 0
+	enemyLines.z_index = 0
+	
+	education.visible = false
+	get_tree().paused = false
+
+func _on_button_pressed() -> void:
+	if(educationStage == 0):
+		game_field_education()
+		config.set_value("educationStage", "value", educationStage)
+		config.save("user://prefs.cfg")
+	elif(educationStage == 1):
+		shop_education()
+		config.set_value("educationStage", "value", educationStage)
+		config.save("user://prefs.cfg")
+	elif(educationStage == 2):
+		player_panel_education()
+		config.set_value("educationStage", "value", educationStage)
+		config.save("user://prefs.cfg")
+	elif(educationStage == 3):
+		towers_education()
+		config.set_value("educationStage", "value", educationStage)
+		config.save("user://prefs.cfg")
+	elif(educationStage == 4):
+		enemies_education()
+		config.set_value("educationStage", "value", educationStage)
+		config.save("user://prefs.cfg")
+	else:
+		end_education()
+
+func _on_education_start_timer_timeout() -> void:
+	_on_button_pressed()

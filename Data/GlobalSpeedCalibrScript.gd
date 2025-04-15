@@ -25,7 +25,7 @@ func _on_bonus_icon_gui_input(_event: InputEvent) -> void:
 	_on_panel_gui_input(_event)
 
 func get_title():
-	return "Непрерывная стрельба"
+	return tr("GLOBAL_SPEED_CALIBR_BONUS_TITLE")
 
 func get_description():
-	return "Увеличивает скорость стрельбы всех орудий в 4 раза на 20 секунд."
+	return tr("GLOBAL_SPEED_CALIBR_BONUS_DESCRIPTION")

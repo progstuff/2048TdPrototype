@@ -141,7 +141,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Магазин"
+text = "SHOP"
 label_settings = SubResource("LabelSettings_y6fwh")
 horizontal_alignment = 1
 
@@ -172,7 +172,7 @@ alignment = 1
 
 [node name="BonusTimer" type="Timer" parent="."]
 process_mode = 1
-wait_time = 60.0
+wait_time = 20.0
 
 [node name="BonusDescription" parent="." instance=ExtResource("2_blmw2")]
 visible = false
@@ -180,7 +180,7 @@ layout_mode = 2
 
 [node name="InventoryError" type="Label" parent="."]
 layout_mode = 2
-text = "Ваш инвентарь заполнен"
+text = "INVENTORY_ERROR"
 label_settings = SubResource("LabelSettings_j4fk4")
 horizontal_alignment = 1
 

@@ -189,3 +189,6 @@ func _on_wall_area_entered(area: Area2D) -> void:
 		#damage = damage + area.get_parent().maxHealth
 		damage += 1
 		wall_damaged.emit()
+
+func towersTree() -> Node2D:
+	return towers

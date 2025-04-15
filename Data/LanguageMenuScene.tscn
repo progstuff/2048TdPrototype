@@ -1,0 +1,156 @@
+[gd_scene load_steps=16 format=3 uid="uid://bwlyu6mdyswb8"]
+
+[ext_resource type="Texture2D" uid="uid://l7hks8le1o64" path="res://Icons/Menu/Title.png" id="1_am1r8"]
+[ext_resource type="Script" path="res://Data/LanguageMenuScript.gd" id="1_lflgw"]
+[ext_resource type="FontFile" uid="uid://cceis1op8xuls" path="res://Verdana-Bold.ttf" id="2_1vaby"]
+[ext_resource type="Texture2D" uid="uid://cax1sac58s4bv" path="res://Icons/Menu/Background.png" id="3_ab1ym"]
+[ext_resource type="Texture2D" uid="uid://bqqgg7ndi6so1" path="res://Icons/Menu/emptyButton.png" id="4_lyr2m"]
+[ext_resource type="Texture2D" uid="uid://tjmeghtnxuuc" path="res://Icons/Menu/emptyButtonDown.png" id="5_rpt5h"]
+[ext_resource type="Texture2D" uid="uid://ujqrh5v4qfpi" path="res://Icons/Menu/emptyButtonHower.png" id="6_01opk"]
+[ext_resource type="Texture2D" uid="uid://cddwh18nqwpun" path="res://Icons/Menu/backButton.png" id="7_wfbrm"]
+[ext_resource type="Texture2D" uid="uid://dhab4q7s4ogea" path="res://Icons/Menu/backButtonDown.png" id="8_67ebx"]
+[ext_resource type="Texture2D" uid="uid://qe0ri6bc8bhc" path="res://Icons/Menu/backButtonHower.png" id="9_j0674"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6hvnw"]
+texture = ExtResource("1_am1r8")
+
+[sub_resource type="LabelSettings" id="LabelSettings_4lgbp"]
+font = ExtResource("2_1vaby")
+font_size = 50
+font_color = Color(1, 0.545098, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_desl3"]
+texture = ExtResource("3_ab1ym")
+
+[sub_resource type="LabelSettings" id="LabelSettings_x8pdw"]
+font = ExtResource("2_1vaby")
+font_size = 35
+font_color = Color(0.898039, 0.984314, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_y0o6m"]
+font = ExtResource("2_1vaby")
+font_size = 25
+font_color = Color(0.898039, 0.984314, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="LanguageMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lflgw")
+
+[node name="PanelContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -171.5
+offset_top = -197.0
+offset_right = 171.5
+offset_bottom = 197.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer2"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_6hvnw")
+
+[node name="Label" type="Label" parent="PanelContainer2/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "LANGUAGE"
+label_settings = SubResource("LabelSettings_4lgbp")
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_desl3")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="EnglishButton" type="TextureButton" parent="PanelContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_lyr2m")
+texture_pressed = ExtResource("5_rpt5h")
+texture_hover = ExtResource("6_01opk")
+
+[node name="Label" type="Label" parent="PanelContainer2/PanelContainer/MarginContainer/VBoxContainer/EnglishButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "English"
+label_settings = SubResource("LabelSettings_x8pdw")
+
+[node name="RussianButton" type="TextureButton" parent="PanelContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_lyr2m")
+texture_pressed = ExtResource("5_rpt5h")
+texture_hover = ExtResource("6_01opk")
+
+[node name="Label" type="Label" parent="PanelContainer2/PanelContainer/MarginContainer/VBoxContainer/RussianButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Русский"
+label_settings = SubResource("LabelSettings_x8pdw")
+
+[node name="BackButton" type="TextureButton" parent="PanelContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture_normal = ExtResource("7_wfbrm")
+texture_pressed = ExtResource("8_67ebx")
+texture_hover = ExtResource("9_j0674")
+
+[node name="Label" type="Label" parent="PanelContainer2/PanelContainer/MarginContainer/VBoxContainer/BackButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BACK"
+label_settings = SubResource("LabelSettings_y0o6m")
+
+[connection signal="pressed" from="PanelContainer2/PanelContainer/MarginContainer/VBoxContainer/EnglishButton" to="." method="_on_english_button_pressed"]
+[connection signal="pressed" from="PanelContainer2/PanelContainer/MarginContainer/VBoxContainer/RussianButton" to="." method="_on_russian_button_pressed"]
+[connection signal="pressed" from="PanelContainer2/PanelContainer/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

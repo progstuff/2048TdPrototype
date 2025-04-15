@@ -20,7 +20,7 @@ func _on_bonus_icon_gui_input(_event: InputEvent) -> void:
 	_on_panel_gui_input(_event)
 	
 func get_title():
-	return "Дважды два"
+	return tr("FIELD_BONUS_TITLE")
 
 func get_description():
-	return "Умножает на 2 все ячейки со значением 2. Действует однократно."
+	return tr("FIELD_BONUS_DESCRIPTION")
