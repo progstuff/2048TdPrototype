@@ -11,11 +11,11 @@ var needSpawnBullets = false
 var curSpawnTime = 0
 var spawnWaitTime = 2
 
-@export var bulletSpeed = 150
+@export var bulletSpeed = 120
 @export var bulletPowerMult = 1
 @export var bulletPowerShift = 0
 
-var bulletsSpawnPeriod = 2.0
+var bulletsSpawnPeriod = 2.6
 var bulletSpawnMult = 1.0
 var bulletAttackDamageMult = 1.0
 

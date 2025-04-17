@@ -172,7 +172,7 @@ alignment = 1
 
 [node name="BonusTimer" type="Timer" parent="."]
 process_mode = 1
-wait_time = 20.0
+wait_time = 5.0
 
 [node name="BonusDescription" parent="." instance=ExtResource("2_blmw2")]
 visible = false

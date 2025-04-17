@@ -20,7 +20,7 @@ var globalAttackBonusScene = load("res://Data/GlobalAttackBonusScene.tscn")
 
 var playerPanel = null
 var bonuses = {}
-
+var choosedBonuses = {}
 func _ready() -> void:
 	pass
 
@@ -116,21 +116,27 @@ func show_bonus_panel():
 func random_bonuses():
 	for bonus in container.get_children():
 		container.remove_child(bonus)
-		
-	var showedBonuses = {}
 	
 	var cnt = 0
-	while(cnt < 3):
-		var ind = randi_range(0, bonuses.size() - 1)
-		if(showedBonuses.has(ind)):
-			continue
-		if(bonuses.has(ind)):
-			var bonus = bonuses[ind]
-			bonus.activate()
+	
+	var bonusesInd = []
+	for i in range(0, bonuses.size()):
+		var bonusName = bonuses[i].name
+		if(!choosedBonuses.has(bonusName)):
+			bonusesInd.append(i)
 			
-			container.add_child(bonus)
-			showedBonuses[ind] = true
-			cnt = cnt + 1
+	while(cnt < 3):
+		if(bonusesInd.is_empty()):
+			break
+		var ind = randi_range(0, bonusesInd.size() - 1)	
+		var bonusInd = bonusesInd[ind]
+		
+		var bonus = bonuses[bonusInd]
+		bonus.activate()
+		container.add_child(bonus)
+		bonusesInd.remove_at(ind)
+		
+		cnt = cnt + 1
 	
 func choose_bonus(_bonus: BonusElement):
 	if playerPanel.is_full():
@@ -142,6 +148,7 @@ func choose_bonus(_bonus: BonusElement):
 			hasChoosedBonus = true
 
 	if(!hasChoosedBonus):
+		choosedBonuses[_bonus.name] = _bonus
 		_bonus.choose()
 		playerPanel.add_bonus(_bonus)
 		for bonus in container.get_children():
@@ -153,6 +160,7 @@ func restart():
 		var bonus = bonuses[bonusInd]
 		bonus.restart()
 	
+	choosedBonuses.clear()
 	get_tree().paused = false
 	
 	for bonus in container.get_children():

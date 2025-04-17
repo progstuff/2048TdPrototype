@@ -8,16 +8,16 @@ var enemyScene = load("res://Data/EnemyScene.tscn")
 @onready var difficultyTimer = $DifficultyTimer
 
 var difficult = 0
-@export var coinChance = 0.8
+@export var coinChance = 0.05
 @export var coinChanceMultiplier = 1
-@export var health = 3
-@export var healthDelta = 2
-@export var speed = 40
+@export var health = 1
+@export var healthDelta = 0
+@export var speed = 30
 @export var enemyWaitTime = 3
-@export var enemyWaitTimeDelta = 1
+@export var enemyWaitTimeDelta = 0.5
 
-@export var difficultVal = 8
-@export var difficultWaitTime = 4
+@export var difficultVal = 1
+@export var difficultWaitTime = 30
 
 @export var coinSpawner = null
 

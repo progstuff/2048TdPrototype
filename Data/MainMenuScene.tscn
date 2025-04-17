@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bqqgg7ndi6so1" path="res://Icons/Menu/emptyButton.png" id="5_a35ge"]
 [ext_resource type="Texture2D" uid="uid://tjmeghtnxuuc" path="res://Icons/Menu/emptyButtonDown.png" id="6_kp5lh"]
 [ext_resource type="Texture2D" uid="uid://ujqrh5v4qfpi" path="res://Icons/Menu/emptyButtonHower.png" id="7_tk0m4"]
-[ext_resource type="PackedScene" uid="uid://bwlyu6mdyswb8" path="res://Data/LanguageMenuScene.tscn" id="9_jpdd3"]
+[ext_resource type="PackedScene" uid="uid://blkmwtbv1vml8" path="res://Data/OptionsMenuScene.tscn" id="9_fjmxs"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_je3sf"]
 texture = ExtResource("2_qwocq")
@@ -194,7 +194,7 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "LANGUAGE"
+text = "OPTIONS"
 label_settings = SubResource("LabelSettings_hmrk3")
 
 [node name="ExitButton" type="TextureButton" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer"]
@@ -225,7 +225,7 @@ label_settings = SubResource("LabelSettings_r6gma")
 visible = false
 layout_mode = 1
 
-[node name="LanguageMenu" parent="." instance=ExtResource("9_jpdd3")]
+[node name="OptionsMenu" parent="." instance=ExtResource("9_fjmxs")]
 visible = false
 layout_mode = 1
 

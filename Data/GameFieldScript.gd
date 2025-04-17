@@ -524,7 +524,9 @@ func remove_min_cell() -> void:
 			if(minVal > cell.number):
 				minCellInd = cellIndex
 				minVal = cell.number
-	
+	if(minVal > 2):
+		return
+		
 	var removedCell = cells[minCellInd]
 	cells.erase(minCellInd)
 	cellsNode.remove_child(removedCell)

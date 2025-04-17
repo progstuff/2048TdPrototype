@@ -19,6 +19,9 @@ extends Node2D
 @onready var educationStartTimer = $EducationStartTimer
 @onready var shopButton = $Interface/HBoxContainer2/ShopButton
 @onready var helpText = $Education/Panel2/MarginContainer/VBoxContainer/HelpText
+
+var difficultPeriod = 30
+var difficultCoef = 1
 var educationStage = 0
 
 var mainMenu = null
@@ -51,20 +54,20 @@ func _ready() -> void:
 
 	var isOk = config.load("user://prefs.cfg")
 	if isOk == OK:
-		var bulletPeriod = config.get_value("bullet", "period", 2.3)
-		var bulletSpeed = config.get_value("bullet", "speed", 90)
-		var bulletPowerMult = config.get_value("bullet", "powerMult", 3)
-		var bulletPowerShift = config.get_value("bullet", "powerShift", 7)
+		var bulletPeriod = 2.6#config.get_value("bullet", "period", 2.3)
+		var bulletSpeed = 120#config.get_value("bullet", "speed", 90)
+		var bulletPowerMult = 1#config.get_value("bullet", "powerMult", 3)
+		var bulletPowerShift = 0#config.get_value("bullet", "powerShift", 7)
 		switchers.set_bullet_period(bulletPeriod)
 		switchers.set_bullet_speed(bulletSpeed)
 		switchers.set_bullet_power_mult(bulletPowerMult)
 		switchers.set_bullet_shift_value(bulletPowerShift)
 		
-		var enemyPeriod = config.get_value("enemy", "period", 7)
-		var enemyPeriodDelta = config.get_value("enemy", "periodDelta", 3)
-		var enemySpeed = config.get_value("enemy", "speed", 30)
-		var enemyHealth = config.get_value("enemy", "health", 10)
-		var enemyHealthDelta = config.get_value("enemy", "healthDelta", 5)
+		var enemyPeriod = 3#config.get_value("enemy", "period", 7)
+		var enemyPeriodDelta = 0.5#config.get_value("enemy", "periodDelta", 3)
+		var enemySpeed = 30#config.get_value("enemy", "speed", 30)
+		var enemyHealth = 1#config.get_value("enemy", "health", 10)
+		var enemyHealthDelta = 0#config.get_value("enemy", "healthDelta", 5)
 		for enemySpawner in enemyLines.get_children():
 			switchers.set_enemy_period(enemyPeriod)
 			switchers.set_enemy_period_delta(enemyPeriodDelta)
@@ -73,13 +76,14 @@ func _ready() -> void:
 			switchers.set_enemy_health_delta(enemyHealthDelta)
 			break
 		
-		var difficultPeriod = config.get_value("difficult", "period", 17)
-		var difficultVal = config.get_value("difficult", "value", 2)
-		var coinChanceVal = config.get_value("coinChance", "value", 0.05)
+		difficultPeriod = 30#config.get_value("difficult", "period", 30)
+		var difficultVal = 1#config.get_value("difficult", "value", 2)
+		difficultCoef = config.get_value("difficult", "coef", 1)
+		var coinChanceVal = 0.05#config.get_value("coinChance", "value", 0.05)
 		educationStage = config.get_value("educationStage", "value", 0)
 		
 		for enemySpawner in enemyLines.get_children():
-			switchers.set_difficult_period(difficultPeriod)
+			switchers.set_difficult_period(difficultPeriod / difficultCoef)
 			switchers.set_difficult_value(difficultVal)
 			switchers.set_coin_chance_value(coinChanceVal)
 			break
@@ -116,7 +120,7 @@ func _ready() -> void:
 	change_score(0)
 	
 func change_score(_score: float):
-	score += _score
+	score += _score*difficultCoef
 	scoreValLbl.text = str(score)
 	
 func set_main_menu(_mainMenu:Control):
@@ -138,9 +142,17 @@ func _on_game_field_max_value_changed() -> void:
 	if(wall.damage > 0):
 		gameOverMenu.show_menu()
 
+func set_difficult_coef(_difficultCoef: float):
+	difficultCoef = _difficultCoef
+
+func get_difficult_coef():
+	return difficultCoef
+	
 func restart_game():
 	
+	var diffPeriod = difficultPeriod / difficultCoef
 	for enemySpawner in enemyLines.get_children():
+		switchers.set_difficult_period(diffPeriod)
 		enemySpawner.stop_spawn_enemies()
 		enemySpawner.start_spawn_enemies()
 		
@@ -199,71 +211,71 @@ func _on_config_button_button_down() -> void:
 
 func _on_switchers_bullet_period_changed(_val: float) -> void:
 	wall.set_bullet_period(_val)
-	config.set_value("bullet", "period", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("bullet", "period", _val)
+	#config.save("user://prefs.cfg")
 
 func _on_switchers_bullet_power_mult_changed(_val: float) -> void:
 	wall.set_bullet_power_mult(_val)
-	config.set_value("bullet", "powerMult", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("bullet", "powerMult", _val)
+	#config.save("user://prefs.cfg")
 	
 func _on_switchers_bullet_power_shift_changed(_val: float) -> void:
 	wall.set_bullet_power_shift(_val)
-	config.set_value("bullet", "powerShift", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("bullet", "powerShift", _val)
+	#config.save("user://prefs.cfg")
 	
 func _on_switchers_bullet_speed_changed(_val: float) -> void:
 	wall.set_bullet_speed(_val)
-	config.set_value("bullet", "speed", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("bullet", "speed", _val)
+	#config.save("user://prefs.cfg")
 
 func _on_switchers_enemy_health_changed(_val: float) -> void:
 	for enemySpawner in enemyLines.get_children():
 		enemySpawner.health = _val
-	config.set_value("enemy", "health", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("enemy", "health", _val)
+	#config.save("user://prefs.cfg")
 
 func _on_switchers_enemy_health_delta_changed(_val: float) -> void:
 	for enemySpawner in enemyLines.get_children():
 		enemySpawner.healthDelta = _val
-	config.set_value("enemy", "healthDelta", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("enemy", "healthDelta", _val)
+	#config.save("user://prefs.cfg")
 
 func _on_switchers_enemy_period_changed(_val: float) -> void:
 	for enemySpawner in enemyLines.get_children():
 		enemySpawner.set_enemy_period(_val)
-	config.set_value("enemy", "period", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("enemy", "period", _val)
+	#config.save("user://prefs.cfg")
 
 func _on_switchers_enemy_period_delta_changed(_val: float) -> void:
 	for enemySpawner in enemyLines.get_children():
 		enemySpawner.set_enemy_period_delta(_val)
-	config.set_value("enemy", "periodDelta", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("enemy", "periodDelta", _val)
+	#config.save("user://prefs.cfg")
 	
 func _on_switchers_enemy_speed_changed(_val: float) -> void:
 	for enemySpawner in enemyLines.get_children():
 		enemySpawner.set_enemy_speed(_val)
-	config.set_value("enemy", "speed", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("enemy", "speed", _val)
+	#config.save("user://prefs.cfg")
 
 func _on_switchers_difficult_period_changed(_val: float) -> void:
 	for enemySpawner in enemyLines.get_children():
 		enemySpawner.set_difficult_period(_val)
-	config.set_value("difficult", "period", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("difficult", "period", _val)
+	#config.save("user://prefs.cfg")
 	
 func _on_switchers_difficult_value_changed(_val: float) -> void:
 	for enemySpawner in enemyLines.get_children():
 		enemySpawner.difficultVal = _val
-	config.set_value("difficult", "value", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("difficult", "value", _val)
+	#config.save("user://prefs.cfg")
 
 func _on_switchers_coin_chance_value_changed(_val: float) -> void:
 	for enemySpawner in enemyLines.get_children():
 		enemySpawner.coinChance = _val
-	config.set_value("coinChance", "value", _val)
-	config.save("user://prefs.cfg")
+	#config.set_value("coinChance", "value", _val)
+	#config.save("user://prefs.cfg")
 
 func _on_pause_button_pressed() -> void:
 	get_tree().paused = true

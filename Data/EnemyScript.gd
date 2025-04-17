@@ -5,11 +5,11 @@ class_name EnemyElement
 @onready var animationPlayer = $AnimationPlayer
 @onready var sprite = $Sprite
 
-@export var maxHealth = 20
+@export var maxHealth = 1
 var curHealth = maxHealth
 @export var startPosition = Vector2.ZERO
 @export var moveVector = Vector2(-1, 0)
-@export var speed = 10
+@export var speed = 30
 
 var isActivated = false
 var collider = null

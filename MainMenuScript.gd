@@ -3,18 +3,18 @@ extends Control
 var mainGameScene = null
 @onready var menuItems = $MenuItems
 @onready var shop = $Shop
-@onready var languageMenu = $LanguageMenu
+@onready var optionsMenu = $OptionsMenu
 
 func _ready() -> void:
 	shop.set_main_menu(self)
-	languageMenu.set_main_menu(self)
 
 func show_menu():
+	visible = true
 	get_tree().paused = true
 	menuItems.visible = true
 	mainGameScene.visible = false
 	shop.visible = false
-	languageMenu.visible = false
+	optionsMenu.visible = false
 	
 func show_shop():
 	menuItems.visible = false
@@ -26,10 +26,11 @@ func show_main_menu_items():
 
 func show_language_menu():
 	menuItems.visible = false
-	languageMenu.visible = true
+	optionsMenu.visible = true
 	
 func set_main_game_scene(_mainGameScene: Node2D):
 	mainGameScene = _mainGameScene
+	optionsMenu.init(self, mainGameScene)
 	
 func _on_start_button_pressed() -> void:
 	get_tree().paused = false

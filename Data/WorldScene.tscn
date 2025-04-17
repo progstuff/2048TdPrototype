@@ -113,7 +113,8 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -345.0
+offset_left = -274.0
+offset_right = -9.0
 offset_bottom = 111.0
 grow_horizontal = 0
 size_flags_horizontal = 8
@@ -123,6 +124,7 @@ alignment = 1
 
 [node name="ShopButton" type="TextureButton" parent="Interface/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 4
 texture_normal = ExtResource("8_xhlyj")
 texture_pressed = ExtResource("9_48kr2")
@@ -130,7 +132,7 @@ texture_hover = ExtResource("10_c2oaj")
 
 [node name="PauseButton" type="TextureButton" parent="Interface/HBoxContainer2"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 size_flags_vertical = 4
 texture_normal = ExtResource("8_y1bfq")
 texture_pressed = ExtResource("9_erub2")
@@ -138,9 +140,10 @@ texture_hover = ExtResource("10_wr7si")
 
 [node name="ConfigButton" type="TextureButton" parent="Interface/HBoxContainer2"]
 process_mode = 3
+visible = false
 z_index = 5
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 size_flags_vertical = 4
 texture_normal = ExtResource("9_p3klt")
 texture_pressed = ExtResource("10_rrn35")
