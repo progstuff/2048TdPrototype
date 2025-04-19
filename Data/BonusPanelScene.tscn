@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cg81qtoamt06p"]
+[gd_scene load_steps=18 format=3 uid="uid://cg81qtoamt06p"]
 
 [ext_resource type="Script" path="res://Data/BonusPanelScript.gd" id="1_w204r"]
 [ext_resource type="PackedScene" uid="uid://cyjf1ffgct46w" path="res://Data/BonusDescriptionScene.tscn" id="2_blmw2"]
@@ -95,6 +95,74 @@ _data = {
 "showInventoryError": SubResource("Animation_qxne3")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_iod3e"]
+font = ExtResource("2_dknkq")
+font_size = 35
+font_color = Color(1, 0.545098, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_07qhm"]
+resource_name = "showCoinsError"
+length = 1.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CoinsError:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CoinsError:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0980392), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.294118), Color(1, 1, 1, 0.392157), Color(1, 1, 1, 0.490196), Color(1, 1, 1, 0.686275), Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0.882353), Color(1, 1, 1, 1), Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.392157), Color(1, 1, 1, 0.294118), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.0980392), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3sm16"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CoinsError:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CoinsError:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_27e6y"]
+_data = {
+"RESET": SubResource("Animation_3sm16"),
+"showCoinsError": SubResource("Animation_07qhm")
+}
+
 [node name="BonusPanel" type="PanelContainer"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -187,6 +255,18 @@ horizontal_alignment = 1
 [node name="InventoryErrorAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_hah6g")
+}
+
+[node name="CoinsError" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "COINS_ERROR"
+label_settings = SubResource("LabelSettings_iod3e")
+
+[node name="CoinsErrorPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_27e6y")
 }
 
 [connection signal="pressed" from="VBoxContainer/Panel/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

@@ -321,5 +321,6 @@ texture_hover = ExtResource("27_3b4mv")
 [connection signal="enemy_period_changed" from="Interface/Switchers" to="." method="_on_switchers_enemy_period_changed"]
 [connection signal="enemy_period_delta_changed" from="Interface/Switchers" to="." method="_on_switchers_enemy_period_delta_changed"]
 [connection signal="enemy_speed_changed" from="Interface/Switchers" to="." method="_on_switchers_enemy_speed_changed"]
+[connection signal="coins_update" from="Interface/PlayerBonusPanel" to="." method="_on_player_bonus_panel_coins_update"]
 [connection signal="timeout" from="EducationStartTimer" to="." method="_on_education_start_timer_timeout"]
 [connection signal="pressed" from="Education/Panel2/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

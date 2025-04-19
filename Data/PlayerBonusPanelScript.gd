@@ -1,5 +1,7 @@
 extends Control
+signal coins_update()
 
+var coinsCnt = 0
 var activatedBonuses = {}
 var bonuses = [null, null]
 var slots = []
@@ -13,6 +15,13 @@ func _ready() -> void:
 	slots.insert(0, bonusOneSlot)
 	slots.insert(1, bonusTwoSlot)
 
+func set_coins(_coins: float):
+	coinsCnt = _coins
+	coins_update.emit()
+
+func coins() ->  float:
+	return coinsCnt
+
 func is_full():
 	for bonus in bonuses:
 		if(bonus == null):
@@ -20,6 +29,7 @@ func is_full():
 	return true
 	
 func restart():
+	set_coins(0)
 	activatedBonuses = {}
 	bonuses = [null, null]
 	slots[0].texture = null

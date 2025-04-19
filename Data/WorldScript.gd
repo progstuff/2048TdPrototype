@@ -26,7 +26,6 @@ var educationStage = 0
 
 var mainMenu = null
 
-var coinsCnt = 0
 var curSeconds = 0
 
 var enemySpawnerScene = load("res://Data/EnemySpawnerScene.tscn")
@@ -168,9 +167,6 @@ func restart_game():
 	score = 0
 	change_score(0)
 	
-	coinsCnt = 0
-	coinValLbl.text = str(coinsCnt)
-	
 	playerBonusPanel.restart()
 	bonusPanel.restart()
 	gameField.restart()
@@ -203,8 +199,10 @@ func _on_timer_timeout() -> void:
 func _on_coin_spawner_coin_clicked_signal() -> void:
 	if(coinValLbl == null):
 		coinValLbl = $VBoxContainer/HBoxContainer2/CoinsCnt
+	
+	var coinsCnt = playerBonusPanel.coins()
 	coinsCnt += 1
-	coinValLbl.text = str(coinsCnt)
+	playerBonusPanel.set_coins(coinsCnt)
 
 func _on_config_button_button_down() -> void:
 	switchers.visible = !switchers.visible
@@ -374,3 +372,7 @@ func _on_button_pressed() -> void:
 
 func _on_education_start_timer_timeout() -> void:
 	_on_button_pressed()
+
+
+func _on_player_bonus_panel_coins_update() -> void:
+	coinValLbl.text = str(playerBonusPanel.coins())

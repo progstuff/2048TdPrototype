@@ -1,7 +1,6 @@
 extends PanelContainer
 class_name BonusElement
 
-@export var playerCoins = 100
 @export var isChoosed = false
 var isActive = false
 var curCnt = 0
@@ -53,6 +52,9 @@ func set_bonus_panel(_bonusPanel:PanelContainer):
 func set_price(_price: int):
 	price = _price
 	priceLbl.text = str(price)
+
+func get_price() -> float:
+	return price
 	
 func turn_on_bonus():
 	curCnt = 0
@@ -72,9 +74,8 @@ func set_short_description(_shortDescription: String):
 	pass
 
 func _on_choose_button_pressed() -> void:
-	if(playerCoins >= price):
-		if(bonusPanel != null):
-			bonusPanel.choose_bonus(self)
+	if(bonusPanel != null):
+		bonusPanel.choose_bonus(self)
 
 func choose():
 	isChoosed = true

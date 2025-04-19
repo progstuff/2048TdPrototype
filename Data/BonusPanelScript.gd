@@ -5,6 +5,8 @@ extends PanelContainer
 @onready var bonusDescription = $BonusDescription
 @onready var inventoryErrorPlayer = $InventoryErrorAnimation
 @onready var inventoryErrorLabel = $InventoryError
+@onready var coinsErrorPlayer = $CoinsErrorPlayer
+@onready var coinsErrorLabel = $CoinsError
 
 var coinBonusScene = load("res://Data/CoinBonusScene.tscn")
 var calibrBonusScene = load("res://Data/CalibrBonusScene.tscn")
@@ -112,6 +114,7 @@ func show_bonus_panel():
 	get_tree().paused = true	
 	visible = true
 	inventoryErrorLabel.visible = false
+	coinsErrorLabel.visible = false
 	
 func random_bonuses():
 	for bonus in container.get_children():
@@ -142,12 +145,21 @@ func choose_bonus(_bonus: BonusElement):
 	if playerPanel.is_full():
 		inventoryErrorPlayer.play("showInventoryError")
 		return
+	
 	var hasChoosedBonus = false
 	for bonus in container.get_children():
 		if(bonus.isChoosed):
 			hasChoosedBonus = true
 
 	if(!hasChoosedBonus):
+		
+		if(_bonus.price > playerPanel.coins()):
+			coinsErrorPlayer.play("showCoinsError")
+			return
+		
+		var playerCoins = playerPanel.coins() - _bonus.price
+		playerPanel.set_coins(playerCoins)
+		
 		choosedBonuses[_bonus.name] = _bonus
 		_bonus.choose()
 		playerPanel.add_bonus(_bonus)
