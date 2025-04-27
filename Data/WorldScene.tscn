@@ -66,11 +66,12 @@ offset_left = -44.0
 offset_top = -20.0
 offset_right = 1171.0
 offset_bottom = 657.0
-color = Color(0.333333, 0.447059, 0.560784, 1)
+color = Color(0.360784, 0.329412, 0.560784, 1)
 
 [node name="GameField" parent="." instance=ExtResource("2_0gnb1")]
 
 [node name="Wall" parent="." instance=ExtResource("4_rk1p6")]
+z_index = 1
 position = Vector2(788, -3)
 
 [node name="CoinSpawner" parent="." instance=ExtResource("5_y4x1s")]
@@ -83,6 +84,7 @@ position = Vector2(788, -3)
 autostart = true
 
 [node name="Interface" type="Control" parent="."]
+z_index = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1150.0
@@ -103,10 +105,9 @@ size_flags_vertical = 4
 
 [node name="BonusPanel" parent="Interface" instance=ExtResource("5_ru4q8")]
 process_mode = 3
-visible = false
 layout_mode = 1
-offset_top = -199.0
-offset_bottom = 202.0
+offset_top = -185.5
+offset_bottom = 215.5
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Interface"]
 layout_mode = 1
@@ -191,6 +192,7 @@ theme_override_constants/separation = 9
 metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="Interface/HBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1oh4l")
 

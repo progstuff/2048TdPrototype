@@ -11,7 +11,7 @@ var poisonDamage = 5
 func _ready() -> void:
 	bonusName = "globalPoison"
 	set_icon(image)
-	set_price(20)
+	set_price(10)
 	bonusTime = 20
 
 func set_manager(_manager: Node):

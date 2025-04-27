@@ -9,7 +9,7 @@ var oldCoinChance = 0
 func _ready() -> void:
 	bonusName = "coinChance"
 	set_icon(image)
-	set_price(30)
+	set_price(5)
 	bonusTime = 20
 
 func set_enemy_spawners(_enemySpawners: Node):

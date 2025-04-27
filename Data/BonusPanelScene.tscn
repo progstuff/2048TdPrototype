@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cg81qtoamt06p"]
+[gd_scene load_steps=21 format=3 uid="uid://cg81qtoamt06p"]
 
 [ext_resource type="Script" path="res://Data/BonusPanelScript.gd" id="1_w204r"]
 [ext_resource type="PackedScene" uid="uid://cyjf1ffgct46w" path="res://Data/BonusDescriptionScene.tscn" id="2_blmw2"]
@@ -25,6 +25,24 @@ font_size = 30
 font_color = Color(1, 0.545098, 0, 1)
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3jjx1"]
+font = ExtResource("2_dknkq")
+font_size = 25
+font_color = Color(0.898039, 0.984314, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nvd2f"]
+font = ExtResource("2_dknkq")
+font_size = 25
+font_color = Color(0.898039, 0.984314, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_scwgg"]
+font = ExtResource("2_dknkq")
+font_size = 25
+font_color = Color(0.898039, 0.984314, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_j4fk4"]
 font = ExtResource("2_dknkq")
@@ -101,6 +119,33 @@ font_size = 35
 font_color = Color(1, 0.545098, 0, 1)
 shadow_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Animation" id="Animation_3sm16"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CoinsError:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CoinsError:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_07qhm"]
 resource_name = "showCoinsError"
 length = 1.5
@@ -128,33 +173,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0.0980392), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.294118), Color(1, 1, 1, 0.392157), Color(1, 1, 1, 0.490196), Color(1, 1, 1, 0.686275), Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0.882353), Color(1, 1, 1, 1), Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.392157), Color(1, 1, 1, 0.294118), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.0980392), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_3sm16"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CoinsError:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CoinsError:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_27e6y"]
@@ -238,9 +256,34 @@ size_flags_vertical = 3
 theme_override_constants/separation = 20
 alignment = 1
 
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+text = "UPDATE"
+label_settings = SubResource("LabelSettings_3jjx1")
+
+[node name="ReminingTimeLbl" type="Label" parent="VBoxContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(37, 0)
+layout_mode = 2
+text = "99"
+label_settings = SubResource("LabelSettings_nvd2f")
+
+[node name="Label3" type="Label" parent="VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+text = "SEC"
+label_settings = SubResource("LabelSettings_scwgg")
+
 [node name="BonusTimer" type="Timer" parent="."]
 process_mode = 1
-wait_time = 5.0
+wait_time = 60.0
 
 [node name="BonusDescription" parent="." instance=ExtResource("2_blmw2")]
 visible = false

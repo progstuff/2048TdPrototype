@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bfa4jh3olyrtr"]
+[gd_scene load_steps=18 format=3 uid="uid://bfa4jh3olyrtr"]
 
 [ext_resource type="Script" path="res://MainMenuScript.gd" id="1_7l7ni"]
 [ext_resource type="PackedScene" uid="uid://c76aahesql0e1" path="res://Data/ShopScene.tscn" id="2_1aspx"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://tjmeghtnxuuc" path="res://Icons/Menu/emptyButtonDown.png" id="6_kp5lh"]
 [ext_resource type="Texture2D" uid="uid://ujqrh5v4qfpi" path="res://Icons/Menu/emptyButtonHower.png" id="7_tk0m4"]
 [ext_resource type="PackedScene" uid="uid://blkmwtbv1vml8" path="res://Data/OptionsMenuScene.tscn" id="9_fjmxs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1yxi4"]
+bg_color = Color(0.360784, 0.329412, 0.560784, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_je3sf"]
 texture = ExtResource("2_qwocq")
@@ -65,6 +68,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1yxi4")
 
 [node name="MenuItems" type="VBoxContainer" parent="."]
 layout_mode = 1

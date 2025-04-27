@@ -59,15 +59,16 @@ script = ExtResource("1_1oaj4")
 
 [node name="ColorRect" type="Panel" parent="."]
 visible = false
-offset_right = 55.0
-offset_bottom = 64.0
+offset_top = -19.0
+offset_right = 65.0
+offset_bottom = 72.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_k47x4")
 
 [node name="Bullets" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(33.1349, 26)
-scale = Vector2(0.318366, 0.285714)
+position = Vector2(29.1349, 20)
+scale = Vector2(0.27, 0.243)
 texture = ExtResource("2_4s6wg")
 hframes = 8
 frame = 1

@@ -89,7 +89,7 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 theme_override_colors/default_color = Color(0.898039, 0.984314, 0, 1)
 theme_override_fonts/normal_font = ExtResource("2_50fr5")
-theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/normal_font_size = 25
 text = "Описание
 
 "

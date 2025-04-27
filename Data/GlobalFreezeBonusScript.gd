@@ -9,7 +9,7 @@ var slowFactor = 0.4
 func _ready() -> void:
 	bonusName = "globalFreeze"
 	set_icon(image)
-	set_price(25)
+	set_price(10)
 	bonusTime = 20
 
 func set_wall(_wall: Node2D):

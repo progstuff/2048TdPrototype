@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://tqd0btvajbpi"]
+[gd_scene load_steps=11 format=3 uid="uid://tqd0btvajbpi"]
 
 [ext_resource type="Script" path="res://Data/EnemyScript.gd" id="1_exsd8"]
 [ext_resource type="Texture2D" uid="uid://dfymag1lvlnjc" path="res://Animations/EnemySpriteSheet.png" id="2_f8ptx"]
@@ -48,8 +48,45 @@ _data = {
 "walk": SubResource("Animation_5r038")
 }
 
+[sub_resource type="Animation" id="Animation_qca2p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.13, 0.13)]
+}
+
+[sub_resource type="Animation" id="Animation_yf85c"]
+resource_name = "damage"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.12, 0.12), Vector2(0.11, 0.11), Vector2(0.12, 0.12), Vector2(0.14, 0.14), Vector2(0.13, 0.13)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u2l6p"]
+_data = {
+"RESET": SubResource("Animation_qca2p"),
+"damage": SubResource("Animation_yf85c")
+}
+
 [node name="Enemy" type="Node2D"]
-z_index = -1
 script = ExtResource("1_exsd8")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -86,7 +123,7 @@ shape = SubResource("RectangleShape2D_wiik2")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 modulate = Color(0.81, 0.1458, 0.1458, 1)
-position = Vector2(34, 23)
+position = Vector2(34, 13)
 scale = Vector2(0.13, 0.13)
 texture = ExtResource("2_f8ptx")
 flip_h = true
@@ -96,6 +133,11 @@ frame = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_8fusm")
+}
+
+[node name="DamageAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u2l6p")
 }
 
 [connection signal="area_entered" from="enemy" to="." method="_on_enemy_area_entered"]

@@ -35,10 +35,10 @@ var score = 0
 
 func _ready() -> void:
 
-	gameField.init(4, 4)
+	gameField.init(5, 5, 85)
 	var fieldWidth = gameField.get_width()
 	var fieldHeight = gameField.get_height()
-	wall.init(gameField.position, Vector2(fieldWidth, fieldHeight),4)
+	wall.init(gameField.position, Vector2(fieldWidth, fieldHeight),5)
 	wall.position.x = gameField.position.x 
 	wall.position.x += gameField.get_width()
 	var ys = wall.get_twr_positions()
@@ -75,10 +75,10 @@ func _ready() -> void:
 			switchers.set_enemy_health_delta(enemyHealthDelta)
 			break
 		
-		difficultPeriod = 30#config.get_value("difficult", "period", 30)
+		difficultPeriod = 48#config.get_value("difficult", "period", 30)
 		var difficultVal = 1#config.get_value("difficult", "value", 2)
 		difficultCoef = config.get_value("difficult", "coef", 1)
-		var coinChanceVal = 0.05#config.get_value("coinChance", "value", 0.05)
+		var coinChanceVal = 0.065#config.get_value("coinChance", "value", 0.05)
 		educationStage = config.get_value("educationStage", "value", 0)
 		
 		for enemySpawner in enemyLines.get_children():
@@ -372,7 +372,6 @@ func _on_button_pressed() -> void:
 
 func _on_education_start_timer_timeout() -> void:
 	_on_button_pressed()
-
 
 func _on_player_bonus_panel_coins_update() -> void:
 	coinValLbl.text = str(playerBonusPanel.coins())

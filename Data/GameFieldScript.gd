@@ -8,7 +8,7 @@ signal need_restart()
 @export var cellHeightPx = 100
 @export var cellWidthPx = 100
 @export var borderWidthPx = 4
-@export var shiftSpeed = 2500
+@export var shiftSpeed = 3200
 var startLeft = 6
 
 var fieldRect = null
@@ -36,6 +36,8 @@ var swiping = false
 var startPos:Vector2
 var curPos:Vector2
 var length = 50
+
+var startNumber = 1
 
 func _input(event):
 	if isProcess:
@@ -92,9 +94,11 @@ func get_width() -> int:
 func get_height() -> int:
 	return fieldRect.size.y
 	
-func init(_rowsCnt: int, _columnsCnt: int):
+func init(_rowsCnt: int, _columnsCnt: int, _cellSize: int):
 	init_values()
 	
+	cellHeightPx = _cellSize
+	cellWidthPx = _cellSize
 	fieldRowsCnt = _rowsCnt
 	fieldColumnsCnt = _columnsCnt
 	
@@ -104,8 +108,8 @@ func init(_rowsCnt: int, _columnsCnt: int):
 	position.x = startLeft + 8
 	position.y = y
 	
-	var rectWidth = fieldRowsCnt*cellHeightPx + borderWidthPx*2
-	var rectHeight = fieldColumnsCnt*cellWidthPx + borderWidthPx*2
+	var rectWidth = fieldColumnsCnt*cellHeightPx + borderWidthPx*2
+	var rectHeight = fieldRowsCnt*cellWidthPx + borderWidthPx*2
 	fieldRect.set_size(Vector2(rectWidth, rectHeight))
 	fieldRect.position.x = -borderWidthPx*2
 	fieldRect.position.y = -borderWidthPx*2
@@ -454,7 +458,7 @@ func update_max():
 			continue
 		numbers.append(cell.number)
 	numbers.sort_custom(_biggest)
-	while(numbers.size() < 4):
+	while(numbers.size() < fieldRowsCnt):
 		numbers.append(2)
 	maxNumbers = numbers
 	max_value_changed.emit()
@@ -473,7 +477,7 @@ func addNewElement():
 	
 	var ind = randi_range(0, n-1)
 	var cellIndex = emptyCells[ind]
-	var number = 1 # сюда выбор числа
+	var number = startNumber # сюда выбор числа
 	number = pow(2, number)
 	var pos = cellCoords.get(cellIndex)
 	var cell = cellManager.create_cell(number, pos, cellIndex)
@@ -501,7 +505,8 @@ func _on_wall_wall_damaged() -> void:
 		need_restart.emit()
 
 func restart() -> void:
-	init(fieldRowsCnt, fieldColumnsCnt)
+	startNumber = 1
+	init(fieldRowsCnt, fieldColumnsCnt, cellWidthPx)
 	
 func double_two() -> void:
 	for cellIndex in cells:
@@ -531,4 +536,37 @@ func remove_min_cell() -> void:
 	cells.erase(minCellInd)
 	cellsNode.remove_child(removedCell)
 	cellManager.remove_cell(removedCell)
+				
+func remove_all_cells():
+	if(cells.size() <= 4):
+		return
 	
+	var temp = []
+	for cellIndex in cells:
+		var cell = cells[cellIndex]
+		temp.append([cellIndex, cell.number])
+			
+	temp.sort_custom(func(a, b): return a[1] > b[1])
+	
+	for i in range(4, temp.size()):
+		var ind = temp[i][0]
+		var removedCell = cells[ind]
+		cells.erase(ind)
+		cellsNode.remove_child(removedCell)
+		cellManager.remove_cell(removedCell)	
+	
+func remove_two_four_cells():
+	var ind = []
+	for cellIndex in cells:
+		var cell = cells[cellIndex]
+		if(cell.number == 2 or cell.number == 4):
+			ind.append(cellIndex)
+	for cellInd in ind:
+		var removedCell = cells[cellInd]
+		cells.erase(cellInd)
+		cellsNode.remove_child(removedCell)
+		cellManager.remove_cell(removedCell)	
+
+func level_four():
+	startNumber = 2
+	double_two()

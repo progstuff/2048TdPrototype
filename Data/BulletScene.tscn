@@ -63,7 +63,7 @@ position = Vector2(1.75, 29)
 shape = SubResource("RectangleShape2D_1ue0t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-16.5, 27.5)
+position = Vector2(-16.5, 20.5)
 scale = Vector2(0.210356, 0.190259)
 texture = ExtResource("2_1i8a1")
 hframes = 6

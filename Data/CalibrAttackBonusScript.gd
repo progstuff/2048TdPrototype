@@ -7,7 +7,7 @@ var wall = null
 func _ready() -> void:
 	bonusName = "calibrAtttackDamage"
 	set_icon(image)
-	set_price(25)
+	set_price(5)
 	bonusTime = 20
 
 func set_wall(_wall: Node2D):

@@ -52,6 +52,7 @@ _data = {
 }
 
 [node name="Node2D" type="Node2D"]
+z_index = 1
 script = ExtResource("1_hutfh")
 
 [node name="Panel" type="Panel" parent="."]

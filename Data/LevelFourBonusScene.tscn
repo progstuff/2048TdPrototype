@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmufvoxha76cg"]
+
+[ext_resource type="PackedScene" uid="uid://dayd2vf7sxewp" path="res://Data/BonusScene.tscn" id="1_x10da"]
+[ext_resource type="Script" path="res://Data/LevelFourBonusScript.gd" id="2_c6t0u"]
+[ext_resource type="Texture2D" uid="uid://dcaxfr12jlay5" path="res://Icons/Menu/levelFourBonus.png" id="3_pi15n"]
+
+[node name="LevelFourBonus" instance=ExtResource("1_x10da")]
+script = ExtResource("2_c6t0u")
+
+[node name="BonusIcon" type="TextureRect" parent="VBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/AspectRatioContainer/Panel" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -53.0
+offset_right = 63.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_pi15n")
+expand_mode = 1
+stretch_mode = 5

@@ -10,9 +10,13 @@ config_version=5
 
 [application]
 
-config/name="2048TdPrototype"
+config/name="2048Td"
 run/main_scene="res://Data/MainScene.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/bg_color=Color(0.360784, 0.329412, 0.560784, 1)
+boot_splash/show_image=false
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [display]

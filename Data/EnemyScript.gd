@@ -4,7 +4,7 @@ class_name EnemyElement
 @onready var enemyImage = $Sprite
 @onready var animationPlayer = $AnimationPlayer
 @onready var sprite = $Sprite
-
+@onready var damageAnimationPlayer = $DamageAnimation
 @export var maxHealth = 1
 var curHealth = maxHealth
 @export var startPosition = Vector2.ZERO
@@ -45,6 +45,21 @@ func init(_health: int, _startPosition: Vector2, _speed: int):
 	
 	activate()
 
+func change_color():
+	if(is_freezed() and is_poisoned()):
+		sprite.modulate = Color8(128, 255, 255, 255)
+	elif(is_freezed()):
+		sprite.modulate = Color8(0, 128, 255, 255)
+	elif(is_poisoned()):
+		sprite.modulate = Color8(0, 255, 128, 255)
+	else:
+		var h = curHealth/maxHealth
+		if(h >= 0.3 and h <= 0.7):
+			sprite.modulate = Color8(166, 89, 30)
+		elif(h < 0.3):
+			sprite.modulate = Color8(143, 26, 13)
+		
+	
 func set_poison(_poison:Node):
 	poison = _poison
 	isPoisoned = true
@@ -52,7 +67,7 @@ func set_poison(_poison:Node):
 	if(rect == null):
 		rect = $ColorRect
 	
-	rect.color = Color8(0, 255, 0, 255)
+	change_color()
 
 func remove_poison():
 	poison = null
@@ -60,8 +75,8 @@ func remove_poison():
 	
 	if(rect == null):
 		rect = $ColorRect
-	
-	rect.color = Color8(0, 0, 0, 255)
+		
+	change_color()
 
 func set_freeze(_freeze:Node):
 	freeze = _freeze
@@ -70,7 +85,7 @@ func set_freeze(_freeze:Node):
 	if(rect == null):
 		rect = $ColorRect
 	
-	rect.color = Color8(0, 0, 255, 255)
+	change_color()
 	
 func get_poison() -> Node:
 	return poison
@@ -82,7 +97,7 @@ func remove_freeze():
 	if(rect == null):
 		rect = $ColorRect
 	
-	rect.color = Color8(0, 0, 0, 255)
+	change_color()
 	
 func get_freeze() -> Node:
 	return freeze
@@ -93,7 +108,7 @@ func activate():
 	isActivated = true
 	isPoisoned = false
 	isFreezed = false
-	sprite.modulate = Color8(0, 255, 0)
+	sprite.modulate = Color8(83, 177, 133)
 	animationPlayer.play("walk")
 	
 func deactivate():
@@ -146,12 +161,10 @@ func damaged(_damage: float):
 		healthLabel.text = str(int(curHealth))
 	if(curHealth <= 0):
 		spawner.remove_enemy(self)
-	var h = curHealth/maxHealth
-	if(h >= 0.3 and h <= 0.7):
-		sprite.modulate = Color8(255, 255, 0)
-	elif(h < 0.3):
-		sprite.modulate = Color8(255, 0, 0)
-		
+		return
+
+	change_color()
+	damageAnimationPlayer.play("damage")
 		
 func get_global_center_pos() -> Vector2:
 	var x = rect.size.x/2 + global_position.x

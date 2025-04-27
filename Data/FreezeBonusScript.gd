@@ -10,7 +10,7 @@ var slowFactor = 0.4
 func _ready() -> void:
 	bonusName = "freeze"
 	set_icon(image)
-	set_price(20)
+	set_price(5)
 	bonusTime = 20
 
 func set_manager(_manager: Node):

@@ -19,6 +19,7 @@ func show_menu():
 func show_shop():
 	menuItems.visible = false
 	shop.visible = true
+	shop.show_first_bonus()
 
 func show_main_menu_items():
 	menuItems.visible = true

@@ -7,18 +7,23 @@ extends PanelContainer
 @onready var inventoryErrorLabel = $InventoryError
 @onready var coinsErrorPlayer = $CoinsErrorPlayer
 @onready var coinsErrorLabel = $CoinsError
+@onready var reminingTimeLbl = $VBoxContainer/MarginContainer2/HBoxContainer/ReminingTimeLbl
+@onready var timeContainer = $VBoxContainer/MarginContainer2
 
 var coinBonusScene = load("res://Data/CoinBonusScene.tscn")
 var calibrBonusScene = load("res://Data/CalibrBonusScene.tscn")
 var fieldBonusScene = load("res://Data/FieldBonusScene.tscn")
-var fieldCellRemoveBonus = load("res://Data/FieldCellRemoveBonusScene.tscn")
-var poisonEffectBonus = load("res://Data/PoisonBonusScene.tscn")
-var freezeEffectBonus = load("res://Data/FreezeBonusScene.tscn")
+var fieldCellRemoveBonusScene = load("res://Data/FieldCellRemoveBonusScene.tscn")
+var fieldAllCellsRemoveBonusScene = load("res://Data/FieldRemoveAllCellsScene.tscn")
+var fieldTwoFourCellsRemoveBonusScene = load("res://Data/FieldTwoFourRemoveBonusScene.tscn")
+var poisonEffectBonusScene = load("res://Data/PoisonBonusScene.tscn")
+var freezeEffectBonusScene = load("res://Data/FreezeBonusScene.tscn")
 var calibrAttackBonusScene = load("res://Data/CalibrAttackBonusScene.tscn")
-var globalFreezeEffectBonus = load("res://Data/GlobalFreezeBonusScene.tscn")
-var globalPoisonEffectBonus = load("res://Data/GlobalPoisonBonusScene.tscn")
+var globalFreezeEffectBonusScene = load("res://Data/GlobalFreezeBonusScene.tscn")
+var globalPoisonEffectBonusScene = load("res://Data/GlobalPoisonBonusScene.tscn")
 var globalCalibrBonusScene = load("res://Data/GlobalSpeedCalibrScene.tscn")
 var globalAttackBonusScene = load("res://Data/GlobalAttackBonusScene.tscn")
+var levelFourBonusScene = load("res://Data/LevelFourBonusScene.tscn")
 
 var playerPanel = null
 var bonuses = {}
@@ -54,20 +59,20 @@ func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel:
 	fieldBonus.deactivate()
 	bonuses[2] = fieldBonus
 	
-	var fieldCellRemoveBonus = fieldCellRemoveBonus.instantiate()
+	var fieldCellRemoveBonus = fieldCellRemoveBonusScene.instantiate()
 	fieldCellRemoveBonus.set_bonus_panel(self)
 	fieldCellRemoveBonus.set_game_field(_gameField)
 	fieldCellRemoveBonus.deactivate()
 	bonuses[3] = fieldCellRemoveBonus
 	
-	var poisonBonus = poisonEffectBonus.instantiate()
+	var poisonBonus = poisonEffectBonusScene.instantiate()
 	poisonBonus.set_bonus_panel(self)
 	poisonBonus.set_wall(_wall)
 	poisonBonus.set_manager(_effectsManager)
 	poisonBonus.deactivate()
 	bonuses[4] = poisonBonus
 	
-	var freezeBonus = freezeEffectBonus.instantiate()
+	var freezeBonus = freezeEffectBonusScene.instantiate()
 	freezeBonus.set_bonus_panel(self)
 	freezeBonus.set_wall(_wall)
 	freezeBonus.set_manager(_effectsManager)
@@ -80,14 +85,14 @@ func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel:
 	calibrAttackBonus.deactivate()
 	bonuses[6] = calibrAttackBonus
 	
-	var globalFreezeBonus = globalFreezeEffectBonus.instantiate()
+	var globalFreezeBonus = globalFreezeEffectBonusScene.instantiate()
 	globalFreezeBonus.set_bonus_panel(self)
 	globalFreezeBonus.set_wall(_wall)
 	globalFreezeBonus.set_manager(_effectsManager)
 	globalFreezeBonus.deactivate()
 	bonuses[7] = globalFreezeBonus
 	
-	var globalPoisonBonus = globalPoisonEffectBonus.instantiate()
+	var globalPoisonBonus = globalPoisonEffectBonusScene.instantiate()
 	globalPoisonBonus.set_bonus_panel(self)
 	globalPoisonBonus.set_wall(_wall)
 	globalPoisonBonus.set_manager(_effectsManager)
@@ -106,6 +111,24 @@ func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel:
 	globalAttackBonus.deactivate()
 	bonuses[10] = globalAttackBonus
 	
+	var fieldAllCellsRemoveBonus = fieldAllCellsRemoveBonusScene.instantiate()
+	fieldAllCellsRemoveBonus.set_bonus_panel(self)
+	fieldAllCellsRemoveBonus.set_game_field(_gameField)
+	fieldAllCellsRemoveBonus.deactivate()
+	bonuses[11] = fieldAllCellsRemoveBonus
+	
+	var fieldTwoFourCellsRemoveBonus = fieldTwoFourCellsRemoveBonusScene.instantiate()
+	fieldTwoFourCellsRemoveBonus.set_bonus_panel(self)
+	fieldTwoFourCellsRemoveBonus.set_game_field(_gameField)
+	fieldTwoFourCellsRemoveBonus.deactivate()
+	bonuses[12] = fieldTwoFourCellsRemoveBonus
+	
+	var levelFourBonus = levelFourBonusScene.instantiate()
+	levelFourBonus.set_bonus_panel(self)
+	levelFourBonus.set_game_field(_gameField)
+	levelFourBonus.deactivate()
+	bonuses[13] = levelFourBonus
+	
 	bonusTimer.start()
 	
 	random_bonuses()
@@ -116,6 +139,11 @@ func show_bonus_panel():
 	inventoryErrorLabel.visible = false
 	coinsErrorLabel.visible = false
 	
+	if(choosedBonuses.size() == bonuses.size()):
+		timeContainer.visible = false
+	else:
+		timeContainer.visible = true
+		reminingTimeLbl.text = str(ceil(bonusTimer.time_left))
 func random_bonuses():
 	for bonus in container.get_children():
 		container.remove_child(bonus)
@@ -193,3 +221,4 @@ func show_description(_title:String, _description: String):
 func _on_close_button_pressed() -> void:
 	visible = false
 	get_tree().paused = false
+	

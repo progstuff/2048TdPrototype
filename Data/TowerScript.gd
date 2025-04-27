@@ -220,9 +220,9 @@ func is_pnt_in_area(pnt: Vector2) -> bool:
 	var globalPos = global_position
 	var mousePos = pnt
 	var leftX = globalPos.x + rect.position.x
-	var rightX = leftX + get_width() - 10
+	var rightX = leftX + get_width()
 	var upY = globalPos.y + rect.position.y
-	var downY = upY + get_height() - 10
+	var downY = upY + get_height()
 	if(mousePos.x > leftX and mousePos.x < rightX):
 		if(mousePos.y > upY and mousePos.y < downY):
 			return true
