@@ -1,6 +1,6 @@
 extends Control
 
-@onready var image = $MarginContainer/Image
+@onready var image = $MarginContainer/MarginContainer2/Image
 @onready var cooldownLbl = $MarginContainer/MarginContainer/ColdownLbl
 @onready var cooldownProgress = $MarginContainer/CooldownProgress
 
@@ -11,7 +11,7 @@ var curTime = cooldown
 
 func init(_bonusCooldownPanel:Control, _image:Texture2D, _cooldown:float):
 	if(image == null):
-		image = $MarginContainer/Image
+		image = $MarginContainer/MarginContainer2/Image
 	if(cooldownLbl == null):
 		cooldownLbl = $MarginContainer/MarginContainer/ColdownLbl
 	if(cooldownProgress == null):

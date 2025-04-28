@@ -139,7 +139,7 @@ func change_position(newX: int):
 	for twr in towers.get_children():
 		twr.position.x = newX - twr.get_width()
 	
-func init(_fieldPos: Vector2, _fieldSize: Vector2, _towersCnt: int):
+func init(_fieldPos: Vector2, _fieldSize: Vector2, _cellSize: int, _towersCnt: int):
 	position = _fieldPos
 	damage = 0
 	
@@ -155,7 +155,8 @@ func init(_fieldPos: Vector2, _fieldSize: Vector2, _towersCnt: int):
 	for i in range(0, towersCnt):
 		var twr = towerScene.instantiate()
 		towers.add_child(twr)
-		twr.init(1, Vector2(-4*2, dy*i + 50 - 32), i)
+		#Башня ставится в центре ячейки (по высоте)
+		twr.init(1, Vector2(-4*2, dy*i + _cellSize/2 - 48/2), i)
 
 func restart():
 	var ind = 0
@@ -178,11 +179,13 @@ func change_lvl(_numbers: Array):
 	if(towers == null):
 		return
 	for tower in towers.get_children():
-		var number = _numbers[tower.get_tower_ind()]
-		var towerLvl = 0
-		if(number != 0):
-			towerLvl = log(number)/log(2)
-		tower.change_lvl(towerLvl)
+		var towerInd = tower.get_tower_ind()
+		if(towerInd < _numbers.size()):
+			var number = _numbers[tower.get_tower_ind()]
+			var towerLvl = 0
+			if(number != 0):
+				towerLvl = log(number)/log(2)
+			tower.change_lvl(towerLvl)
 		
 func _on_wall_area_entered(area: Area2D) -> void:
 	if(area.name == "enemy"):

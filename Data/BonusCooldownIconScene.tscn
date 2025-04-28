@@ -50,7 +50,14 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="Image" type="TextureRect" parent="MarginContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Image" type="TextureRect" parent="MarginContainer/MarginContainer2"]
 layout_mode = 2
 texture = ExtResource("2_w63gw")
 expand_mode = 1

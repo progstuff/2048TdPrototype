@@ -1,10 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://bfa4jh3olyrtr"]
+[gd_scene load_steps=24 format=3 uid="uid://bfa4jh3olyrtr"]
 
 [ext_resource type="Script" path="res://MainMenuScript.gd" id="1_7l7ni"]
 [ext_resource type="PackedScene" uid="uid://c76aahesql0e1" path="res://Data/ShopScene.tscn" id="2_1aspx"]
+[ext_resource type="Texture2D" uid="uid://daobt64usvskg" path="res://Icons/Menu/5x5.png" id="2_5ws8q"]
 [ext_resource type="Texture2D" uid="uid://l7hks8le1o64" path="res://Icons/Menu/Title.png" id="2_qwocq"]
+[ext_resource type="Texture2D" uid="uid://cq6r7h57wbq7n" path="res://Icons/Menu/4x4.png" id="3_3tqos"]
 [ext_resource type="FontFile" uid="uid://cceis1op8xuls" path="res://Verdana-Bold.ttf" id="3_bgska"]
 [ext_resource type="Texture2D" uid="uid://cax1sac58s4bv" path="res://Icons/Menu/Background.png" id="3_cwqf8"]
+[ext_resource type="Texture2D" uid="uid://tqxrnlr71vpl" path="res://Icons/Menu/4x5.png" id="4_j3niy"]
+[ext_resource type="Texture2D" uid="uid://btx0l0rayq8p7" path="res://Icons/Menu/5x4.png" id="5_8ogng"]
 [ext_resource type="Texture2D" uid="uid://bqqgg7ndi6so1" path="res://Icons/Menu/emptyButton.png" id="5_a35ge"]
 [ext_resource type="Texture2D" uid="uid://tjmeghtnxuuc" path="res://Icons/Menu/emptyButtonDown.png" id="6_kp5lh"]
 [ext_resource type="Texture2D" uid="uid://ujqrh5v4qfpi" path="res://Icons/Menu/emptyButtonHower.png" id="7_tk0m4"]
@@ -12,6 +16,14 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1yxi4"]
 bg_color = Color(0.360784, 0.329412, 0.560784, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_milmw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ptv41"]
+font = ExtResource("3_bgska")
+font_size = 30
+font_color = Color(0.898039, 0.984314, 0, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_je3sf"]
 texture = ExtResource("2_qwocq")
@@ -70,22 +82,155 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1yxi4")
 
-[node name="MenuItems" type="VBoxContainer" parent="."]
+[node name="MenuContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 14
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -149.5
-offset_top = -140.0
-offset_right = 149.5
-offset_bottom = 140.0
+offset_top = -270.5
+offset_bottom = 270.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Panel" type="MarginContainer" parent="MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="GridContainer" type="GridContainer" parent="MenuContainer/Panel"]
+layout_mode = 2
+columns = 2
+
+[node name="Mode1" type="PanelContainer" parent="MenuContainer/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_milmw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/Panel/GridContainer/Mode1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MenuContainer/Panel/GridContainer/Mode1/VBoxContainer"]
+layout_mode = 2
+text = "4x4
+"
+label_settings = SubResource("LabelSettings_ptv41")
+horizontal_alignment = 1
+
+[node name="Mode1Icon" type="TextureRect" parent="MenuContainer/Panel/GridContainer/Mode1/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_3tqos")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="MenuContainer/Panel/GridContainer/Mode1"]
+visible = false
+layout_mode = 2
+
+[node name="Mode2" type="PanelContainer" parent="MenuContainer/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_milmw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/Panel/GridContainer/Mode2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MenuContainer/Panel/GridContainer/Mode2/VBoxContainer"]
+layout_mode = 2
+text = "4x5"
+label_settings = SubResource("LabelSettings_ptv41")
+horizontal_alignment = 1
+
+[node name="Mode2Icon" type="TextureRect" parent="MenuContainer/Panel/GridContainer/Mode2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_j3niy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="MenuContainer/Panel/GridContainer/Mode2"]
+visible = false
+layout_mode = 2
+
+[node name="Mode3" type="PanelContainer" parent="MenuContainer/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_milmw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/Panel/GridContainer/Mode3"]
+layout_mode = 2
+
+[node name="Mode3Icon" type="TextureRect" parent="MenuContainer/Panel/GridContainer/Mode3/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("5_8ogng")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MenuContainer/Panel/GridContainer/Mode3/VBoxContainer"]
+layout_mode = 2
+text = "5x4"
+label_settings = SubResource("LabelSettings_ptv41")
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="MenuContainer/Panel/GridContainer/Mode3"]
+visible = false
+layout_mode = 2
+
+[node name="Mode4" type="PanelContainer" parent="MenuContainer/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_milmw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/Panel/GridContainer/Mode4"]
+layout_mode = 2
+
+[node name="Mode4Icon" type="TextureRect" parent="MenuContainer/Panel/GridContainer/Mode4/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("2_5ws8q")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MenuContainer/Panel/GridContainer/Mode4/VBoxContainer"]
+layout_mode = 2
+text = "5x5
+"
+label_settings = SubResource("LabelSettings_ptv41")
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="MenuContainer/Panel/GridContainer/Mode4"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="MenuItems" type="VBoxContainer" parent="MenuContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/separation = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuItems"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/MarginContainer/MenuItems"]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_constants/margin_left = 0
@@ -93,13 +238,13 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Panel" type="Panel" parent="MenuItems/MarginContainer"]
+[node name="Panel" type="Panel" parent="MenuContainer/MarginContainer/MenuItems/MarginContainer"]
 custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxTexture_je3sf")
 
-[node name="Label" type="Label" parent="MenuItems/MarginContainer/Panel"]
+[node name="Label" type="Label" parent="MenuContainer/MarginContainer/MenuItems/MarginContainer/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -115,23 +260,23 @@ grow_vertical = 2
 text = "MENU"
 label_settings = SubResource("LabelSettings_044gq")
 
-[node name="MenuItems" type="PanelContainer" parent="MenuItems"]
+[node name="MenuItems" type="PanelContainer" parent="MenuContainer/MarginContainer/MenuItems"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_86iaw")
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuItems/MenuItems"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/MarginContainer/MenuItems/MenuItems"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuItems/MenuItems/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 15
 
-[node name="StartButton" type="TextureButton" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer"]
+[node name="StartButton" type="TextureButton" parent="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -139,7 +284,7 @@ texture_normal = ExtResource("5_a35ge")
 texture_pressed = ExtResource("6_kp5lh")
 texture_hover = ExtResource("7_tk0m4")
 
-[node name="Label" type="Label" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer/StartButton"]
+[node name="Label" type="Label" parent="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer/StartButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -155,7 +300,7 @@ grow_vertical = 2
 text = "PLAY"
 label_settings = SubResource("LabelSettings_ernjb")
 
-[node name="ShopButton" type="TextureButton" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer"]
+[node name="ShopButton" type="TextureButton" parent="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -163,7 +308,7 @@ texture_normal = ExtResource("5_a35ge")
 texture_pressed = ExtResource("6_kp5lh")
 texture_hover = ExtResource("7_tk0m4")
 
-[node name="Label" type="Label" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer/ShopButton"]
+[node name="Label" type="Label" parent="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer/ShopButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -179,13 +324,14 @@ grow_vertical = 2
 text = "SHOP"
 label_settings = SubResource("LabelSettings_fqgqc")
 
-[node name="LanguageButton" type="TextureButton" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer"]
+[node name="LanguageButton" type="TextureButton" parent="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 texture_normal = ExtResource("5_a35ge")
 texture_pressed = ExtResource("6_kp5lh")
 texture_hover = ExtResource("7_tk0m4")
 
-[node name="Label" type="Label" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer/LanguageButton"]
+[node name="Label" type="Label" parent="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer/LanguageButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -201,7 +347,7 @@ grow_vertical = 2
 text = "OPTIONS"
 label_settings = SubResource("LabelSettings_hmrk3")
 
-[node name="ExitButton" type="TextureButton" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer"]
+[node name="ExitButton" type="TextureButton" parent="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -209,7 +355,7 @@ texture_normal = ExtResource("5_a35ge")
 texture_pressed = ExtResource("6_kp5lh")
 texture_hover = ExtResource("7_tk0m4")
 
-[node name="Label" type="Label" parent="MenuItems/MenuItems/MarginContainer/VBoxContainer/ExitButton"]
+[node name="Label" type="Label" parent="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer/ExitButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -225,15 +371,20 @@ grow_vertical = 2
 text = "EXIT"
 label_settings = SubResource("LabelSettings_r6gma")
 
+[node name="OptionsMenu" parent="MenuContainer/MarginContainer" instance=ExtResource("9_fjmxs")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
 [node name="Shop" parent="." instance=ExtResource("2_1aspx")]
 visible = false
 layout_mode = 1
 
-[node name="OptionsMenu" parent="." instance=ExtResource("9_fjmxs")]
-visible = false
-layout_mode = 1
-
-[connection signal="pressed" from="MenuItems/MenuItems/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="MenuItems/MenuItems/MarginContainer/VBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
-[connection signal="pressed" from="MenuItems/MenuItems/MarginContainer/VBoxContainer/LanguageButton" to="." method="_on_language_button_pressed"]
-[connection signal="pressed" from="MenuItems/MenuItems/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="gui_input" from="MenuContainer/Panel/GridContainer/Mode1" to="." method="_on_mode_1_gui_input"]
+[connection signal="gui_input" from="MenuContainer/Panel/GridContainer/Mode2" to="." method="_on_mode_2_gui_input"]
+[connection signal="gui_input" from="MenuContainer/Panel/GridContainer/Mode3" to="." method="_on_mode_3_gui_input"]
+[connection signal="gui_input" from="MenuContainer/Panel/GridContainer/Mode4" to="." method="_on_mode_4_gui_input"]
+[connection signal="pressed" from="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer/LanguageButton" to="." method="_on_language_button_pressed"]
+[connection signal="pressed" from="MenuContainer/MarginContainer/MenuItems/MenuItems/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

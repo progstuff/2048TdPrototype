@@ -24,7 +24,7 @@ var difficult = 0
 var world = null
 
 func _ready():
-	start_spawn_enemies()
+	stop_spawn_enemies()
 
 func set_world(_world: Node2D):
 	world = _world
@@ -97,7 +97,9 @@ func set_enemy_period_delta(_periodDelta: float):
 
 func set_difficult_period(_waitTime: float):
 	difficultWaitTime = _waitTime
+	difficultyTimer.stop()
 	difficultyTimer.wait_time = difficultWaitTime
+	difficultyTimer.start()
 	
 func calculate_enemy_wait_time():
 	var minWaitTime = enemyWaitTime - enemyWaitTimeDelta

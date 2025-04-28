@@ -53,81 +53,81 @@ func init(_enemySpawners: Node, _wall: Node2D, _gameField: Node2D, _playerPanel:
 	calibrBonus.deactivate()
 	bonuses[1] = calibrBonus
 	
-	var fieldBonus = fieldBonusScene.instantiate()
-	fieldBonus.set_bonus_panel(self)
-	fieldBonus.set_game_field(_gameField)
-	fieldBonus.deactivate()
-	bonuses[2] = fieldBonus
-	
-	var fieldCellRemoveBonus = fieldCellRemoveBonusScene.instantiate()
-	fieldCellRemoveBonus.set_bonus_panel(self)
-	fieldCellRemoveBonus.set_game_field(_gameField)
-	fieldCellRemoveBonus.deactivate()
-	bonuses[3] = fieldCellRemoveBonus
-	
 	var poisonBonus = poisonEffectBonusScene.instantiate()
 	poisonBonus.set_bonus_panel(self)
 	poisonBonus.set_wall(_wall)
 	poisonBonus.set_manager(_effectsManager)
 	poisonBonus.deactivate()
-	bonuses[4] = poisonBonus
+	bonuses[2] = poisonBonus
 	
 	var freezeBonus = freezeEffectBonusScene.instantiate()
 	freezeBonus.set_bonus_panel(self)
 	freezeBonus.set_wall(_wall)
 	freezeBonus.set_manager(_effectsManager)
 	freezeBonus.deactivate()
-	bonuses[5] = freezeBonus
+	bonuses[3] = freezeBonus
 	
 	var calibrAttackBonus = calibrAttackBonusScene.instantiate()
 	calibrAttackBonus.set_bonus_panel(self)
 	calibrAttackBonus.set_wall(_wall)
 	calibrAttackBonus.deactivate()
-	bonuses[6] = calibrAttackBonus
+	bonuses[4] = calibrAttackBonus
 	
 	var globalFreezeBonus = globalFreezeEffectBonusScene.instantiate()
 	globalFreezeBonus.set_bonus_panel(self)
 	globalFreezeBonus.set_wall(_wall)
 	globalFreezeBonus.set_manager(_effectsManager)
 	globalFreezeBonus.deactivate()
-	bonuses[7] = globalFreezeBonus
+	bonuses[5] = globalFreezeBonus
 	
 	var globalPoisonBonus = globalPoisonEffectBonusScene.instantiate()
 	globalPoisonBonus.set_bonus_panel(self)
 	globalPoisonBonus.set_wall(_wall)
 	globalPoisonBonus.set_manager(_effectsManager)
 	globalPoisonBonus.deactivate()
-	bonuses[8] = globalPoisonBonus
+	bonuses[6] = globalPoisonBonus
 	
 	var globalCalibrBonus = globalCalibrBonusScene.instantiate()
 	globalCalibrBonus.set_bonus_panel(self)
 	globalCalibrBonus.set_wall(_wall)
 	globalCalibrBonus.deactivate()
-	bonuses[9] = globalCalibrBonus
+	bonuses[7] = globalCalibrBonus
 	
 	var globalAttackBonus = globalAttackBonusScene.instantiate()
 	globalAttackBonus.set_bonus_panel(self)
 	globalAttackBonus.set_wall(_wall)
 	globalAttackBonus.deactivate()
-	bonuses[10] = globalAttackBonus
+	bonuses[8] = globalAttackBonus
 	
 	var fieldAllCellsRemoveBonus = fieldAllCellsRemoveBonusScene.instantiate()
 	fieldAllCellsRemoveBonus.set_bonus_panel(self)
 	fieldAllCellsRemoveBonus.set_game_field(_gameField)
 	fieldAllCellsRemoveBonus.deactivate()
-	bonuses[11] = fieldAllCellsRemoveBonus
+	bonuses[9] = fieldAllCellsRemoveBonus
 	
 	var fieldTwoFourCellsRemoveBonus = fieldTwoFourCellsRemoveBonusScene.instantiate()
 	fieldTwoFourCellsRemoveBonus.set_bonus_panel(self)
 	fieldTwoFourCellsRemoveBonus.set_game_field(_gameField)
 	fieldTwoFourCellsRemoveBonus.deactivate()
-	bonuses[12] = fieldTwoFourCellsRemoveBonus
+	bonuses[10] = fieldTwoFourCellsRemoveBonus
 	
 	var levelFourBonus = levelFourBonusScene.instantiate()
 	levelFourBonus.set_bonus_panel(self)
 	levelFourBonus.set_game_field(_gameField)
 	levelFourBonus.deactivate()
-	bonuses[13] = levelFourBonus
+	bonuses[11] = levelFourBonus
+	
+	var fieldBonus = fieldBonusScene.instantiate()
+	fieldBonus.set_bonus_panel(self)
+	fieldBonus.set_game_field(_gameField)
+	fieldBonus.deactivate()
+	#bonuses[12] = fieldBonus
+	
+	var fieldCellRemoveBonus = fieldCellRemoveBonusScene.instantiate()
+	fieldCellRemoveBonus.set_bonus_panel(self)
+	fieldCellRemoveBonus.set_game_field(_gameField)
+	fieldCellRemoveBonus.deactivate()
+	#bonuses[13] = fieldCellRemoveBonus
 	
 	bonusTimer.start()
 	

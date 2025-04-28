@@ -9,7 +9,7 @@ signal need_restart()
 @export var cellWidthPx = 100
 @export var borderWidthPx = 4
 @export var shiftSpeed = 3200
-var startLeft = 6
+var startLeft = 6 * 13
 
 var fieldRect = null
 var cellManager = null
@@ -95,6 +95,7 @@ func get_height() -> int:
 	return fieldRect.size.y
 	
 func init(_rowsCnt: int, _columnsCnt: int, _cellSize: int):
+	startNumber = 1
 	init_values()
 	
 	cellHeightPx = _cellSize
@@ -505,7 +506,6 @@ func _on_wall_wall_damaged() -> void:
 		need_restart.emit()
 
 func restart() -> void:
-	startNumber = 1
 	init(fieldRowsCnt, fieldColumnsCnt, cellWidthPx)
 	
 func double_two() -> void:

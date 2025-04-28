@@ -59,9 +59,9 @@ script = ExtResource("1_1oaj4")
 
 [node name="ColorRect" type="Panel" parent="."]
 visible = false
-offset_top = -19.0
+offset_top = -18.0
 offset_right = 65.0
-offset_bottom = 72.0
+offset_bottom = 59.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_k47x4")
 
 [node name="Bullets" type="Node2D" parent="."]

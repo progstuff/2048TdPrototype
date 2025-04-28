@@ -33,78 +33,12 @@ var enemySpawnerScene = load("res://Data/EnemySpawnerScene.tscn")
 var config = ConfigFile.new()
 var score = 0
 
+var gameMode = 1
+
 func _ready() -> void:
 
-	gameField.init(5, 5, 85)
-	var fieldWidth = gameField.get_width()
-	var fieldHeight = gameField.get_height()
-	wall.init(gameField.position, Vector2(fieldWidth, fieldHeight),5)
-	wall.position.x = gameField.position.x 
-	wall.position.x += gameField.get_width()
-	var ys = wall.get_twr_positions()
-	
-	for pos in ys:
-		var enemySpawner = enemySpawnerScene.instantiate()
-		enemySpawner.set_world(self)
-		enemySpawner.coinSpawner = coinSpawner
-		enemySpawner.position.x = get_viewport_rect().size.x
-		enemySpawner.position.y = pos.y
-		enemyLines.add_child(enemySpawner)
-
-	var isOk = config.load("user://prefs.cfg")
-	if isOk == OK:
-		var bulletPeriod = 2.6#config.get_value("bullet", "period", 2.3)
-		var bulletSpeed = 120#config.get_value("bullet", "speed", 90)
-		var bulletPowerMult = 1#config.get_value("bullet", "powerMult", 3)
-		var bulletPowerShift = 0#config.get_value("bullet", "powerShift", 7)
-		switchers.set_bullet_period(bulletPeriod)
-		switchers.set_bullet_speed(bulletSpeed)
-		switchers.set_bullet_power_mult(bulletPowerMult)
-		switchers.set_bullet_shift_value(bulletPowerShift)
-		
-		var enemyPeriod = 3#config.get_value("enemy", "period", 7)
-		var enemyPeriodDelta = 0.5#config.get_value("enemy", "periodDelta", 3)
-		var enemySpeed = 30#config.get_value("enemy", "speed", 30)
-		var enemyHealth = 1#config.get_value("enemy", "health", 10)
-		var enemyHealthDelta = 0#config.get_value("enemy", "healthDelta", 5)
-		for enemySpawner in enemyLines.get_children():
-			switchers.set_enemy_period(enemyPeriod)
-			switchers.set_enemy_period_delta(enemyPeriodDelta)
-			switchers.set_enemy_speed(enemySpeed)
-			switchers.set_enemy_health(enemyHealth)
-			switchers.set_enemy_health_delta(enemyHealthDelta)
-			break
-		
-		difficultPeriod = 48#config.get_value("difficult", "period", 30)
-		var difficultVal = 1#config.get_value("difficult", "value", 2)
-		difficultCoef = config.get_value("difficult", "coef", 1)
-		var coinChanceVal = 0.065#config.get_value("coinChance", "value", 0.05)
-		educationStage = config.get_value("educationStage", "value", 0)
-		
-		for enemySpawner in enemyLines.get_children():
-			switchers.set_difficult_period(difficultPeriod / difficultCoef)
-			switchers.set_difficult_value(difficultVal)
-			switchers.set_coin_chance_value(coinChanceVal)
-			break
-	else:
-		switchers.set_bullet_period(wall.get_bullet_period())
-		switchers.set_bullet_speed(wall.get_bullet_speed())
-		switchers.set_bullet_power_mult(wall.get_bullet_power_mult())
-		switchers.set_bullet_shift_value(wall.get_bullet_power_shift())
-		
-		for enemySpawner in enemyLines.get_children():
-			switchers.set_enemy_period(enemySpawner.enemyWaitTime)
-			switchers.set_enemy_period_delta(enemySpawner.enemyWaitTimeDelta)
-			switchers.set_enemy_speed(enemySpawner.speed)
-			switchers.set_enemy_health(enemySpawner.health)
-			switchers.set_enemy_health_delta(enemySpawner.healthDelta)
-			break
-		
-		for enemySpawner in enemyLines.get_children():
-			switchers.set_difficult_period(enemySpawner.difficultWaitTime)
-			switchers.set_difficult_value(enemySpawner.difficultVal)
-			switchers.set_coin_chance_value(enemySpawner.coinChance)
-			break
+	init_game(gameMode)
+			
 	#бонусы
 	playerBonusPanel.set_bonus_cooldown_panel(bonusCooldownPanel)
 	bonusPanel.init(enemyLines, wall, gameField, playerBonusPanel, effectsManager)
@@ -146,18 +80,140 @@ func set_difficult_coef(_difficultCoef: float):
 
 func get_difficult_coef():
 	return difficultCoef
+
+func set_game_mode(_gameMode:int):
+	gameMode = _gameMode
+	
+func init_game(_gameMode:int):
+	gameMode = _gameMode
+	var rowsCnt = 4
+	var columnsCnt = 4
+	var towersCnt = rowsCnt
+	var cellSize = 85
+	
+	if(gameMode == 1):
+		rowsCnt = 4
+		columnsCnt = 4
+		towersCnt = rowsCnt
+		cellSize = 100
+	elif(gameMode == 2):
+		rowsCnt = 4
+		columnsCnt = 5
+		towersCnt = rowsCnt
+		cellSize = 100
+	elif(gameMode == 3):
+		rowsCnt = 5
+		columnsCnt = 4
+		towersCnt = rowsCnt
+		cellSize = 85
+	elif(gameMode == 4):
+		rowsCnt = 5
+		columnsCnt = 5
+		towersCnt = rowsCnt
+		cellSize = 85
+		
+	gameField.init(rowsCnt, columnsCnt, cellSize)
+	var fieldWidth = gameField.get_width()
+	var fieldHeight = gameField.get_height()
+	wall.init(gameField.position, Vector2(fieldWidth, fieldHeight), cellSize, towersCnt)
+	wall.position.x = gameField.position.x 
+	wall.position.x += gameField.get_width()
+	var ys = wall.get_twr_positions()
+	
+	for enemySpawner in enemyLines.get_children():
+		enemyLines.remove_child(enemySpawner)
+		enemySpawner.queue_free()
+		
+	for pos in ys:
+		var enemySpawner = enemySpawnerScene.instantiate()
+		enemySpawner.set_world(self)
+		enemySpawner.coinSpawner = coinSpawner
+		enemySpawner.position.x = get_viewport_rect().size.x
+		enemySpawner.position.y = pos.y
+		enemyLines.add_child(enemySpawner)
+
+	var isOk = config.load("user://prefs.cfg")
+	if isOk == OK:
+		var bulletPeriod = 2.6#config.get_value("bullet", "period", 2.3)
+		var bulletSpeed = 120#config.get_value("bullet", "speed", 90)
+		var bulletPowerMult = 1#config.get_value("bullet", "powerMult", 3)
+		var bulletPowerShift = 0#config.get_value("bullet", "powerShift", 7)
+		_on_switchers_bullet_period_changed(bulletPeriod)
+		_on_switchers_bullet_speed_changed(bulletSpeed)
+		_on_switchers_bullet_power_mult_changed(bulletPowerMult)
+		_on_switchers_bullet_power_shift_changed(bulletPowerShift)
+		#switchers.set_bullet_period(bulletPeriod)
+		#switchers.set_bullet_speed(bulletSpeed)
+		#switchers.set_bullet_power_mult(bulletPowerMult)
+		#switchers.set_bullet_shift_value(bulletPowerShift)
+		
+		var enemyPeriod = 3#config.get_value("enemy", "period", 7)
+		var enemyPeriodDelta = 0.5#config.get_value("enemy", "periodDelta", 3)
+		var enemySpeed = 30#config.get_value("enemy", "speed", 30)
+		var enemyHealth = 1#config.get_value("enemy", "health", 10)
+		var enemyHealthDelta = 0#config.get_value("enemy", "healthDelta", 5)
+		for enemySpawner in enemyLines.get_children():
+			_on_switchers_enemy_period_changed(enemyPeriod)
+			_on_switchers_enemy_period_delta_changed(enemyPeriodDelta)
+			_on_switchers_enemy_speed_changed(enemySpeed)
+			_on_switchers_enemy_health_changed(enemyHealth)
+			_on_switchers_enemy_health_delta_changed(enemyHealthDelta)
+			
+			#switchers.set_enemy_period(enemyPeriod)
+			#switchers.set_enemy_period_delta(enemyPeriodDelta)
+			#switchers.set_enemy_speed(enemySpeed)
+			#switchers.set_enemy_health(enemyHealth)
+			#switchers.set_enemy_health_delta(enemyHealthDelta)
+			break
+		
+		difficultPeriod = 48#config.get_value("difficult", "period", 30)
+		var difficultVal = 1#config.get_value("difficult", "value", 2)
+		difficultCoef = config.get_value("difficult", "coef", 1)
+		var coinChanceVal = 0.065#config.get_value("coinChance", "value", 0.05)
+		educationStage = config.get_value("educationStage", "value", 0)
+		
+		for enemySpawner in enemyLines.get_children():
+			_on_switchers_difficult_period_changed(difficultPeriod / difficultCoef)
+			_on_switchers_difficult_value_changed(difficultVal)
+			_on_switchers_coin_chance_value_changed(coinChanceVal)
+			break
+	else:
+		_on_switchers_bullet_period_changed(wall.get_bullet_period())
+		_on_switchers_bullet_speed_changed(wall.get_bullet_speed())
+		_on_switchers_bullet_power_mult_changed(wall.get_bullet_power_mult())
+		_on_switchers_bullet_power_shift_changed(wall.get_bullet_power_shift())
+		
+		#switchers.set_bullet_period(wall.get_bullet_period())
+		#switchers.set_bullet_speed(wall.get_bullet_speed())
+		#switchers.set_bullet_power_mult(wall.get_bullet_power_mult())
+		#switchers.set_bullet_shift_value(wall.get_bullet_power_shift())
+		
+		for enemySpawner in enemyLines.get_children():
+			_on_switchers_enemy_period_changed(enemySpawner.enemyWaitTime)
+			_on_switchers_enemy_period_delta_changed(enemySpawner.enemyWaitTimeDelta)
+			_on_switchers_enemy_speed_changed(enemySpawner.speed)
+			_on_switchers_enemy_health_changed(enemySpawner.health)
+			_on_switchers_enemy_health_delta_changed(enemySpawner.healthDelta)
+			
+			#switchers.set_enemy_period(enemySpawner.enemyWaitTime)
+			#switchers.set_enemy_period_delta(enemySpawner.enemyWaitTimeDelta)
+			#switchers.set_enemy_speed(enemySpawner.speed)
+			#switchers.set_enemy_health(enemySpawner.health)
+			#switchers.set_enemy_health_delta(enemySpawner.healthDelta)
+			break
+		
+		for enemySpawner in enemyLines.get_children():
+			_on_switchers_difficult_period_changed(enemySpawner.difficultWaitTime)
+			_on_switchers_difficult_value_changed(enemySpawner.difficultVal)
+			_on_switchers_coin_chance_value_changed(enemySpawner.coinChance)
+			break
+	coinSpawner.remove_coins()
+	
+	gameOverMenu.visible = false
 	
 func restart_game():
 	
-	var diffPeriod = difficultPeriod / difficultCoef
-	for enemySpawner in enemyLines.get_children():
-		switchers.set_difficult_period(diffPeriod)
-		enemySpawner.stop_spawn_enemies()
-		enemySpawner.start_spawn_enemies()
-		
-	coinSpawner.remove_coins()
-	
-	wall.restart()
+	init_game(gameMode)
 	
 	timer.stop()
 	curSeconds = 0
@@ -171,9 +227,10 @@ func restart_game():
 	bonusPanel.restart()
 	gameField.restart()
 	bonusCooldownPanel.restart()
+	educationStartTimer.start()
 	
-	if(true):
-		educationStartTimer.start()
+	for enemySpawner in enemyLines.get_children():
+		enemySpawner.start_spawn_enemies()
 		
 func _on_restart_btn_pressed() -> void:
 	restart_game()
